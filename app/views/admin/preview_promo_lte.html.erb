@@ -1,0 +1,2 @@
+<% item = @letter %>
+<%= render partial: "public/stream/#{item.class.model_name.singular}", locals: { item: item } %>

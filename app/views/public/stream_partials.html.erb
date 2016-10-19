@@ -1,0 +1,4 @@
+<% @stream.items.each do |item| %>	
+	<% # some polymorphism is about to happen, get ready: %>
+	<%= render partial: "public/stream/#{item.class.model_name.singular}", locals: { item: item } %>
+<% end %>

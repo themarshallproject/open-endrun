@@ -1,0 +1,22 @@
+<div class="promo-full-bleed <%= post.is_stream_expandable? ? 'js-trigger-stream-expandable' : 'js-trigger-stream-click' %>" data-background-image="<%= post.featured_photo.url_for(size: '1140x') rescue nil %>" >
+	<div class="promo-link-dimmer"></div>
+	<div class="container">
+		<div class="col8-shift4 promo-shim">
+			<div class="promo-content">
+				<div class="tease-kicker">
+					<%= link_to(post.rubric.name, public_tag_path(post.rubric.slug)) rescue nil %>
+					<span><%= post.revised_at.strftime("%B %e").gsub('am', 'a.m.').gsub('pm', 'p.m.') %></span>
+				</div>
+				<div class="tease-headline-large promo-headline-dark">
+					<a href="<%= post.path %>" class="post-link <%= post.is_stream_expandable? ? 'stream-expandable' : '' %>"><%= post.title %></a>
+				</div>
+				<div class="tease-deck promo-text-dark">
+					<%= post.deck %>
+				</div>
+				<div class="tease-byline promo-text-dark">
+					<%= render partial: 'public/post_byline', locals: { post: post } %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

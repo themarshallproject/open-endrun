@@ -1,0 +1,56 @@
+<% content_for(:title) {
+	[@document.try(:title), "The Marshall Project"].join(" | ")
+} %>
+
+<div class="container page-margin">
+	<div class="document-header">
+		<div class="post-kicker">
+			Document
+			<span><%= @document.created_at.strftime("%A, %B %e, %Y at %l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.') %> ET</span>
+		</div> 
+		<div class="document-title"><%= @document.title %></div>
+		<div class="document-desc"><%= @document.deck %> 
+			<% if @document.source.present? %>
+				<span>Source: <%= @document.source %></span>
+			<% end %>
+
+			<span>(<%= link_to "Download", @document.pdf_url %>)</span>
+		</div>
+
+	</div>
+	<div class="document-contents">
+		<div id="DV-viewer-<%= @document.dc_id %>" class="DV-container"></div>
+	</div>
+
+</div>
+<script src="https://s3.amazonaws.com/s3.documentcloud.org/viewer/loader.js"></script>
+<script>
+var dc_viewer;
+var resize_doc = function(event, viewer) {
+	if (typeof viewer === 'object') {
+		dc_viewer = viewer;
+	}
+	
+	var width = $('.container').width();
+	$("#DV-viewer-<%= @document.dc_id %>").css({
+		width: (width-2)+'px',
+		height: ($(window).height()-100)+'px'
+	});
+	
+	dc_viewer.api.redraw(true);
+}
+// afterLoad: https://github.com/documentcloud/document-viewer/blob/master/public/javascripts/DV/controllers/document_viewer.js#L136-L137
+DV.load("https://www.documentcloud.org/documents/<%= @document.dc_id %>.js", {
+	width: 1138,
+	height: 1040,
+	sidebar: false,
+	zoom: 'auto',
+	container: "#DV-viewer-<%= @document.dc_id %>",
+	afterLoad: function(viewer) {
+		resize_doc(null, viewer);
+	}
+});
+$(document).ready(function() {
+	$(window).on('tmp_resize', resize_doc);
+});
+</script>

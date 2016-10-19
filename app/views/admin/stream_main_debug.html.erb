@@ -1,0 +1,22 @@
+<table class="table table-striped">
+<thead>
+	<td>Stream Sort Key</td>
+	<td>Model Name</td>
+	<td>Model ID</td>
+	<td>created_at</td>
+	<td>updated_at</td>
+	<td>published_at</td>
+	<td>revised_at</td>
+</thead>
+<% @stream.main.each do |item| %>
+<tr>
+	<td><%= item.stream_sort_key %></td>
+	<td><%= item.class.model_name.singular %></td>
+	<td><%= item.id %></td>
+	<td><%= item.created_at %></td>
+	<td><%= item.updated_at %></td>
+	<td><%= item.published_at rescue '?' %></td>
+	<td><%= item.revised_at rescue '?' %></td>	
+</tr>
+<% end %>
+</table>

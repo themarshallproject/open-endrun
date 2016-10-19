@@ -1,0 +1,84 @@
+<% asyncwebfont_feature_flag = feature_active_for_user?('async_webfont') rescue false %>
+<% if asyncwebfont_feature_flag or params.keys.include?('asyncwebfont') %>
+<!-- start async font -->
+<script>
+(function() {
+  var t = (new Date()).getTime();
+  var loadTypekit = function() {
+    $.getScript("https://use.typekit.net/jqg7jec.js", function() {
+      console.log('Typekit JS loaded', (new Date()).getTime() - t, "ms");
+
+      // http://help.typekit.com/customer/portal/articles/649336-embed-code
+      try{
+        Typekit.load({
+          async: true,
+          classes: false,
+          active: function() {
+            console.log('Typekit "active"', (new Date()).getTime() - t, "ms");
+          }
+        });
+      } catch(e){}
+    });
+  }
+  window.requestAnimationFrame(loadTypekit);
+})();
+
+!function(a){"use strict";var b=function(b,c,d){var g,e=a.document,f=e.createElement("link");if(c)g=c;else{var h=(e.body||e.getElementsByTagName("head")[0]).childNodes;g=h[h.length-1]}var i=e.styleSheets;f.rel="stylesheet",f.href=b,f.media="only x",g.parentNode.insertBefore(f,c?g:g.nextSibling);var j=function(a){for(var b=f.href,c=i.length;c--;)if(i[c].href===b)return a();setTimeout(function(){j(a)})};return f.onloadcssdefined=j,j(function(){f.media=d||"all"}),f};"undefined"!=typeof module?module.exports=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+
+loadCSS("<%= stylesheet_path 'app/fonts' %>");
+</script>
+<!-- end async font -->
+
+<% else %>
+
+<!-- start SYNC font -->
+<script type="text/javascript" src="https://use.typekit.net/jqg7jec.js"></script>
+<script type="text/javascript">try{Typekit.load({ async: true });}catch(e){}</script>
+
+<style>
+@font-face {
+  font-family: "PressuraLight";
+  src: url("<%= asset_path('GT-Pressura-Mono-Light.woff') %>") format("woff"),
+  url("<%= asset_path('GT-Pressura-Mono-Light.ttf') %>")  format("truetype"),
+  url("<%= asset_path('GT-Pressura-Mono-Light.eot') %>")  format("eot");
+}
+@font-face {
+  font-family: "PressuraLightItalic";
+  src: url("<%= asset_path('GT-Pressura-Mono-Light-Italic.woff') %>") format("woff"),
+  url("<%= asset_path('GT-Pressura-Mono-Light-Italic.ttf') %>")  format("truetype"),
+  url("<%= asset_path('GT-Pressura-Mono-Light-Italic.eot') %>")  format("eot");
+}
+@font-face {
+  font-family: "Pressura";
+  src: url("<%= asset_path('GT-Pressura-Mono-Regular.woff') %>") format("woff"),
+  url("<%= asset_path('GT-Pressura-Mono-Regular.ttf') %>") format("truetype"),
+  url("<%= asset_path('GT-Pressura-Mono-Regular.eot') %>")  format("eot");
+}
+@font-face {
+  font-family: "PressuraItalic";
+  src: url("<%= asset_path('GT-Pressura-Mono-Regular-Italic.woff') %>") format("woff"),
+  url("<%= asset_path('GT-Pressura-Mono-Regular-Italic.ttf') %>") format("truetype"),
+  url("<%= asset_path('GT-Pressura-Mono-Regular-Italic.eot') %>")  format("eot");
+}
+@font-face {
+  font-family: "Miller";
+  src: url("<%= asset_path('51c73f94-824c-4ef7-afa2-8b9f1573c336-3.woff') %>") format("woff"),
+  url("<%= asset_path('51c73f94-824c-4ef7-afa2-8b9f1573c336-1.ttf') %>") format("truetype"),
+  url("<%= asset_path('51c73f94-824c-4ef7-afa2-8b9f1573c336-2.eot') %>") format("eot");
+}
+@font-face {
+  font-family: "MillerBold";
+  src: url("<%= asset_path('e72a4c9d-ac2d-4477-9859-2fa8ecef8ee3-3.woff') %>") format("woff"),
+  url("<%= asset_path('e72a4c9d-ac2d-4477-9859-2fa8ecef8ee3-1.ttf') %>") format("truetype"),
+  url("<%= asset_path('e72a4c9d-ac2d-4477-9859-2fa8ecef8ee3-2.eot') %>") format("eot");
+}
+@font-face {
+  font-family: "MillerItalic";
+  src: url("<%= asset_path('3ef8a749-0910-4ca2-ba14-c4a1070680aa-3.woff') %>") format("woff"),
+  url("<%= asset_path('3ef8a749-0910-4ca2-ba14-c4a1070680aa-1.ttf') %>") format("truetype"),
+  url("<%= asset_path('3ef8a749-0910-4ca2-ba14-c4a1070680aa-2.eot') %>") format("eot");
+}
+</style>
+<!-- end SYNC font -->
+
+<% end %>

@@ -1,0 +1,17 @@
+<h1>Tags<%= link_to 'New Tag', new_tag_path, class: 'btn btn-info pull-right' %></h1>
+
+<% cache ['v1', Tag.unscoped.order('updated_at DESC').first.updated_at] do %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Public?</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @tags %>
+  </tbody>
+</table>
+<% end %>

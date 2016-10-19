@@ -1,0 +1,29 @@
+<% cache ['v0', 'stream/posts/base_w_art', post] do %>
+
+<div class="promo-full-bleed <%= post.is_stream_expandable? ? 'js-trigger-stream-expandable' : 'js-trigger-stream-click' %>">
+	<div class="container">
+		<div class="col4 stream-img promo-shim-special">
+			<div class="promo-content-special">
+				<img data-src="<%= post.stream_promo_photo_url %>" onload='window.recordImageLoad(this);'>
+			</div>
+		</div>
+		<div class="col8 promo-shim-special promo-rule">
+			<div class="promo-content-special">
+				<div class="tease-kicker">
+					<%= link_to(post.rubric.name, public_tag_path(post.rubric.slug)) rescue nil %>
+					<span><%= post.revised_at.strftime("%B %e").gsub('am', 'a.m.').gsub('pm', 'p.m.') %></span>
+				</div>
+				<div class="tease-headline-std promo-headline-brighten">
+					<a href="<%= post.path %>" class="post-link <%= post.is_stream_expandable? ? 'stream-expandable' : '' %>"><%= post.title %></a>
+				</div>
+				<div class="tease-deck">
+					<%= post.deck %>
+				</div>
+				<div class="tease-byline">
+					<%= render partial: 'public/post_byline', locals: { post: post } %>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>
+<% end %>

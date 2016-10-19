@@ -1,0 +1,33 @@
+
+<div class="item-container">
+	<a href="{{path}}" target="_blank" data-post-id="{{id}}">
+	<div class="item">
+		<div class="media">
+			{{#has_photo}}
+				<div class="photo" style="background-image: url({{photo_url}});">
+		    </div>
+		    <div class="overlay">
+		    </div>
+			{{/has_photo}}
+			{{^has_photo}}
+				<div class="no-photo" style="background-image: url({{no_photo}});">
+		    </div>
+		    <div class="overlay">
+		    	<svg version="1.1" width="20px" height="20px" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve"><g><g><polygon style="fill:#888888;" points="0,0 0,20 2.857,20 2.857,2.857 "/><polygon style="fill:#888888;" points="5.714,5.714 5.714,20 8.571,20 8.571,8.571 "/><polygon style="fill:#888888;" points="17.143,2.857 17.143,20 20,20 20,0 "/><polygon style="fill:#888888;" points="11.429,8.571 11.429,20 14.286,20 14.286,5.714 "/></g></g></svg>
+		    </div>
+			{{/has_photo}}
+		</div>
+		<div class="body">
+			<div class="headline">
+				{{title}}
+			</div>
+			<div class="deck">
+				{{deck}}
+			</div>
+			<div class="meta">
+				{{rubric}} • {{date}}
+			</div>
+		</div>
+	</div>
+	</a>
+</div>

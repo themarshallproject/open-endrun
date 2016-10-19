@@ -1,0 +1,26 @@
+.newsletter-subscribe-form {
+	.newsletter-input {
+		float: left;
+		width: 70%;
+	}
+}
+
+.subscribe-radio-subtext {
+	margin-right: 10px;
+	float: left;
+	@include font-detail;
+color: $white;
+	font-size: 12px;
+}
+
+.subscribe-radio-button {
+	float: left; 
+	margin-bottom: 30px; 
+	margin-right: 10px;
+}
+
+.newsletter-button, .submit-email, .form-textarea, .form-button, .donate-submit-button {
+	-webkit-appearance: none !important;
+    -webkit-appearance: none;
+    border-radius: 0;
+}

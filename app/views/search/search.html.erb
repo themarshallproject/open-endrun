@@ -1,0 +1,15 @@
+<% content_for(:body_classes) { 'post-index-body' } %>
+<div class="post-index-narrow">
+	<h2>Search for "<%= params[:q] %>"</h2>
+	<% @posts.each do |post| %>
+		<%= render 'posts/post_full', post: post %>		
+	<% end %>
+	<% if @posts.empty? %>
+		<h4><em>No posts found.</em></h4>
+	<% end %>
+
+
+	<% @links.each do |link| %>
+		<%= link_to link.title, link %><br><br>
+	<% end %>
+</div>

@@ -1,0 +1,20 @@
+base: # do not change this. it's the default one.
+  name: 'Normal' # you can rename this...
+
+photo_essay:
+  name: 'Photo Essay'
+
+shell:
+  name: 'Shell'
+
+shell_light_on_dark:
+  name: 'Shell (Light on dark)'
+
+freeform:
+  name: 'Freeform'
+
+base_freeform_header:
+  name: 'Base w/ Freeform Header'
+
+base_feature:
+  name: 'Base w/ Feature Header'

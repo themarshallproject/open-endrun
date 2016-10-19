@@ -1,0 +1,16 @@
+<table class="table table-striped">
+<% @posts.each do |post| %>
+<tr>
+	<td><%= link_to post.title, amicus_edit_draft_path(post) %></td>
+	<td><%= post.changes_pending? ? 'CHANGES' : 'no diff' %></td>
+	<td><%= link_to "L>D", amicus_api_live_to_draft_path(post), method: :post %></td>
+	<td><%= link_to "Preview", amicus_preview_draft_path(post)  %></td>
+	<td><%= link_to "PUBLISH", amicus_sync_path(post), method: :post, confirm: 'Are you sure?' %>
+	<td>YAML: 
+		<%= link_to "DIFF",  amicus_diff_path(post)  %>
+		<%= link_to "Draft", amicus_yaml_draft_path(post)  %>
+		<%= link_to "Live",  amicus_yaml_live_path(post)  %>
+	</td>
+</tr>
+<% end %>
+</table>

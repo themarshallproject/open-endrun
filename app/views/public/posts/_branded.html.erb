@@ -1,0 +1,21 @@
+<!-- _branded -->
+<div class="container">
+
+<span data-post-id="<%= @post.id %>" 
+	data-url="<%= @post.path %>" 
+	data-published-at="<%= @post.published_at.utc.to_i %>"
+	data-revised-at="<%= @post.revised_at.utc.to_i %>">
+
+<%= render partial: 'public/post_header', locals: { post: @post } %>
+
+<aside class="col4">
+	<h3>BRANDED</h3>
+</aside>
+
+<article class="col8">	
+	<%= raw PostRenderer.new(@post).render() %>
+	<%= link_to "Submit a Letter To The Editor", submit_letter_path(@post) %><br>
+	Originally posted: <%= @post.published_at.to_s(:full_date) %>
+</article>
+
+</div>

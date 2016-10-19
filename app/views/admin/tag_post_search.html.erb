@@ -1,0 +1,14 @@
+
+<% @tags.each do |tag| %>
+	<% if @current_tags.include?(tag) %>
+		<%= link_to tag.name, tag_posts_update_path(perform: 'delete', tag_id: tag.id, post_id: @post.id), method: :post, remote: true, class: 'btn btn-danger' %>
+	<% else %>
+		<%= link_to tag.name, tag_posts_update_path(perform: 'create', tag_id: tag.id, post_id: @post.id), method: :post, remote: true, class: 'btn btn-success', style: 'margin-top: 5px;' %>
+	<% end %>
+<% end %>
+<hr>
+
+<span style="text-transform: uppercase;"><b>Current Tags</b> <small style="margin-left: 5px;">Click red tags to remove</small></span><br><br> <% @current_tags.each do |current_tag| %>
+	<%= link_to current_tag.name, tag_posts_update_path(perform: 'delete', tag_id: current_tag.id, post_id: @post.id), method: :post, remote: true, class: 'btn btn-danger' %>
+<% end %>
+<br><br><br>

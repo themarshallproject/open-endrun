@@ -1,0 +1,89 @@
+.audioplayer-1 {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	.card {
+		margin-bottom: 40px;
+	}
+	.card-image {
+		width: 70px;
+		height: 70px;
+		background-size: cover;
+		margin: 0 auto;
+		display: block;
+		border-radius: 8px;
+		margin-bottom: 20px;
+	}
+	.card-name {
+		letter-spacing: 3px;
+		text-align: center;
+		font-family: Pressura;
+		text-transform: uppercase;
+		font-size: 12px;
+		line-height: 1.1em;
+		color: #888888;
+		margin: 0 auto;
+	}
+
+	.caption {
+		text-align: center;
+		@include font-light-head;
+		font-size: 23px;
+		line-height: 30px;
+		margin: 0 auto;
+		min-height: 30px;
+		margin-bottom: 20px;
+	}
+
+	canvas {
+
+	}
+
+	.playhead-svg {
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		
+		&:hover {
+			circle {
+				fill:   #ff0b3a;				
+			}
+		}
+		margin-top: 20px;
+		margin-left: 50%;
+		transform: translateX(-50%);
+		-webkit-transform: translateX(-50%); 
+		path.play {
+			fill: #ff0b3a;
+
+		}
+		path.load {
+			fill: #cececc;
+		}
+		circle {
+			fill: #111111;
+			@include animate;
+
+		}
+		.play-button, .pause-button {
+			fill: #f6f6f4;
+			opacity: 0;
+			-webkit-touch-callout: none;
+		}	
+	}
+	.countdown {
+		margin-top: 20px;
+		margin-left: 50%;
+		transform: translateX(-50%);
+		-webkit-transform: translateX(-50%); 
+		text-align: center;
+		font-family: Pressura;
+		text-transform: uppercase;
+		font-size: 12px;
+		height: 12px;
+		line-height: 1.1em;
+		color: #888888;
+	}
+}

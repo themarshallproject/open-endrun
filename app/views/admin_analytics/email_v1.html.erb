@@ -1,0 +1,16 @@
+<div style="max-width:500px; margin: 20px auto;">
+
+<table>
+<% @top_posts.each do |post| %>
+<tr>
+	<td style="padding-right:20px;"><%= post[:post].title %></td>
+	<td style="text-align: right;"><%= post[:count] %></td>
+</tr>
+<% end %>
+</table>
+
+</div>
+
+<pre>
+<%= JSON.pretty_generate @source %>
+</pre>

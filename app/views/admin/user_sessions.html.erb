@@ -1,0 +1,57 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.js"></script>
+<script>
+var data;
+
+var event_times = function() {
+	return d3.merge(data.map(function(user) {
+		return d3.merge(user.sessions.map(function(session) {
+			return [session.started_at, session.ended_at];
+		}));
+	}));
+}
+
+var render = function() {
+	var margin = {top: 20, right: 20, bottom: 20, left: 20};
+	var width = $(window).width()-50;
+	var height = $(window).height()-150;
+	var row_height = height/data.length;
+
+	var x = d3.scale.linear()
+	    .domain([d3.min(event_times()), d3.max(event_times())])
+	    .range([0, width])
+
+	var y = d3.scale.linear()
+	    .domain([0, data.length])
+	    .range([0, height])
+
+	var svg = d3.select("body")
+		.append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+			.attr("transform",  "translate(" + margin.left + "," + margin.top + ")")
+
+	var rows = svg.selectAll(".row")
+      .data(data)      
+    .enter().append("g")
+      .attr("class", function(row) { return "row row-"+row.user })
+      .attr("transform", function(d, i) { return "translate(0," + i*row_height + ")" })
+
+    var bars = rows.selectAll(".bar")
+      .data(function(d) { return d.sessions })
+    .enter().append("rect")
+    	.attr("x", function(d) { return x(d.started_at) })
+    	.attr("width", function(d) { return x(d.ended_at) - x(d.started_at) })
+		.attr("height", 0.9*row_height)
+
+
+}
+
+d3.json('/admin/users/sessions.json?hours=<%= params['hours'] || 24 %>', function(json) {
+	data = json;
+	render();
+});
+
+</script>
+
+<div id="chart"></div>

@@ -1,0 +1,26 @@
+<div class="opening-statement-banner">
+	<div class="email-signup">
+		<div class="container full-bleed">
+			<div class="col8">
+				<div class="copy email-signup-copy">
+					<a href="/subscribe?ref=signup-banner-kicker">Opening Statement</a> 
+					<span>
+						Criminal justice news from around the web, delivered daily. 
+						<%= link_to "See the most recent email.", Newsletter.most_recent_archive_link, class: "os-banner-link-archive" %>					
+					</span>
+				</div>
+			</div>
+			<div class="col4">
+				<div class="email-signup-form">	
+					<%= form_tag v2_email_subscribe_path do %>
+						<%= hidden_field_tag :ref, (ref || 'no_ref') %>
+						<%= text_field_tag :email, '', class: 'email-signup-field js-validate-email input', placeholder: "Email address" %>
+						<input type="submit" class="button submit-email" value="Subscribe"></input>
+					<% end %>	
+
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

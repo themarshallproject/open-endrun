@@ -1,0 +1,119 @@
+<% content_for(:title) { ["Live", "The Marshall Project"].join(" | ") } %>
+<% content_for(:canonical_url) { "tktk" } %>
+
+<style>
+  .header {
+    background-color: #111;
+    padding-bottom: 100px;
+    text-align: center;
+    padding-top: 100px;
+  }
+  .reading {
+    padding-top: 30px;
+    font-size: 60px;
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    color: #fff;
+    font-family: MillerItalic;
+    margin-bottom: 5px;
+  }
+  .logo {
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-family: PressuraLight;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .live {
+    max-width: 650px;
+    margin: 100px auto;
+    font-family: PressuraLight;
+    font-size: 16px;
+    letter-spacing: -0.2px;
+    word-spacing: -2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .link {
+    padding: 40px;
+    margin: 50px 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    border: 2px solid #cececc;
+    box-shadow: 0.5em 0.5em 0 #cececc;
+  }
+  .sharer {
+    margin-bottom: 20px;
+    color: #888888;
+  }
+  .time {
+    color: #888888;
+    font-size: 12px;
+  }
+  .headline {
+    font-size: 26px;
+    font-family: Pressura;
+    color: #353535;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+  .tags {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: #cececc;
+  }
+  .tags a {
+    margin-right: 10px;
+    line-height: 1.7em;
+    color: #888888;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+  .sharer a {
+    font-family: Pressura;
+    color: #ff0b3a;
+    text-transform: uppercase;
+  }
+  a:hover {
+    text-decoration: none !important;
+  }
+</style>
+
+<div class="header">
+  <div class="container">
+    <div class="logo">
+      <svg width="50px" height="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 223.2 223.2" style="enable-background:new 0 0 223.2 223.2" xml:space="preserve"><g><polygon style="fill:#FFF" points="61.2,61.2 61.2,219.6 75.6,219.6 75.6,75.6   "></polygon><polygon style="fill:#FFF" points="3.6,3.6 3.6,219.6 18,219.6 18,18   "></polygon><polygon style="fill:#FFF" points="32.4,32.4 32.4,219.6 46.8,219.6 46.8,46.8  "></polygon><polygon style="fill:#FFF" points="90,90 90,219.6 104.4,219.6 104.4,104.4   "></polygon><polygon style="fill:#FFF" points="147.6,75.6 147.6,219.6 162,219.6 162,61.2  "></polygon><polygon style="fill:#FFF" points="205.2,18 205.2,219.6 219.6,219.6 219.6,3.6   "></polygon><polygon style="fill:#FFF" points="176.4,46.8 176.4,219.6 190.8,219.6 190.8,32.4  "></polygon><polygon style="fill:#FFF" points="118.8,104.4 118.8,219.6 133.2,219.6 133.2,90   "></polygon></g></svg>
+    </div>
+  </div>
+</div>
+
+<div class="live">
+  <% @links.each_with_index do |link, index| %>
+    <% cache ['v1', 'collections-live', link] do %>
+      <% data = CollectionItemPresenter.new(link).render_link %>
+      <!-- generated <%= Time.now.utc.to_f %> -->
+      <div class="link">
+        <% if link.creator.present? and link.creator.name.present? and link.creator.slug.present? %>
+          <div class="sharer">
+            <%= link_to link.creator.name, author_path(link.creator.slug) %> picked <%= data[:publication] %>’s article.
+
+            <span class="time">
+              <%= time_ago_in_words(link.created_at).gsub('about', '').strip %> ago
+            </span>
+          </div>
+        <% end %>
+        <div class="headline">
+          <%= link_to data[:title], data[:url] %>
+        </div>
+        <div class="tags">
+          <% link.taggings.includes(:tag).each do |tagging| %>
+            <% tag = tagging.tag %>
+            <%= link_to tag.name, collections_show_path(tag) %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

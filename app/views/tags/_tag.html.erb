@@ -1,0 +1,9 @@
+<% cache ['v1', tag] do %>
+<tr>
+<td><%= link_to tag.name, edit_tag_path(tag) %></td>
+<td><%= tag.type.name %></td>
+<td><%= tag.public? %></td>
+<td></td>
+<td><%= link_to 'Edit', edit_tag_path(tag), class: 'btn btn-primary pull-right' %></td>
+</tr>
+<% end %>

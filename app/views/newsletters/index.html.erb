@@ -1,0 +1,30 @@
+<h1>Daily Newsletters <%= link_to 'New Newsletter', new_newsletter_path, class: "btn btn-info pull-right" %></h1><br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Slug</th>
+      <th>Subject</th>
+      <th>Archive</th>
+      <th></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @newsletters.each do |newsletter| %>
+      <tr>
+        <td><%= newsletter.state %></td>
+        <td style="width: 150px;"><%= newsletter.name %></td>
+        <td style="width: 400px;"><%= link_to newsletter.email_subject, newsletter %></td>
+        <td><%= link_to newsletter.archive_url || 'unknown', newsletter.archive_url %></td>
+        <td><%= link_to 'Delete', newsletter, method: :delete, data: { confirm: 'Are you sure you want to delete this newsletter?' }, class: "btn btn-danger pull-right btn-padded" %> <%= link_to 'Settings', edit_newsletter_path(newsletter), class: "btn btn-success pull-right btn-padded" %> <%= link_to 'Edit', newsletter, class: "btn btn-primary pull-right btn-padded" %></td>
+        <td><%= link_to "HTML", raw_html_newsletter_path(newsletter), class: 'btn btn-info' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

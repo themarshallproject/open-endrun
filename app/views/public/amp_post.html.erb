@@ -1,0 +1,27 @@
+<!doctype html>
+<html amp lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= @post.title %></title>
+    <link rel="canonical" href="<%= @post.canonical_url %>" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "<%= @post.title %>",
+        "datePublished": "<%= @post.published_at.iso8601 %>",
+        "image": [
+
+        ]
+      }
+    </script>
+    <style>body {opacity: 0}</style>
+    <noscript><style>body {opacity: 1}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+  </head>
+
+  <body>
+<%= @post.content.gsub("\r", "X").gsub("\n", "Y").to_json %>
+  </body>
+</html>

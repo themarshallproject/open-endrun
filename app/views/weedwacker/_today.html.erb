@@ -1,0 +1,38 @@
+Updated <%= time_ago_in_words(Time.at(@ga_today['time'])) %> ago<br>
+Total: <%= @ga_today['result']['totalsForAllResults']['ga:pageviews'] %> pageviews<br>
+<table class="table table-striped">
+  <thead>
+    <th>Page</th>
+    <th style="text-align:right;">Pageviews</th>
+    <th style="text-align:right;">Total</th>
+  </thead>
+  <tbody>
+  <% @ga_today['result']['rows'].first(6).each do |path, pageviews| %>
+
+<%
+total = begin
+  @ga_alltime['result']['rows'].select do |candidate_path, count| 
+    path.length > 5 and candidate_path.length > 5 and candidate_path.include?(path) 
+  end.map do |_, count| 
+    count.to_i 
+  end.reduce(:+) 
+rescue 
+  "#{$!}" 
+end
+%>
+
+<% title = begin
+  slug = Rails.application.routes.recognize_path(path)[:slug]
+  title = Post.find_by(slug: slug).title
+rescue 
+  path
+end %>
+
+    <tr>
+      <td><%= link_to title, path %></td>
+      <td style="text-align:right;"><%= number_with_delimiter(pageviews, delimiter: ',') %></td>
+      <td style="text-align:right;"><%= number_with_delimiter(total, delimiter: ',') %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

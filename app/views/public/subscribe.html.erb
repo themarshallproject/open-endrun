@@ -1,0 +1,51 @@
+<% content_for(:title) {
+  ["Subscribe", "The Marshall Project"].join(" | ")
+} %>
+
+<% content_for(:head) do %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:title" content="Subscribe to The Marshall Project">
+<meta property="og:description" content="Get the best criminal justice news from around the web, in your inbox.">
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<% end %>
+
+<% content_for(:body_classes) { " light-on-dark " } %>
+
+<div class="email-subscribe-page">
+	<div class="header" style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.35));">
+		<div class="background" style="background: url('<%= asset_path('email-subscribe-page-bg.jpg') %>'); background-position: 50% -470px; background-repeat: no-repeat;"></div>
+		<div class="container">
+			<div class="headline">
+				<h1>Get the best criminal justice news from around the web, in your inbox.</h1>
+			</div>
+			<div class="logo">
+				<svg width="50px" height="50px" version=1.1 id=Layer_1 xmlns=http://www.w3.org/2000/svg xmlns:xlink=http://www.w3.org/1999/xlink x=0px y=0px viewBox="0 0 223.2 223.2" style="enable-background:new 0 0 223.2 223.2" xml:space=preserve><g><polygon style=fill:#FFF points="61.2,61.2 61.2,219.6 75.6,219.6 75.6,75.6 	"/><polygon style=fill:#FFF points="3.6,3.6 3.6,219.6 18,219.6 18,18 	"/><polygon style=fill:#FFF points="32.4,32.4 32.4,219.6 46.8,219.6 46.8,46.8 	"/><polygon style=fill:#FFF points="90,90 90,219.6 104.4,219.6 104.4,104.4 	"/><polygon style=fill:#FFF points="147.6,75.6 147.6,219.6 162,219.6 162,61.2 	"/><polygon style=fill:#FFF points="205.2,18 205.2,219.6 219.6,219.6 219.6,3.6 	"/><polygon style=fill:#FFF points="176.4,46.8 176.4,219.6 190.8,219.6 190.8,32.4 	"/><polygon style=fill:#FFF points="118.8,104.4 118.8,219.6 133.2,219.6 133.2,90 	"/></g></svg>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="container">
+			<div class="form">
+
+				<div class="email-onboard marketing-signup-standalone" data-placement="<%= params[:ref] || "unknown" %>" data-checkboxes="true" data-include-occasional="true">
+				</div>
+
+			</div>
+			<div class="copy">
+				<p><span class="lead">Our commentary editor Andrew Cohen</span> curates the most important news and opinion on the U.S. criminal justice system for our daily and weekly emails. Opening Statement goes out Monday through Friday. Closing Argument comes out on Saturday. Sign up to save time and stay informed. For alerts on new and notable Marshall Project stories, sign up for occasional updates.</p>
+			</div>
+		</div>
+	</div>
+	<div class="testimonial">
+		<div class="container"?>
+			<h2>“I just signed up for The Marshall Project's Opening Statement morning email. You should, too.”</h2>
+			<span class="attribution"><a href="https://twitter.com/CoryBooker/status/534860404015382528">@CoryBooker</a></span>
+		</div>
+	</div>
+</div>
+
+<% content_for(:google_analytics_pageload) do %>
+ga('send', 'event', 'web-email-signup', 'click', '<%= params[:ref] || "unknown" %>', {'nonInteraction': 1});
+<% end %>

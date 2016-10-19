@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Asset Files</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Asset</th>
+      <th>S3 bucket</th>
+      <th>S3 key</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @asset_files.each do |asset_file| %>
+      <tr>
+        <td><%= asset_file.asset_id %></td>
+        <td><%= asset_file.s3_bucket %></td>
+        <td><%= asset_file.s3_key %></td>
+        <td><%= link_to 'Show', asset_file %></td>
+        <td><%= link_to 'Edit', edit_asset_file_path(asset_file) %></td>
+        <td><%= link_to 'Destroy', asset_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Asset file', new_asset_file_path %>

@@ -1,0 +1,140 @@
+<style>
+
+body {
+	background-color: #f6f6f4;
+	margin-bottom: 50px;
+}
+
+.quiz-headline {
+	font-family: MillerItalic;
+	font-size: 70px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	letter-spacing: -3px;
+}
+
+.quiz-headline svg {
+	fill: #111;
+}
+
+.quiz-deck {
+	font-family: PressuraLight;
+	font-size: 17px;
+	line-height: 1.7em;
+	max-width: 650px;
+	margin-bottom: 50px;
+}
+
+.quiz-link {
+	color: #ff0b3a;
+	font-family: PressuraLight;
+	font-size: 14px;
+	line-height: 1.7em;
+}
+
+.quiz-link:hover { color: #ff0b3a; } 
+
+.quiz-button {
+	font-family: PressuraLight;
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+	font-size: 14px;
+	background-color: #ff0b3a; 
+	color: white;
+	padding: 10px 20px;
+	border: 0;
+	border-radius: 5px;
+	webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+.quiz-button:hover {
+	background-color: black;
+	text-decoration: none;
+	color: #fff;
+	webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+th {
+	text-decoration: underline;
+}
+
+tr, th, td {
+	font-family: PressuraLight;
+	font-size: 14px;
+	line-height: 1.7em;	
+	padding: 5px;
+}
+
+.quiz-slug {
+	font-family: Miller;
+	font-size: 18px;
+	border-bottom: 1px solid #ccc;
+	padding-top: 40px;
+	padding-bottom: 3px;
+}
+
+.quiz-row {
+	border-bottom: 1px solid #eee;
+}
+
+.quiz-newest:before {
+	content: '→';
+	position: relative;
+	left: -15px;
+	color: #ff0b3a;
+}
+
+</style>
+
+<div class="quiz-container">
+	<div class="quiz-header quiz-section">
+		<div class="quiz-headline">
+			<%= image_tag "m.svg", style:"margin-right: 10px; margin-top: -10px; width: 20px; padding: 0px !important;" %>
+			Quizbuilder
+		</div>
+		<div class="quiz-deck">
+			Quizzes are a quick and unique way into the day’s news, as well as, adding complementary explanation to a more complicated story. Create a new quiz, or select a  version of a previous quiz to edit.<br><br>
+			<a href="/admin/quizbuilder/edit" class="quiz-button">Create a New Quiz</a>
+		</div>
+	</div>
+</div>
+
+
+<table style="width: 100%; max-width: 650px;">
+<% @quizs.each do |slug, versions| %>
+  <tr>
+  	<td colspan="4" class="quiz-slug">
+  		<%= slug %>
+  	</td>
+  </tr>
+  <% versions.each_with_index do |version, index| %>
+  <% if index == 0 %>
+ 	 <tr class="quiz-row" style="background-color: #eee;">
+ 	 	<td class="quiz-newest" style="padding-left: 0px;">Version <%= (versions.count - index) %></td>
+  <% else %>
+  <tr class="quiz-row">
+  	<td>Version <%= (versions.count - index) %></td>
+  <% end %>
+  	<% if version.created_at > 2.days.ago %>
+    	<td><%= time_ago_in_words version.created_at %> ago</td> 
+	<% else %> 
+		<td><%= version.created_at.strftime("%A, %b %d") %></td> 
+	<% end %>
+    <td><a class="quiz-link" href="/admin/quizbuilder/edit?asset_file_id=<%= version.id %>" data-id="<%= version.public_url %>">Edit</a></td>
+    <td><a class="quiz-link" href="/admin/quizbuilder/preview/<%= version.id %>" data-id="<%= version.public_url %>">Preview</a></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+
+
+

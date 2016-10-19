@@ -1,0 +1,100 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
+<head>
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="<%= find_meta_viewport(user: (current_user rescue false), requested_width: params[:force_viewport]) %>">
+<title>The Marshall Project</title>
+<%= render 'layouts/typography' %>
+<style>
+html, body {
+	margin: 0;
+	padding: 0;
+}
+.container {
+	width: 100%;
+	margin: 0;
+	max-width: 800px;
+	background-color: #FFF;
+	color: #111111;
+	border: none;
+	font-family: Courier;
+	font-weight: normal;
+	font-size: 12px;
+	letter-spacing: -0.2px;
+	line-height: 1.5em;
+	padding: 0px;
+}
+.title {
+
+}
+a, a:visited {
+	color: #ff0b3a;
+}
+.email-address {
+	border-radius: 0;
+	-webkit-border-radius: 0;
+    font-family: Courier;
+    background-color: #ececea;
+    border: 1px solid #ff0b3a;
+    margin: 0;
+    height: 20px;
+    padding-left: 10px;
+}
+.submit {
+	font-family: Courier;
+    border: 0;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	display: inline-block;
+    background-color: #ff0b3a;
+    color: #ffffff;
+    padding: 4px 10px 5px 10px;
+    cursor: pointer;
+    height: 24px;
+}
+</style>
+<script>
+var isIframe = function() {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+
+	<em>
+	This article was co-published with <a href="http://www.themarshallproject.org/" target="_blank">The Marshall Project</a>, a nonprofit news organization that covers the US criminal justice system. 
+
+	Sign up for their <a href="https://www.themarshallproject.org/subscribe/" target="_blank">newsletter</a>, or follow The Marshall Project on <a href="https://www.facebook.com/TheMarshallProject.org" target="_blank">Facebook</a> or <a href="https://twitter.com/MarshallProj" target="_blank">Twitter</a>.
+	</em>
+	
+	<div class="form float-right ">
+		<span class="response"></span>
+		<input type="text" name="email" value="" class="email-address" placeholder="Your Email">
+		<button type="submit" class="submit">Subscribe</button>
+	</div>
+</div>
+
+<script>
+var data = {
+	referrer: document.referrer,
+	iframe: isIframe(),
+	cookie: document.cookie
+}
+console.log(data);
+</script>
+
+</body>
+</html>

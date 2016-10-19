@@ -1,0 +1,28 @@
+<style>
+.search-query {
+	display: inline-block;
+	width: 400px;
+}
+</style>
+<table class="table table-striped">
+	<thead>
+		<th>Time</th>
+		<th>Query</th>
+		<th># Results Returned</th>
+		<th>Referer</th>
+		<th>User First Seen</th>
+		<th>User ID</th>
+	</thead>
+	<tbody>
+<% @queries.each do |query| %>
+	<tr>
+		<td class="col-md-1"><%= raw query.created_at.strftime("%B&nbsp;%e %l:%M&nbsp;%P") %></td>
+		<td class="col-md-5 search-query"><b><%= query.query %></b></td>
+		<td class="col-md-1"><%= JSON.parse(query.search_results).count rescue ' ' %></td>
+		<td class="col-md-2"><%= (query.referer || '').gsub("https://www.themarshallproject.org", "") %></td>
+		<td class="col-md-2"><%= time_ago_in_words query.user_first_seen %> ago</td>
+		<td class="col-md-2"><%= Digest::SHA1.hexdigest(query.token.split('|p|').last).first(10) %></td>
+	</tr>
+<% end %>
+    </tbody>
+</table>

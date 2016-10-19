@@ -1,0 +1,18 @@
+<ul class="quick-reads-items">
+<% cache ['ts', 'quickreads', 'v2', Post.published.order('revised_at DESC').first] do %>
+<!-- generated_at <%= Time.now.utc.to_f %> -->
+<% Post.topshelf_quickreads.first(15).each do |post| %>
+		<li>					
+			<%= link_to post.path+"?ref=tsqr" do %>
+		   		<div class="topshelf-link">
+		   			<%= post.rubric.name %>
+		   			<span><%= (post.word_count / 250.0).round + 1 %> min read</span>
+		   		</div>
+				<div class="topshelf-headline topshelf-headline-truncatable" data-original="<b><%= post.title %></b> <%= post.deck.strip %>">
+					<b><%= post.title %></b> <%= post.deck.strip %>								
+				</div>
+			<% end %>
+		</li>		
+<% end %>
+<% end %>
+</ul><!-- quick-reads -->				 

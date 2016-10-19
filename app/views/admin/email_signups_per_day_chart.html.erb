@@ -1,0 +1,42 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1.1', {packages: ['line']});
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('datetime', 'Date');
+      data.addColumn('number', 'Email Signups');
+      
+      data.addRows([
+        <%= EmailSignup.pluck(:created_at).map{|t| 
+              t.strftime("new Date(%Y,%m,%d)") 
+            }.inject(Hash.new(0)){|o, i| 
+              o[i] += 1
+              o
+            }.sort_by{|k, v|
+              k.to_i
+            }.map{|k, v| 
+              ["[", k, ", ", v, "],"].join("")
+            }.join("\n") %>
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Email Signups',
+          subtitle: 'per day'
+        },
+        width: 1000,
+        height: 700
+      };
+
+      var chart = new google.charts.ColumnChart(document.getElementById('linechart_material'));
+
+      chart.draw(data, options);
+    }
+  </script>
+
+
+
+  <div id="linechart_material"></div>

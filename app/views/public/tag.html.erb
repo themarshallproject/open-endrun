@@ -1,0 +1,47 @@
+<% content_for(:title) {
+	[@tag.name, "The Marshall Project"].join(" | ")
+} %>
+
+<%
+if @canonical_path.present?
+	content_for(:canonical_url) {
+		"https://www.themarshallproject.org#{@canonical_path}"
+	}
+end
+%>
+
+<% content_for(:head) do %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:title" content="<%= @tag.name %>">
+<meta property="og:description" content="The Marshall Project is a nonprofit news organization covering the U.S. criminal justice system.">
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<% end %>
+
+<div class="container page-margin">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="tag-description">
+					<%= @tag.name %>
+				</div>
+				<div class="tag-name">
+				</div>
+			</div>
+		</aside>
+		<% if @tag.content.present? %>
+			<div class="tag-freeform">
+				<div class="tag-desc">
+					<%= (@tag.content || '').html_safe %>
+				</div>
+			</div>
+		<% end %>
+	</article>
+</div>
+
+<div class="stream">
+	<%= render 'public/stream', stream: @stream %>
+</div>
+
+

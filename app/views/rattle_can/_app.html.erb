@@ -1,0 +1,137 @@
+<div id="rattlecan-app"></div>
+
+<script id="rattlecan-tpl" type="text/ractive">
+	<%= render 'rattle_can/template', item: item %>
+</script>
+<script>
+(function() {
+	ractive = new Ractive({
+	    el: '#rattlecan-app',
+	    template: '#rattlecan-tpl',
+	    data: {
+	    	isActiveTag: function(tag_id) {	    		
+	    		return this.get('model_tags').map(function(tag) {
+	    			return tag.id === tag_id;
+	    		}).indexOf(true) >= 0;	   	    		
+	    	},
+	    	isActiveTagType: function(query_tag_type) {
+	    		var is_active = this.get('model_tags').filter(function(tag) {
+	    			console.log(tag.tag_type, query_tag_type)
+	    			return tag.tag_type === query_tag_type;
+	    		}).length > 0;
+	    		if (is_active === true) {
+	    			return "active-tag-type";
+	    		} else {
+	    			return "inactive-tag-type";
+	    		}	
+	    	}
+	    }
+	});
+
+	var update_model_tags = function() {
+		$.getJSON("<%= rattlecan_model_tags_path(item.class.name, item.id) %>", function(data) {
+			console.log('model_tags', data);
+			ractive.set('model_tags', data);
+
+		}).fail(function(error) {
+			console.error(error);
+		});
+	}
+
+	var update_all_tags = function() {
+		$.getJSON("<%= rattlecan_tags_path %>", function(data) {
+			console.log('all_tags', data);
+			ractive.set('all_tags', data);
+		}).fail(function(error) {
+			console.error(error);
+		});
+	}
+
+	window.addEventListener("focus", function(event) { 
+		console.log('window focus event')
+		setTimeout(function() {
+			console.log('starting update_all_tags... got window focus.')
+			update_all_tags();
+		}, 500);
+	}, false);
+
+	$(document).on('focus', 'select', function() {
+		setTimeout(function() {
+			console.log('starting update_all_tags... got focus.')
+			update_all_tags();
+		}, 500);
+	})
+
+	$(document).on('ready page:load', function() {
+		update_all_tags();
+		update_model_tags();	
+	});
+	$(document).ajaxStart(function() {
+		console.log('ajaxStart')
+		$('.ajax-spinner').show();
+	});
+	$(document).ajaxStop(function() {
+		$('.ajax-spinner').hide();
+		console.log('ajaxStop')
+	})
+
+	var create_tag = function(tag_id, success_callback, error_callback) {
+		if (!tag_id) {
+			return false;
+		}
+
+		$.post("<%= rattlecan_create_tag_path %>", {
+			"model_type": "<%= item.class.name.downcase %>",
+			"model_id": "<%= item.id %>",
+			"tag_id": tag_id
+		}, function(data) {
+			update_model_tags();
+			success_callback(data);
+		}).fail(function(error) {
+			console.error(error);
+			error_callback(error);
+		});
+	}
+
+	ractive.on({
+		'add_tag': function(i) {
+			i.original.preventDefault();
+			console.log(i);
+			var tag = i.context;
+			create_tag(tag_id, function() {
+				// success_callback
+				// yay
+			});
+		},
+		
+		'destroy_tag': function(i) {
+			i.original.preventDefault();			
+			var tag_id = i.context.id;
+			$.post("<%= rattlecan_destroy_tag_path %>", {
+				"model_type": "<%= item.class.name.downcase %>",
+				"model_id": "<%= item.id %>",
+				"tag_id": tag_id
+			}, function() {
+				update_model_tags();
+			}).fail(function(error) {
+				console.error(error);
+			});
+		}
+
+	});
+	ractive.observe('selected_new_tag', function (new_tag_id) {
+		console.log(new_tag_id);
+		create_tag(new_tag_id, function() {
+			// success callback
+			console.log('save worked.')
+			 //$(".new-tag-select").val('Select a tag'); // TODO: sucks
+			ractive.set('selected_new_tag', null);
+		}, function() {
+			// error callback
+			console.error('save failed')
+			ractive.set('selected_new_tag', null);
+		});	    
+	});
+})();
+
+</script>

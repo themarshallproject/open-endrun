@@ -1,0 +1,57 @@
+// Place all the styles related to the donate controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.donate-container {
+	.payment-errors {
+		font-size: 20px;
+		color: $link;
+	}
+	.form-row {
+		margin: 20px 0;
+	}
+}
+
+.donate-cols {
+	float: left;
+	width: 31.5%;
+	margin-right: 20px;
+}
+
+.donate-cols-2 {
+	float: left;
+	width: 48.6%;
+	margin-right: 20px;
+}
+
+.donate-cols-container {
+.donate-cols:last-of-type {
+	margin-right: 0;
+}
+}
+
+.donate-cols-2:last-of-type {
+	margin-right: 0;
+}
+
+.donate-submit-button {
+	width: 100% !important;
+}
+
+@media (max-width: 740px) {
+
+.radio-button-clear {
+	clear: both !important;
+	margin-bottom: 5px;
+}
+
+.donate-cols, .donate-cols-2 {
+	float: none;
+	margin-right: 0px;
+	width: 100%;
+	input {
+	width: 100%;
+	}
+}
+
+}

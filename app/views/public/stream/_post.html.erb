@@ -1,0 +1,9 @@
+<% cache ['stream', 'v2', item, item.stream_promo_key] do %>
+
+<!-- generated at <%= Time.now.utc.to_f %> -->
+<% extra_classes = ' stream-promo-fullbleed' if item.is_fullbleed_promo? # leading space is important! %>
+<section class="stream-post<%= extra_classes %>" data-post-id="<%= item.id %>" data-post-updated-at="<%= item.updated_at.utc.to_i %>" data-post-path="<%= item.path %>" data-stream-key="<%= Stream.key(item) %>" data-stream-dateslug="<%= item.revised_at.strftime('%Y%m%d') %>" data-ga-config="<%= item.google_analytics_config.to_json %>">
+	<%= render partial: "public/#{item.stream_promo_key}", locals: { post: item } %>	
+</section>
+
+<% end %>

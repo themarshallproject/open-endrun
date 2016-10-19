@@ -1,0 +1,11 @@
+<table class="table table-striped">
+<% @posts.each do |post| %>
+	<% post.parse_all_links.each do |link| %>
+	<tr>
+		<td><%= post.path %></td>
+		<td><%= link['href'] %></td>
+		<td><%= link.text %></td>
+	</tr>
+	<% end %>
+<% end %>
+</table>

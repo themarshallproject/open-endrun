@@ -1,0 +1,33 @@
+<% newsletter = Newsletter.published.last %>
+<% assignments = newsletter.item_assignments %>
+<% cache ['ts', 'opening-statement-1', newsletter] do %>
+<ul class="opening-statement-items">
+	<!-- generated_at <%= Time.now.utc.to_f %> -->
+	<% assignments.each_with_index do |assignment, li_index| %>
+		<% item = assignment.try(:taggable) %>
+
+		<% if item.present? and item.is_a?(Link) and item.approved? %>
+			<li>
+				<a href="<%= item.url %>" class="ts1-os-data-href">
+					<% source = DomainToOrganization.lookup(item.display_source) %>
+					<div class="topshelf-link"><%= truncate(source, length: 20, separator: '.', omission: '') %></div>
+					<div class="topshelf-headline"><%= item.display_title %></div>
+				</a>
+			</li>
+		<% end %>
+
+	<% end %>
+
+	<li>
+		<div class="topshelf-opening-statement-blurb">
+			<span>Like these links?</span> Get them with context and attitude each morning.
+		</div>
+		<%= form_tag v2_email_subscribe_path do %>
+			<%= hidden_field_tag :ref, "inline-topshelf-end-#{params[:action]}" %>
+			<%= text_field_tag :email, '', class: 'email-signup-field input topshelf-input', placeholder: "email@example.com" %>
+			<input type="submit" class="button submit-email topshelf-button" value="»"></input>
+		<% end %>
+	</li>
+
+</ul><!-- OS -->
+<% end %>

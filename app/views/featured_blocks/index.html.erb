@@ -1,0 +1,27 @@
+<h1>Homepages<%= link_to 'New Homepage', new_featured_block_path, class: 'btn btn-info pull-right' %></h1>
+
+<%= link_to("<< Prev ", featured_blocks_path(page: @page-1)) if @page >= 1 %>
+Page <%= @page+1 %> of <%= @total_pages %>
+<%= link_to " Next >>", featured_blocks_path(page: @page+1) %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Updated</th>
+      <th>Template</th>
+      <th>Posts</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @featured_blocks.each do |featured_block| %>
+      <%= render partial: 'index_row', locals: { featured_block: featured_block } %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

@@ -1,0 +1,56 @@
+<%= form_for(@tag) do |f| %>
+  <% if @tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+      <ul>
+      <% @tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label><%= f.label :name %></label><br>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <label>Type </label> <br>
+    <%= f.select :tag_type, @tag.tag_types.map{|k, v| [v.name, k]}, class: "form-control" %>
+
+    <br>
+
+    <% unless params.keys.include?('advanced') %>
+    <style>.advanced-box { display: none; }</style>
+    <% end %>
+
+    <div class="advanced-box">
+      <hr>
+      <%= f.label :slug %>(this will get overwritten if the tag name is changed)<br>
+      <%= f.text_field :slug %><br>
+      <br>
+
+      <b>Featured Photo ID</b><br>
+      <%= f.text_field :featured_photo_id %>
+
+      <br><br>
+
+      <label>Freeform Tag Content Header</label>
+      <%= f.text_area :content, cols: 80, rows: 5, class: 'form-control' %>
+
+      <label>Sidebar Description</label>
+      <%= f.text_area :sidebar_description, cols: 80, rows: 3, class: 'form-control' %>
+
+       <label>Collection Summary (markdown)</label>
+      <%= f.text_area :collection_summary, cols: 80, rows: 3, class: 'form-control' %>
+
+      <label>Public?</label>
+      <%= f.check_box :public %>
+    </div>
+
+  </div>
+ <br>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success btn-block' %>
+  </div><br>
+<% end %>

@@ -1,0 +1,382 @@
+.mobile .topshelf-container-hide-mobile {
+	display: none;
+}
+.mobile .topshelf, .mobile .topshelf-dock {
+	display: none;
+	height: 0;
+}
+
+.topshelf-dock {
+	display: inline;
+	&.sticky-active {
+		display: block;
+	}
+}
+
+.topshelf {
+	background-color: $lightbg;
+	z-index: 1000;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 108px;
+	&.sticky-active {
+		-webkit-transition: top 0.35s ease-out;
+		transition:         top 0.35s ease-out;
+		top: 64px;
+		position: fixed;		
+	}
+	&.sticky-hide-up {
+		top: -50px;		
+	}
+}
+
+.topshelf-wrapper {
+	$topshelf_arrow_width: 30px;
+	$topshelf_nav_width: 196px;
+	width: 100%;
+
+	.nav, .ul-wrap {
+		float: left;
+	}
+	.nav {
+		position: relative;
+		width: $topshelf_nav_width;
+		border-right: 1px solid #ccc;
+	}
+	.left-arrow, .right-arrow {
+		opacity: 0.3;
+		width: $topshelf_arrow_width;
+		background: #eee;
+		img {
+			width: 10px;
+		}
+		svg {
+			polygon {
+				fill: $link;
+			}
+			line {
+				stroke: $link;
+			}
+		}
+		&.active {
+			cursor: pointer;
+			opacity: 1;
+		}
+	}
+
+	.left-arrow.active:hover, .right-arrow.active:hover {
+	svg {
+		polygon {
+			fill: $link;
+		}
+		line {
+			stroke: $link;
+		}
+	}
+	}
+	.right-arrow, .left-arrow {
+		width: 25px;
+		margin: 0 auto;
+	}
+
+	.ul-wrap {
+		width: 500px;
+		overflow: hidden;
+		width: calc(100% - 265px);
+		border-right: 1px solid #ccc;
+	}
+	.transition-active {
+		-webkit-transition: left 0.5s ease-in-out;
+		transition:         left 0.5s ease-in-out;
+	}
+	ul {
+		display: none;
+		position: relative;
+		height: 100%;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		height: 108px;
+		left: 0;
+	}
+	li {
+		border-right: 1px solid $mainbg;
+		position: relative;
+		margin: 0;
+		padding: 15px 20px;
+		float: left;
+		display: block;
+		list-style: none;	
+		height: 100%;
+	
+		a:hover {	
+			text-decoration: none;	
+		}
+	}
+
+	.home-topshelf-image {
+		margin: 0 15px 50% 0px;
+		float: left;
+		height: 72px;
+		width: 60px;
+		margin-top: 2px;
+		background-size: cover;
+		background-position: 50%;
+	}
+	.topshelf-dropdown {
+		height: 108px;
+		position: relative;
+	}
+	.topshelf-title {
+		position: absolute;
+		z-index: 1000;
+		padding: 10px 10px 10px 15px;
+		margin-left: -15px;
+		margin-right: 20px;
+		width: 200px;
+		color: #ff0b3a;
+		margin-top: 5px;
+		font-family: "Pressura";
+		font-weight: normal;
+		letter-spacing: -0.2px;
+		text-transform: uppercase;
+		font-size: 14px;
+		svg {
+			margin-bottom: 3px;
+			width: 8px;
+			polygon {
+				fill: $link;
+			}
+		}
+	}
+	.topshelf-title.active {
+		// @include animate;
+		background-color: $link;
+		color: $black;
+		border-bottom: 1px solid $rules;
+		svg {
+			polygon {
+				fill: $black;
+			}
+		}
+	}
+
+	.topshelf-desc {
+		position: absolute;
+		top: 40px;
+		overflow: hidden;
+		color: $timestamps;
+		width: 180px;
+		display: block;
+		padding: 0px 0px 0px 0px;
+		@include font-detail;
+		font-size: 12px;
+		text-transform: none;
+		display: block;
+		line-height: 1.3em;
+		margin-top: 0px;
+		a {
+			text-decoration: underline;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		
+	}
+
+	.topshelf-desc-links {
+		margin-top: 7px;
+		font-size: 12px;
+		@include font-detail-bold;
+			a {
+				margin-right: 30px;
+				text-transform: uppercase;
+				color: $link;
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}	
+			a:last-child {
+				margin-right: 0px;
+			}
+	}
+
+	.topshelf-picker {
+		display: none;
+		position: absolute;
+		top: 44px;
+		left: -15px;
+		width: 200px;
+		z-index: 50;
+
+		.picker-item {	
+			cursor: pointer;
+			width: 100%;
+			padding: 10px 10px 10px 15px;
+			color: $white;
+			@include font-detail-bold;
+			text-transform: uppercase;
+			font-size: 14px;
+			background-color: $black;
+			line-height: 17px;
+			border-bottom: 1px solid $rules;
+
+		}
+		.picker-item:hover {
+			background-color: $link;
+			color: $black;
+			svg {
+				polygon {
+					fill: $black;
+				}
+			}
+		}
+		.picker-item:last-child {
+			border-bottom: 0;
+		}
+	}
+
+	.topshelf-fb-sharecount {
+		font-size: 13px;
+		padding-top: 8px;
+		color: $timestamps;
+	}
+
+}
+
+.topshelf-input {
+	margin-top: 3px;
+	float: left;
+	background-color: #f6f6f4;
+	border: none;
+	height: 30px;
+	margin-top: 4px;
+	width: 85%;
+	font-family: "PressuraLight";
+	font-weight: normal;
+	letter-spacing: -0.2px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #111;
+	padding: 0px 0px 0px 10px;
+	border-left: 1px solid #ececea;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+
+.topshelf-input:focus {
+	outline: 0;
+}
+
+.topshelf-button {
+	margin-top: 3px;
+	@include font-detail;
+	float: left;
+	background-color: $timestamps;
+	border: none;
+	margin-top: 4px;
+	height: 30px;
+	width: 15%;
+	color: $white;
+	font-size: 14px;
+	@include animate;
+	padding: 0px !important;
+}
+
+.topshelf-button:hover {
+	cursor: pointer;
+	background-color: $link;
+	color: $black;
+}
+
+.topshelf-button:focus {
+	outline: 0;
+}
+
+.topshelf-link {
+	@include font-detail-bold;
+	text-transform: uppercase;
+	font-size: 12px;
+	color: $timestamps;
+	margin-bottom: 8px;
+	a {
+		color: $timestamps;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	span {
+		@include font-detail;
+		color: $timestamps;
+		text-transform: none;
+		font-size: 11px;
+	}
+}
+
+.topshelf-height-tester {
+	@include font-body;
+	font-size: 14px;
+	line-height: 1.3em;
+}
+
+.topshelf-headline {
+	@include font-body;
+	font-size: 14px;
+	line-height: 1.3em;
+	max-height: 55px;
+	overflow: hidden;
+	position: relative;
+	a {
+		color: $black;
+	}
+	
+	span {
+		color: $timestamps;
+	}
+
+	&.truncate::after {
+		content: " ..."
+	}
+}
+
+.topshelf-opening-statement-blurb {
+	@include font-body;
+	margin-bottom: 5px;
+	font-size: 14px;
+	line-height: 1.3em;
+	color: $black;
+	span {
+		font-weight: bold;
+	}
+}
+
+.topshelf-controls {
+	width: 60px;
+	float: left;
+	margin-top: 15px;
+	svg {
+		width: 25px;
+		height: 10px;
+	}
+}
+
+.topshelf-counter {
+	text-align: center;
+	padding: 10px 0px 10px 0px;
+	font-family: Miller;
+	font-style: Italic;
+	color: $timestamps;
+	font-size: 15px;
+}
+
+@media (max-width: 850px) { 
+	.home-topshelf-image {
+		display: none;
+	}
+	.topshelf-opening-statement-blurb {
+		font-size: 12px;
+	}
+}

@@ -1,0 +1,216 @@
+<h3>Today</h3>
+<%= render 'weedwacker/today' rescue '(Error Generating Report)' %>
+
+<hr>
+
+<h3>Yesterday</h3>
+<%= render 'weedwacker/yesterday' rescue '(Error Generating Report)' %>
+
+<hr>
+
+<h3>Email</h3>
+Subscribes: <%=   MailchimpWebhook.where(event_type: 'subscribe').where('created_at > ?', 24.hours.ago).count %>
+Unsubscribes: <%= MailchimpWebhook.where(event_type: 'unsubscribe').where('created_at > ?', 24.hours.ago).count %>
+<!-- endrun sub <%= EmailSignup.where('created_at > ?', 24.hours.ago).count %> -->
+
+<hr>
+
+<h3>Gator</h3>
+Past 24 hours:
+<%= Link.where('created_at > ?', 24.hours.ago).count %> links created with
+<%= Tagging.where('created_at > ?', 24.hours.ago).count %> tags.
+
+<hr>
+
+<h3>Posts</h3>
+<br>
+<a href="/admin/analytics/posts.csv">Download Post Lifetime Overview CSV</a><br>
+<a href="/admin/analytics/posts-days.csv">Download Daily Post Traffic CSV</a><br>
+<a href="/admin/analytics/links.csv">Download Link CSV</a><br>
+<br>
+
+<style>
+.post-summary th {
+  cursor: pointer;
+}
+</style>
+
+<table class="table table-striped post-summary">
+  <thead>
+  	<th data-column="title">Title</th>
+  	<th data-column="published_date">Published Date</th>
+  	<th data-column="word_count">Word Count</th>
+  	<th data-column="total_pageviews">Pageviews</th>
+  	<th data-column="facebook_share_count">FB Shares</th>
+    <th data-column="total_partner_pageviews">Partner</th>
+  </thead>
+  <tbody class="lifetime-post-summary">
+  </tbody>
+</table>
+
+<div class="loading"><h3>Loading...</h3></div>
+
+<script>
+
+(function() {
+  var sortColumn = "published_date";
+  var sortDirection = "desc";
+
+  window.updateSortDirection = function(newColumn) {
+
+    if (newColumn === sortColumn) {
+      // we're toggling the same column we're already on
+      if (sortDirection === 'desc') {
+        sortDirection = 'asc';
+      } else {
+        sortDirection = 'desc';
+      }
+      return true;
+    }
+
+    // not toggling, so set the new column and default sort direction
+    sortColumn = newColumn;
+    sortDirection = 'desc';
+    return true;
+  }
+  window.getSortDirection = function() {
+    return {
+      column: sortColumn,
+      direction: sortDirection
+    };
+  }
+
+})();
+
+d3.xhr("/admin/analytics/posts.csv").get(function(error, response) {
+  if (error) throw error;
+
+  $('.loading').remove();
+
+  var commentLine = response.responseText.split('\n')[0];
+  var commentPieces = commentLine.split(' ');
+  var dateGenerated = commentPieces[commentPieces.length - 1];
+  console.log(dateGenerated)
+
+  window.dateFromString = function(input) {
+  	return d3.time.format("%Y-%m-%d").parse(input);
+  }
+
+  var csv = response.responseText.split('\n').slice(1).join('\n'); // remove the first row -- it's a comment
+  window.posts = d3.csv.parse(csv);
+
+  // coerce empty val to 0
+  window.posts.forEach(function(post) {
+    if (!post.total_partner_pageviews) {
+      post.total_partner_pageviews = 0;
+    }
+  });
+
+  console.log('Posts', posts);
+
+  // whitelist of columns. MANUALLY sync to <thead>
+  var columns = ['title', 'published_date', 'word_count', 'total_pageviews', 'facebook_share_count', 'total_partner_pageviews'];
+  var barChartColumns = ['word_count', 'total_pageviews', 'facebook_share_count'];
+
+  var upperBoundForColumn = function(column) {
+  	var values = posts.map(function(post) { return parseInt(post[column], 10) });
+  	return d3.mean(values) + 2*d3.deviation(values); // 95th as chart x-max
+  }
+
+  var scaleX = function(x, max, width) {
+  	if (x > max) {
+  		console.log('clamping', x, 'to', max)
+  		return width;
+  	}
+  	return width * (x / max);
+  }
+
+  var isInt = function(str) {
+  	return parseInt(str, 10)+'' === str;
+  }
+
+  var rows = d3.select("tbody.lifetime-post-summary").selectAll("tr")
+      .data(posts)
+      .enter()
+      .append("tr");
+
+  var cells = rows.selectAll("td")
+		.data(function(row) {
+			return columns.map(function(column) {
+        var value = row[column];
+        if (column === "title") {
+          // html inline, it's dirty, sorry folks
+          value = '<a href="' + row['path'] + '">' + row['title'] + '</a>';
+        }
+				return { column: column, value: value };
+			});
+		})
+		.enter()
+		.append("td")
+		.append("div")
+		.html(function(d, i) {
+			if (isInt(d['value'])) {
+				return d3.format("0,000")(d['value']);
+			}
+			return d['value'];
+		})
+    .append("div")
+    .style('height', '5px')
+    .style('background-color', function(d, i) {
+      if (d.value > upperBoundForColumn(d.column)) {
+        return '#1FBEC3';
+      } else {
+        return '#ff0b3a';
+      }
+    })
+    .style('width', function(d, i) {
+      // disable per GD
+      return '0px';
+    })
+
+
+  $('th').click(function(e) {
+  	e.preventDefault();
+  	var column = $(this).attr('data-column');
+    updateSortDirection(column);
+
+    var sorter = getSortDirection();
+    var sortFunction = function() {
+      if (sorter.column === 'total_partner_pageviews' || isInt(posts[0][sorter.column])) {
+        console.log(sorter.column, 'is a int');
+        return function(a, b) {
+          if (sorter.direction === 'asc') {
+            return parseInt(a[sorter.column], 10) - parseInt(b[sorter.column], 10);
+          } else {
+            return parseInt(b[sorter.column], 10) - parseInt(a[sorter.column], 10);
+          }
+        }
+      } else if (sorter.column === 'published_date') {
+        return function(a, b) {
+          if (sorter.direction === 'asc') {
+            return dateFromString(a['published_date']) -  dateFromString(b['published_date']);
+          } else {
+            return dateFromString(b['published_date']) -  dateFromString(a['published_date']);
+          }
+        }
+
+      } else {
+        console.log(sorter.column, 'is not an int');
+        if (sorter.direction === 'asc') {
+          return function(a, b) {
+            return a[sorter.column].localeCompare(b[sorter.column]);
+          }
+        } else {
+          return function(a, b) {
+            return b[sorter.column].localeCompare(a[sorter.column]);
+          }
+        }
+      }
+    }
+
+    rows.sort(sortFunction());
+
+  });
+
+});
+</script>

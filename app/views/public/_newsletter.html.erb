@@ -1,0 +1,33 @@
+
+<% cache ['v0', newsletter] do %>
+<!-- start newsletter <%= newsletter.id %> built at <%= Time.now.utc.to_f %> -->
+
+<section class="newsletter-section stream-promo-fullbleed" data-stream-key="<%= Stream.key(newsletter) %>">
+	<div class="container">
+		<div class="col12">
+			<div class="newsletter-header">
+				<div class="tease-kicker newsletter-name">
+					<%= link_to "Opening Statement", "#" %>
+					<span><%= time_ago_in_words(newsletter.published_at) %> ago</span>
+				</div>
+				<div class="newsletter-desc">
+					Criminal justice picks edited by <span><a href="/author/andrew-cohen">Andrew Cohen</a></span>
+				</div>
+				<div class="newsletter-more">
+				</div>
+			</div>
+			<% newsletter.homepage_items.each_with_index do |item, index| %>
+			<div data-position="<%= index+1 %>" class="newsletter-items <%= index == 4 ? 'last-newsletter-item': '' %>">
+				<span class="newsletter-numbers"><%= index+1 %></span><br>
+				<%= markdown item.taggable.email_content %>
+			</div>
+			<% end %>
+			<div class="clear"></div>
+			<div class="outlined-button">
+				<a class="outlined-button-link" href="/subscribe">Subscribe</a>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- end newsletter <%= newsletter.id %> -->
+<% end %>

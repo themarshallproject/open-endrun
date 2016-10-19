@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:full_date] = ->(time) { time.strftime("%B %e, %Y at %l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.') }

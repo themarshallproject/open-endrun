@@ -1,0 +1,72 @@
+<h1>Links
+  <%= link_to 'New Link', new_link_path, class: 'btn btn-info pull-right' %>
+  <!--<button type="button" class="btn btn-success pull-right" style="margin-left: 6px;">Newsletter Mode</button>-->
+</h1>
+
+<table class="table table-striped table-responsive padded-table">
+  <thead>
+    <tr>
+
+      <th>Image</th>
+      <th>Title</th>
+      <th>Creation</th>
+      <th>FB</th>
+      <th>Tags</th>
+      <th> </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% cache ['link_index', @links] do %>
+      <!-- generated at <%= Time.now.utc.to_f %> -->
+      <%= render @links %>
+    <% end %>
+  </tbody>
+
+</table>
+
+<script>
+$(document).on('ready page:load', function() {
+
+  var infinite_in_flight = false;
+
+  $(window).scroll(function() {
+
+    var $cue = $('.link-row:last-child');
+    var delta = $cue.position().top - $(window).scrollTop();
+
+    if (delta > 1000) {
+      console.log('ignoring, delta is', delta)
+      return;
+    }
+
+    var latest_link_created_at = $('.link-row').map(function() {
+      var $link = $(this);
+      return parseInt($link.attr('data-created-at'));
+    }).last().toArray()[0];
+
+
+    if (infinite_in_flight === true) {
+      return false;
+    }
+
+    infinite_in_flight = true;
+    $.get("<%= link_partials_before_path %>?created_at="+latest_link_created_at).done(function(html){
+      infinite_in_flight = false;
+      $('table').append(html);
+    });
+
+  });
+
+  $('body').on('ajax:success', function(e, response) {
+    var inner_html = $(response).html();
+    var id = $(response).attr('data-link-id');
+    var target = $($('tr[data-link-id="'+id+'"]'));
+    target.html(inner_html);
+  });
+});
+</script>
+
+<br>
+
+

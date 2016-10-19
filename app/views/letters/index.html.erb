@@ -1,0 +1,37 @@
+<h1>Letters</h1><br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Stream?</th>
+      <th>Name</th>
+      <!--<th>Email</th>-->
+      <!--<th>Twitter</th>-->
+      <th>Content</th>
+      <th>Post</th>
+      <th>Excerpt</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @letters.each do |letter| %>
+      <tr>
+        <td class="letter-status-<%= letter.status %>"><%= letter.status.capitalize %></td>
+        <td class="letter-is-promotable-<%= letter.published? %>"><%= letter.published? ? 'Yes' : 'No' %></td>
+        <td><%= letter.name %></td>
+        <!--<td><%= letter.email %></td>-->
+        <!--<td><%= link_to "@#{letter.twitter}", "https://twitter.com/#{letter.twitter}" if letter.twitter.present? %></td>-->
+        <td><%= letter.content.truncate(250) %></td>
+        <td><%= link_to(letter.post.title.truncate(20), letter.post.path) rescue '?' %></td>
+        <td><%= letter.excerpt.to_s.length > 5 %></td>
+        <td>
+            <!--<%= link_to 'Show', letter, class: "btn-primary btn btn-block" %>-->
+            <%= link_to 'Edit', edit_letter_path(letter), class: "btn-primary btn btn-block" %>
+            <%= link_to 'Delete', letter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-danger btn btn-block" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

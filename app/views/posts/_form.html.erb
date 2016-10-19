@@ -1,0 +1,474 @@
+<% if @post.persisted? %>
+    <% if @post_lock == false %>
+
+          <div class="post-is-readonly alert alert-danger" style="margin-top: 150px; margin-bottom: 150px; padding: 20px; padding-top: 5px;">
+          <h1>This post is locked and is read-only. It's being edited by <b><%= @post.locked_by.name %></b>.</h1>
+          <p>If you believe this shouldn't be so, contact Gabriel or Ivar.</p>
+          </div>
+          <script>
+            window.disable_editing = true;
+            $(document).ready(function() {
+              $('button, input, textarea').each(function() {
+                $(this).attr('disabled', true);
+              });
+            });
+          </script>
+
+    <% elsif @post_lock.present? %>
+
+        <script>
+          $(document).ready(function() {
+            setInterval(function() {
+              $.post("<%= touch_post_lock_path(@post_lock, post_id: @post.id) %>").done(function(e) {
+                console.log('postlock', e);
+              });
+            }, 5000);
+          });
+        </script>
+
+    <% else %>
+
+      <h1>@post_lock not present – this should never happen – please notify Ivar.</h1>
+
+    <% end %>
+<% end %>
+
+<% if @post.persisted? %>
+  <% if @post.stream_promo == 'base' and @post.featured_photo.present? %>
+    <div class="post-has-base-promo-with-promo-image alert alert-danger" style="margin: 20px 0; padding: 20px;">
+          <p>You have a featured photo set, but the stream promo is 'base' &mdash; set promo to 'base w/ art'? <span class="set-promo-to-base-with-art" style="text-decoration:underline;cursor:pointer;">Yes, do it</span> (you'll have to save!)</p>
+          </div>
+  <% end %>
+<% end %>
+
+<% if @post.persisted? and @post.rubric.blank? %>
+  <div class="post-has-base-promo-with-promo-image alert alert-danger" style="margin: 20px 0; padding: 20px;">
+    <p><strong>Warning: You do not have a rubric set.</strong></p>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function() {
+  $('.set-promo-to-base-with-art').click(function() {
+    $('#post_stream_promo').val('base_w_art');
+    $('.post-has-base-promo-with-promo-image').slideUp();
+  });
+});
+</script>
+
+<div class="er-markdown-tools" style="top:320px;">
+  <span class="markdown-link-tool">link</span></span>
+  <span class="markdown-bold-tool"><b>B</b></span></span>
+  <span class="markdown-italic-tool"><i>I</i></span></span>
+  <span class="markdown-subhead-tool">subhead</span>
+  <span class="markdown-dropcap-tool">dropcap</span>
+  <span class="markdown-anno-selector-tool" style="padding-top:11px;"><b>anno</b><br>word</span>
+  <span class="markdown-anno-body-tool" style="padding-top:11px;"><b>anno</b><br>copy</span>
+  <span class="markdown-divider-tool">update</span>
+</div>
+<script>
+  $('.markdown-link-tool').on('mousedown', function(e){
+    e.preventDefault();
+    $this = $(':focus');
+    var url = prompt("URL:");
+    console.log(url)
+    $this.surroundSelectedText("[", "]("+url+")");
+    make_dirty($this);
+  });
+  $('.markdown-bold-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    $this.surroundSelectedText("**", "**");
+    make_dirty($this);
+  });
+  $('.markdown-italic-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    $this.surroundSelectedText("*", "*");
+    make_dirty($this);
+  });
+  $('.markdown-anno-selector-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    var annoNumber = prompt("Enter annotation number:");
+    $this.surroundSelectedText("[anno-selector i=" + annoNumber + "]", "[/anno-selector]");
+    make_dirty($this);
+  });
+  $('.markdown-anno-body-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    var annoNumber = prompt("Enter annotation number:");
+    $this.surroundSelectedText("[anno-body i=" + annoNumber + "]", "[/anno-body]");
+    make_dirty($this);
+  });
+  $('.markdown-dropcap-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    $this.surroundSelectedText("[dropcap]", "[/dropcap]");
+    make_dirty($this);
+  });
+  $('.markdown-subhead-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    $this.surroundSelectedText("[subhead]", "[/subhead]");
+    make_dirty($this);
+  });
+  $('.markdown-divider-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();
+    $this.replaceSelectedText("[divider]Update XX:XX x.m. XX.XX.201X[/divider]", "collapseToEnd");
+    make_dirty($this);
+  });
+</script>
+
+<script>
+$(document).on('ready page:load', function() {
+  $(".markdown-editor").markdown({
+    additionalButtons: [
+      [{
+            name: "groupCustom",
+            data: [{
+              name: "cmdTag",
+              toggle: false, // this param only take effect if you load bootstrap.js
+              title: "Tag",
+              icon: "glyphicon glyphicon-glass",
+              callback: function(e){
+                var chunk,
+                    cursor,
+                    selected = e.getSelection(),
+                    content = e.getContent()
+
+                $('.tag-modal').modal('show');
+                $('.tag-modal li').on('click', function() {
+                  console.log('modal li', this)
+                  var new_chunk = "[tag id=" + $(this).attr('data-tag-id') + "]" + selected.text.toString() + "[/tag]";
+                  e.replaceSelection(new_chunk);
+                  cursor = selected.start;
+                  e.setSelection(cursor-1, cursor+new_chunk.length);
+                  $('.tag-modal').modal('hide');
+                })
+
+              }
+            }]
+      }]
+    ]
+  })
+})
+</script>
+
+
+
+
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :return_to_path, value: request.path %>
+
+  <div class="post-editor-sticky-tools">
+    <div class="inner">
+      <div class="post-editor-sticky-subtext">
+      <%= @post.published? ? 'Live Post!' : 'Not Published' %>
+      </div>
+      <%= f.submit 'Save', class: 'btn btn-success post-save-button', style: "margin-bottom: 5px; width: 76px;" %>
+
+      <% if @post.persisted? and @post.published? %>
+        <%= link_to "View", @post.path, class: 'btn btn-primary', style: "width: 76px;" %>
+      <% end %>
+      <% if @post.persisted? and !@post.published? %>
+        <%= link_to "Preview", admin_preview_post_path(@post), class: 'btn btn-primary' %>
+      <% end %>
+
+    </div>
+  </div>
+  <div class="post-editor-sticky-tools-shim"></div>
+
+
+  <div class="row" style="margin-bottom: 20px;" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Headline</label></div>
+    <div class="col-md-11"><%= f.text_field :title, size: 40, class: 'form-control post-ed-head', placeholder: 'Headline'  %></div>
+
+  </div>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          <span class="glyphicon glyphicon-plus"> </span> Open Post Settings
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body" style="background-color:#f8f8f8;">
+
+  <% if @post.persisted? %>
+    <div class="row" style="margin-bottom: 20px;" style="margin-bottom: 20px;">
+        <div class="col-md-1">
+          <label>Production</label>
+        </div>
+        <div class="col-md-11">
+          <pre style="white-space: normal;">
+Publishing <%= @post.published_at.strftime("%m/%d at %H:%M") %>: <a href="https://themarshallproject.org<%= @post.admin_preview_post_path(@post) %>">https://www.themarshallproject.org<%= @post.admin_preview_post_path(@post) %></a> <br>
+Opening Statement: <a href="<%= @post.canonical_url %>"><%= @post.canonical_url %></a></pre>
+        </div>
+    </div>
+  <% end %>
+
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>FB Hed</label></div>
+    <div class="col-md-5"><%= f.text_field :facebook_headline, size: 40, class: 'form-control', placeholder: 'Facebook Headline' %></div>
+    <div class="col-md-1"><label>Twitter</label></div>
+    <div class="col-md-5"><%= f.text_field :twitter_headline, size: 40, class: 'form-control', placeholder: 'Twitter Headline', 'data-max-character-count' => '98' %></div>
+  </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>FB Desc</label></div>
+    <div class="col-md-5"><%= f.text_field :facebook_description, size: 40, class: 'form-control', placeholder: 'Facebook Description' %></div>
+    <div class="col-md-1"><label>Stream?</label></div>
+    <div class="col-md-5"><%= f.check_box :in_stream %></div>
+  </div>
+
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Display</label></div>
+    <div class="col-md-5"><%= f.text_field :display_headline, size: 40, class: 'form-control', placeholder: 'Display Headline' %></div>
+    <div class="col-md-1"><label>Published</label></div>
+    <div class="col-md-5">
+      <%= f.datetime_select :published_at %>
+      <a href="#" class="set-to-now label label-success" data-target="#post_published_at">NOW</a>
+      <a href="#" class="set-to-715 label label-success" data-target="#post_published_at">07:15</a>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Slug</label></div>
+    <div class="col-md-5"><%= f.text_field :slug, size: 40, class: 'form-control', placeholder: 'Slug' %></div>
+
+    <div class="col-md-1"><label>Revised</label></div>
+    <div class="col-md-5">
+      <%= f.datetime_select :revised_at, id: 'post-revised-at' %>
+      <a href="#" class="set-to-now label label-success" data-target="#post_revised_at">NOW</a>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Deck</label></div>
+    <div class="col-md-11"><%= f.text_area :deck, cols: 80, rows: 3, class: 'form-control post-ed-deck', placeholder: 'Deck' %></div>
+  </div>
+  <hr>
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Format</label></div>
+    <div class="col-md-2"><%= f.select :post_format, @post.post_formats.map{|k, v| [v.name, k]}, class: "form-control" %></div>
+
+    <div class="col-md-1"><label><%= f.label :status %></label></div>
+    <div class="col-md-2"><%= f.select :status, @post.states.map{|k, v| [v, k] } %></div>
+
+    <div class="col-md-1"><label>Stream Promo</label></div>
+    <div class="col-md-2"><%= f.select :stream_promo, @post.stream_promo_options.map{|k, v| [v.name, k]}, class: "form-control"  %></div>
+
+    <div class="col-md-1"><label>Rubric</label></div>
+    <div class="col-md-2">
+        <%= select_tag "post[rubric]",
+          options_for_select(
+            (@post.available_rubrics.map{|k, v| [v, k] }.insert(0, ['(none)', nil])),
+            @post.rubric.try(:id)
+          )
+        %>
+    </div>
+  </div>
+  <hr>
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Byline</label></div>
+    <div class="col-md-2">
+      <%= select_tag 'post[authors][]',
+          options_for_select(
+            @post.available_authors.map{|user| [user.name, user.id] }.insert(0, ['(none)', nil]),
+            []
+          ), multiple: true, style: "width: 100%;"
+      %>
+    </div>
+
+    <div class="col-md-1"><label>Override</label></div>
+    <div class="col-md-4"><%= f.text_field :byline_freeform, size: 40, class: 'form-control', placeholder: 'By [author bill-keller]' %></div>
+
+
+      <div class="col-md-1"><label>Produced</label></div>
+      <div class="col-md-3"><%= f.text_field :produced_by, class: 'form-control', placeholder: 'Produced by [author gabriel-dance]' %>
+      </div>
+  </div>
+  <hr>
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Attached Users</label></div>
+     <div class="col-md-3">
+  <% UserPostAssignment.where(post: @post).each do |assignment| %>
+    <%= link_to "#{assignment.user.name} (#{assignment.source || '?'})", destroy_user_post_assignment_path(assignment.id), method: :post, remote: true, class: 'label label-danger post-form-upa-remote-destory' %>
+  <% end %>
+  <script>
+  $(document).ready(function() {
+    $('.post-form-upa-remote-destory').on('ajax:success', function() {
+      $(this).remove();
+    });
+  })
+  </script>
+</div>
+<div class="col-md-2">
+        <% if @post.persisted? %>
+          <%= link_to "Edit All Inlined Photos", admin_inlined_photos_path(@post), class: 'btn btn-info' %>
+        <% end %>
+  </div>
+
+
+    <div class="col-md-1">
+      <label>Promo Photo</label>
+      <a href="#" class="photo-picker"  data-target-el-id="post_featured_photo_id">Pick</a>
+    </div>
+    <div class="col-md-2">
+        <% photo = Photo.find(@post.featured_photo_id) rescue nil %>
+        <% if photo.present? %>
+          <%= image_tag photo.url_for(size: '360x'), style: "width:100%;" %>
+          <%= link_to "Edit", edit_photo_path(@post.featured_photo_id) %>
+        <% end %>
+        <%= f.text_field :featured_photo_id, class: 'form-control', placeholder: 'Photo ID'    %>
+    </div>
+
+    <div class="col-md-1">
+      <label>Lead Photo</label>
+      <a href="#" class="photo-picker" data-target-el-id="post_lead_photo_id">Pick</a>
+    </div>
+    <div class="col-md-2">
+        <% photo = Photo.find(@post.lead_photo_id) rescue nil %>
+        <% if photo.present? %>
+          <%= image_tag photo.url_for(size: '360x'), style: "width:100%;" %>
+          <%= link_to "Edit", edit_photo_path(@post.lead_photo_id) %>
+        <% end %>
+        <%= f.text_field :lead_photo_id, class: 'form-control', placeholder: 'Photo ID'    %>
+    </div>
+
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-1">
+      <label>Tags</label>
+    </div>
+
+    <div class="col-md-11" style="margin-bottom:20px;">
+      <% if @post.persisted? %>
+        <%= link_to "Tag This Post", tag_post_path(@post.id), class: 'btn btn-primary' %>
+        <% @post.taggings.each do |tagging| %>
+          <a href="#" class="btn btn-success btn-xs"><%= tagging.tag.name %></a>
+        <% end %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 20px; <%= (feature_active_for_user?('always_epic') or params.keys.include?('advanced')) ? 'display:block;' : 'display:none;' %>">
+    <div class="col-md-1"><label>Custom SCSS</label></div>
+    <div class="col-md-11 enable-tabs-outer"><%= f.text_area :custom_scss, cols: 80, rows: 8, class: 'form-control enable-tabs', style:'font-family:Courier;' %>
+  </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 20px; <%= (feature_active_for_user?('always_epic') or params.keys.include?('advanced')) ? 'display:block;' : 'display:none;' %>">
+    <div class="col-md-1"><label>Freeform Post Header</label></div>
+    <div class="col-md-11 enable-tabs-outer"><%= f.text_area :freeform_post_header, cols: 80, rows: 8, class: 'form-control enable-tabs', style:'font-family:Courier;' %>
+  </div>
+</div>
+
+  <div class="row" style="margin-bottom: 20px; <%= (feature_active_for_user?('always_epic') or params.keys.include?('advanced')) ? 'display:block;' : 'display:none;' %>">
+    <div class="col-md-1"><label>Inject Raw</label></div>
+    <div class="col-md-11 enable-tabs-outer"><%= f.text_area :inject_html, cols: 80, rows: 7, class: 'form-control post-ed-deck enable-tabs', style:'font-family:Courier;' %>
+    </div>
+  </div>
+
+  <div style="float:right"><%= link_to "Snapshot", post_snapshot_v1_path(@post) %></div>
+
+    <% if (feature_active_for_user?('always_epic') or params.keys.include?('advanced')) %>
+      <%= link_to 'Destroy Permanently Forever', @post, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+      <% end %>
+
+    </div>
+  </div>
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-12 enable-tabs-outer"><%= f.text_area :content, cols: 80, rows: 150, class: 'markdown-editor post-ed-copy enable-tabs', style: "padding: 30px; font-family: Georgia !important;" %></div>
+  </div>
+
+<% end %>
+
+</div>
+
+
+<script>
+$(document).ready(function() {
+  $('.photo-picker').click(function(e) {
+    e.preventDefault();
+
+    var picker_window = window.open("<%= v1_picker_path %>?target_el_id="+$(this).attr('data-target-el-id'), "tmp_photopicker", "height=600,width=600,left=200,top=0");
+
+    setTimeout(function() {
+      picker_window.postMessage("ping", "<%= request.scheme %>://<%= request.host %>");
+    }, 3000);
+
+    window.addEventListener("message", function(event) {
+      var data = event.data;
+      console.log(data);
+      if (data.event === 'select_photo') {
+        console.log('setting photo id to', data.id);
+        $('#'+data.target_el_id).val(data.id);
+      }
+    }, false);
+
+  });
+  // $(".enable-tabs-outer").on('keydown', '.enable-tabs', function(e) {
+  // var keyCode = e.keyCode || e.which;
+  //   if (keyCode == 9) {
+  //     e.preventDefault();
+  //     $(this).insertText("    ", 0, "select");
+  //   }
+  // });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+  var commandPressed = false;
+  var leftCommandKey = 91;
+  var rightCommandKey = 93;
+  var sKey = 83;
+  $('body').on('keydown', function(e) {
+    var keycode = e.keyCode;
+    if (keycode === leftCommandKey || keycode === rightCommandKey) {
+      console.log('command keydown');
+      commandPressed = true;
+    }
+    if (keycode === sKey && commandPressed === true) {
+      console.log('SAVE!')
+      e.preventDefault();
+      $('input,textarea,label,button').css('opacity','0.5');
+      $('form.edit_post').submit();
+    }
+  });
+  $('body').on('keyup', function(e){
+    console.log('command keyup');
+    commandPressed = false;
+  });
+});
+</script>

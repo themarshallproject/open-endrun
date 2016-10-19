@@ -1,0 +1,5 @@
+<% @posts.each do |post| %>
+	<% @post = post %>
+	<style><%= post.rendered_scss %></style>
+	<%= render "public/posts/#{post.post_format}" %>
+<% end %>

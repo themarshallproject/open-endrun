@@ -1,0 +1,91 @@
+<%= render partial: 'newsletters/email_header' %>
+	<table style="width: 100%; background-color: #111; padding: 45px 30px 35px 30px; color: #FFF; text-align: center;">
+		<tr>
+			<% hp_query_params = Post.new.social_query_params(utm_campaign: 'newsletter', utm_source: 'opening-statement', utm_medium: 'email', utm_content: 'header', utm_term: "newsletter-#{@newsletter.created_at.strftime('%Y%m%d')}-#{@newsletter.id}") %>
+			<td><a href="https://www.themarshallproject.org/?<%= hp_query_params %>">
+			<img src='<%= "#{request.protocol}#{request.host_with_port}#{asset_path('logo-480.png')}" %>' style='max-width: 100%; border: 0;' >
+			</a></td>
+		</tr>
+	</table>
+
+	<table style="width: 100%; background-color: #111; padding: 0px 30px 25px 30px; color: #FFF;font-family: Courier; font-weight: normal; line-height: 23px; font-size: 16px; text-align: center;">
+		<tr>
+			<td style="">
+					<b>Opening Statement</b><br>
+					<%= @newsletter.published_at.strftime("%B %e, %Y") %>
+			</td>
+		</tr>
+	</table>
+
+	<table style="width: 100%; background-color: #111; padding: 0px 30px; padding-bottom: 20px; color: #FFF; line-height: 25px; font-family: Courier, serif; font-size: 13px; font-weight: normal; text-align: center;">
+		<tr>
+			<td>
+				<% if @newsletter.byline.present? %>
+					<%= raw  @newsletter.byline %>
+				<% else %>
+					Edited by <a href="https://www.themarshallproject.org/staff/andrew-cohen" style="color: #ff0b3a; font-size: 13px; text-decoration: none; text-transform: uppercase;">Andrew Cohen</a>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+	<table style="width: 100%; background-color: #111; padding: 0px 30px; padding-bottom: 20px; color: #FFF; line-height: 25px; font-family: Courier, serif; font-size: 13px; font-weight: normal; text-align: center;">
+		<tr>
+			<td>
+				<a href="http://on.fb.me/1zo91Ev"><img src="<%= "#{request.protocol}#{request.host_with_port}#{asset_path('newsletter-fb.png')}" %>" style="height: 30px; width: 30px;"></a>
+				<a href="http://bit.ly/1bcKgU6"><img src="<%=   "#{request.protocol}#{request.host_with_port}#{asset_path('newsletter-tw.png')}" %>" style="margin-right: 10px; height: 30px; width: 30px;" ></a>
+				<a href="http://bit.ly/1yImNVA"><img src="<%=   "#{request.protocol}#{request.host_with_port}#{asset_path('newsletter-donate.png')}" %>" style="height: 30px; width: 72px;"></a>
+			</td>
+		</tr>
+	</table>
+
+	<table style="padding: 30px 30px 0px 30px; width: 100%; line-height: 24px; font-family: Georgia, serif; font-size: 16px; font-style: italic; background-color: #ececea; color: #1a1a1a;">
+        <tr>
+          <td>
+		<b>Help us tell the stories</b> of people with direct experience of the criminal justice system. Support the <a style="color: #ff0b3a;" href="https://www.kickstarter.com/projects/822494155/255771251?token=58bdc9d7">Kickstarter campaign</a> for our weekly column, <a style="color: #ff0b3a;" href="https://www.themarshallproject.org/tag/life-inside#.Gh61wCGWV">Life Inside.</a>							
+          </td>
+        </tr>
+    </table>
+
+	<table style="width: 100%; padding: 0px 30px 0px 30px; line-height: 24px; font-family: Georgia, serif; font-size: 16px; background-color: #ececea; color: #1a1a1a;">
+		<tr>
+			<td>
+			<% @newsletter.sections.each do |section| %>
+
+			<table>
+				<tr>
+					<td>
+						<h1 style="float: left; font-family: Courier; font-weight: normal; font-size: 18px; margin: 0; line-height: 28px; margin-top: 30px; margin-bottom: 10px; color: #1a1a1a; text-transform: uppercase;">
+							<%= section.name %>
+						</h1>
+					</td>
+				</tr>
+			</table>
+
+			<% @newsletter.items_in_bucket(section.slug).each do |item| %>
+
+				<% if Newsletter.is_tmp_story?(item.taggable) %>
+				<p><img src='<%= "#{request.protocol}#{request.host_with_port}#{asset_path('newsletter-mark.png')}" %>' style='float: left; height: 12px; width: 12px; padding: 6px 0 0 0; margin: 0 6px 0 0;' ></p>
+				<% end %>
+
+				<% html = markdown(item.taggable.email_content) || "*(No email-specific content for \"#{item.taggable.title}\")*" %>
+				<% html = @newsletter.inject_utm(html) %>
+				<%= raw html.gsub("<p", "<p style='margin-bottom:40px;'").gsub("<a", "<a style='color: #ff0b3a; text-decoration: none; text-transform: uppercase; font-family: Courier; font-size: 14px; margin-right: 3px;'") %>
+
+				<% end %>
+			<% end %>
+			</td>
+		</tr>
+	</table>
+
+	<table style="padding: 0px 0px 30px 30px; width: 100%; line-height: 24px; font-family: Georgia, serif; font-size: 16px; font-style: italic; background-color: #ececea; color: #1a1a1a;">
+        <tr>
+            <td>
+            	<b>Want less email?</b> <a style="color: #ff0b3a;" href="*|UPDATE_PROFILE|*">Update your preferences.</a>
+            </td>
+        </tr>
+    </table>
+
+	</div>
+
+</body>
+</html>

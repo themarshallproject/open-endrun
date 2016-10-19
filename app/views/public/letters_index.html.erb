@@ -1,0 +1,28 @@
+<div class="container page-margin">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="tag-description">
+					<%= link_to "Letters To The Editor", letters_index_path %>
+				</div> 
+				<div class="tag-name">
+				</div> 
+			</div>
+		</aside>
+		<div class="tag-freeform">
+			<div class="tag-desc">
+				Your comments in response to our stories, or other criminal justice issues. Join the conversation by submitting your own <a href="/submit-letter">Letter to the Editor</a>.
+			</div>
+		</div>
+	</article>
+</div>
+
+<% @letters.each do |item| %>	
+	<% # some serious polymorphic shit about to happen, get ready now: %>
+	<% begin %>
+		<%= render partial: "public/stream/#{item.class.model_name.singular}", locals: { item: item } %>
+	<% rescue %>
+		<!-- ERROR rendering <%= item.class.model_name.singular %> <%= item.id %> -->
+		<% logger.error "ERROR RENDERING STREAM PROMO #{item.class.model_name.singular} #{item.id}" %>
+	<% end %>
+<% end %>

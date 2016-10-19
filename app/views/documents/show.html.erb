@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dc:</strong>
+  <%= @document.dc_id %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @document.published %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @document.body %>
+</p>
+
+<p>
+  <strong>Dc data:</strong>
+  <%= @document.dc_data %>
+</p>
+
+<p>
+  <strong>Dc published url:</strong>
+  <%= @document.dc_published_url %>
+</p>
+
+<%= link_to 'Edit', edit_document_path(@document) %> |
+<%= link_to 'Back', documents_path %>

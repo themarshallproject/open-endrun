@@ -1,0 +1,37 @@
+<%= form_for(@yahoo_post) do |f| %>
+  <% if @yahoo_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@yahoo_post.errors.count, "error") %> prohibited this yahoo_post from being saved:</h2>
+
+      <ul>
+      <% @yahoo_post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="table">
+    <tr>
+      <td>TMP Post</td>
+      <td><%= f.collection_select :post_id, Post.published.order('revised_at DESC'), :id, :title, prompt: true %></td>
+    </tr>
+    <tr>
+      <td>Yahoo Headline</td>
+      <td><%= f.text_area :title, rows: 1, cols: 90 %></td>
+    </tr>
+    <tr>
+      <td>Publish to Yahoo?</td>
+      <td><%= f.check_box :published %></td>
+    </tr>
+     <tr>
+      <td>Send photo? </td>
+      <td><%= f.check_box :lead_photo %></td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

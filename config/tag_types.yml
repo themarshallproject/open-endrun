@@ -1,0 +1,23 @@
+topic: # do not delete this
+  name: 'Topic'
+
+person:
+  name: 'Person'
+
+location:
+  name: 'Location'
+
+content_type:
+  name: 'Content Type'
+
+court_case:
+  name: 'Court Case'
+
+bucket:
+  name: 'Bucket'
+
+category:
+  name: 'Rubric'
+
+series:
+  name: 'Series'

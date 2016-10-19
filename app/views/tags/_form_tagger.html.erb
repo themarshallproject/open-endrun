@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Tags</h3>
+  </div>
+  <div class="panel-body">
+  	Tagged with:<br>
+    
+  	<hr>
+    <% Tag.all.each do |tag| %>
+    	<%= link_to tag.name, tag %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <% end %>
+  </div>
+</div>

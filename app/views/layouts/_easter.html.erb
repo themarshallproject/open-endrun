@@ -1,0 +1,10 @@
+<% if params.keys.include?('quote') %>
+<div style="position:fixed;z-index:100;background:#ff0a47;opacity:0.9;left:0;right:0;top:0;bottom:0;"></div>
+<div style="position:fixed;width:80%;top:10%;left:10%;right:10%;z-index:200;color:#FFF;font-size:40px;">
+	<h1>
+		<%= image_tag 'm-white.svg', width: '70px' %><br><br>
+		<% tease = Post.published.all.shuffle.first %>
+		<%= link_to tease.content.split(".").first, tease.path, class: 'big-tease-quote' %>.
+	</h1>
+</div>
+<% end %>

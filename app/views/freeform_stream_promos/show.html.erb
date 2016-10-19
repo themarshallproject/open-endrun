@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @freeform_stream_promo.slug %>
+</p>
+
+<p>
+  <strong>Html:</strong>
+  <%= @freeform_stream_promo.html %>
+</p>
+
+<p>
+  <strong>Revised at:</strong>
+  <%= @freeform_stream_promo.revised_at %>
+</p>
+
+<p>
+  <strong>Deploy token:</strong>
+  <%= @freeform_stream_promo.deploy_token %>
+</p>
+
+<%= link_to 'Edit', edit_freeform_stream_promo_path(@freeform_stream_promo) %> |
+<%= link_to 'Back', freeform_stream_promos_path %>

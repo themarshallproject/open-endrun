@@ -1,0 +1,16 @@
+Closing Argument
+
+<%= @weekly_newsletter.published_at.strftime("%B %e, %Y") %>
+<%= 
+	[ ['',                                 markdown(@weekly_newsletter.opening_graf)],
+	  ['THE BEST OF THE MARSHALL PROJECT', markdown(@weekly_newsletter.tmp_stories)],
+	  ['THE BEST OF THE REST',             markdown(@weekly_newsletter.other_stories)],
+	  ['VERBATIM',                         markdown(@weekly_newsletter.quote_graf)],
+	].map do |title, markdown|
+		doc = Nokogiri::HTML::fragment(markdown)
+		doc.css('a').each do |a|
+			a.content += " (" + a['href'] + ") "
+		end
+		[title, doc.inner_text].join("\n\n")
+	end.join("\n") 
+%>

@@ -1,0 +1,42 @@
+<%= form_for(@post_shareable) do |f| %>
+  <% if @post_shareable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post_shareable.errors.count, "error") %> prohibited this post_shareable from being saved:</h2>
+
+      <ul>
+      <% @post_shareable.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :post %><br>
+    <%= f.collection_select(:post_id, Post.order('published_at DESC').all, :id, :title) %>
+  </div>
+  <div class="field">
+    <%= f.label :slug %><br>
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field">
+    <%= f.label :photo_id %><br>
+    <%= f.number_field :photo_id %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook_headline %><br>
+    <%= f.text_area :facebook_headline %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook_description %><br>
+    <%= f.text_area :facebook_description %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter_headline %><br>
+    <%= f.text_area :twitter_headline %>
+  </div>
+  <%= f.hidden_field :return_to, value: params[:return_to] %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

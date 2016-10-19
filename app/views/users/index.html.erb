@@ -1,0 +1,35 @@
+<h1>Users</h1>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Slug</th>
+      <th>Title</th>
+      <th>Twitter</th>
+      <th>Phone</th>
+      <th>Last Updated</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+<% @users.each do |user| %>
+	<tr>
+		<td><%= link_to user.name, (author_path(user.slug) rescue '#') %></td>
+		<td><%= user.email %></td>
+		<td><%= user.slug %></td>
+    <td><%= user.title %></td>
+    <td><%= link_to "#{user.twitter}", "https://twitter.com/#{user.twitter}" %></td>
+    <!--<td><%= user.bio %></td>-->
+    <td><%= user.phone %></td>
+		<td><%= user.updated_at %></td>
+    <td>
+      <% if params.keys.include?('lastseen') %>
+          <%= time_ago_in_words(user.last_seen) rescue '?' %>
+      <% end %>
+    </td>
+		<td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary pull-right' %></td>
+	</tr>		
+<% end %>
+</table>

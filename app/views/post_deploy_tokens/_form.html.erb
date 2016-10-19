@@ -1,0 +1,33 @@
+<%= form_for(@post_deploy_token) do |f| %>
+  <% if @post_deploy_token.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post_deploy_token.errors.count, "error") %> prohibited this post_deploy_token from being saved:</h2>
+
+      <ul>
+      <% @post_deploy_token.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <% if @post_deploy_token.persisted? == false %>
+      <%= f.collection_select :post_id, Post.all.order('updated_at DESC'), :id, :title, prompt: true %>
+    <% else %>
+      Post: <b><%= @post_deploy_token.try(:post).try(:title) || @post_deploy_token.post_id %></b>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :label %><br>
+    <%= f.text_area :label %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

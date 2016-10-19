@@ -1,0 +1,21 @@
+<div class="col12 <%= @post.lead_photo.present? ? 'compress-post-header' : 'post-header' %> post-<%= post.id %>">
+	<div class="post-timestamp">
+		<%= post.revised_at > post.published_at ? 'Updated' : 'Filed' %>
+		<span><%= post.revised_at.strftime("%l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.')%></span> 		
+	</div> 
+	<div class="post-date">
+		<%= post.revised_at.strftime("%m.%d.%Y") %>
+	</div>
+	<div class="post-kicker">
+		<% if post.rubric.present? and post.rubric.name.present? and post.rubric.slug.present? %>
+			<%= link_to post.rubric.name, public_tag_path(post.rubric.slug) %> 
+		<% end %>
+		<span></span>
+	</div> 
+	<h1 class="post-headline" data-remote="post:<%= post.id %>:title">
+		<%= post.title %>
+	</h1> 
+	<h4 class="post-deck" data-remote="post:<%= post.id %>:deck">
+		<%= post.deck %>
+	</h4> 
+</div>

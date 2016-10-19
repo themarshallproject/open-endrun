@@ -1,0 +1,5 @@
+<% if post.present? and post.byline.present? %>	
+	<%= raw post.byline %>
+<% else %>
+	By <span>The Marshall Project</span>
+<% end %>

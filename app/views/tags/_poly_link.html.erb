@@ -1,0 +1,16 @@
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="<%= item.fb_image_url %>">
+      <div class="caption">
+        <h3><%= link_to item.title, item.url %></h3>
+        <% item.taggings.each do |tagging| %>
+        	<% if tagging.tag.related.count > 1 and tagging.tag != @tag %>
+        	<small><div style="text-transform:uppercase; display:inline-block; margin:3px; padding:3px 6px; background: #EEE"><%= link_to tagging.tag.name, tagging.tag %></div></small>
+        	<% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+     

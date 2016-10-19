@@ -1,0 +1,45 @@
+<div class="featured-container">
+	<div class="featured-well" data-background-image="<%= photo_for_slot(@featured_block, 1) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 1), rubric_path(@featured_block, 1) %>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(1).featured_block_path(slot: '1', config: '111') %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(1).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="featured-well" data-background-image="<%= photo_for_slot(@featured_block, 2) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 2), rubric_path(@featured_block, 2) %>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(2).featured_block_path(slot: '2', config: '111') %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(2).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="featured-well featured-clear-right" data-background-image="<%= photo_for_slot(@featured_block, 3) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 3), rubric_path(@featured_block, 3) %>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(3).featured_block_path(slot: '3', config: '111') %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(3).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

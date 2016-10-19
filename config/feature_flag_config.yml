@@ -1,0 +1,59 @@
+nav_search_v1:
+  name: 'NavSearch v1'
+  description: 'Search in top sticky nav'
+
+topshelf_v1:
+  name: "TopShelf v1"
+  description: "A first attempt at TopShelf, IV"
+
+search_tags_v1:
+  name: 'SearchTags v1'
+  description: "Show related tags for search results"
+
+os_web_v1:
+  name: 'OpeningStatement web v1'
+  description: 'Index and detail pages for Opening Statement, to replace Mailchimp archive'
+
+easter_quote_1:
+  name: 'ES_q1'
+  description: ''
+
+anno_1:
+  name: "Anno1"
+  description: 'random ivar project for in-page js anno'
+
+post_hottub_topshelf_1:
+  name: "Topshelf 1 in posts"
+  description: "TopShelf v1 in the top of post hottubs"
+
+inline_topshelf1:
+  name: "Homepage inline big topshelf"
+  description: "Homepage big topshelf"
+
+email_handoff_1:
+  name: "email_handoff_1"
+  description: "email_handoff_1"
+
+always_epic:
+  name: "Always Epic"
+  description: "Always use the 'advanced' mode of the post editor. #AndyStyle"
+
+container_1075:
+  name: "Container 1075px"
+  description: "<style> block to force .container 1075px"
+
+email_signup_201508:
+  name: "Email Signup"
+  description: "August 2015 rebuild of email signup"
+
+disable_stream_open:
+  name: "Disable Stream Open"
+  description: "Turn off the JavaScript opening of the stream"
+
+async_webfont:
+  name: "async webfont"
+  description: "Use loadCSS and async font loading"
+
+update_nav:
+  name: "update nav (march 2016)"
+  description: "changes to menu, nav, search"

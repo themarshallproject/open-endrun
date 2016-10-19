@@ -1,0 +1,13 @@
+(function() { 
+    if (!window._tmp_pixelsent) {
+    	setTimeout(function() {
+	        var location = window.location;
+	        var url = encodeURIComponent("" + location.protocol + "//" + location.host + location.pathname);
+	        var ref = encodeURIComponent("" + document.referrer);
+	        var query = encodeURIComponent("" + location.search);
+	        var img = new Image(1, 1);
+	        img.src = "<%= ENV['PIXEL_TRACKING_URL'] %>?v=1&url=" + url + "&ref=" + ref + "&query=" + query;
+	        window._tmp_pixelsent = true;
+    	}, 50);
+    }
+})();

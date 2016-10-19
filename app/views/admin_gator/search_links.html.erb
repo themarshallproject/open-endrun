@@ -1,0 +1,36 @@
+<style type="text/css">
+.gator-search div {
+	width: 30.333%;
+	height: 250px;
+	float: left;
+	padding: 20px;
+	margin: 1%;
+	background-size: cover;
+	background-position: 50% 50%;
+	color: #FFF !important;
+	text-shadow: #000 2px 2px 10px;
+}
+.gator-search a {
+	color: #FFF !important;
+}
+.gator-search h3 {
+	margin: 0;
+	padding: 0;
+}
+.gator-search img {
+	max-width: 100%;
+}
+</style>
+
+<form action="/admin/gator/search" method="GET">
+	<input name="q" value="<%= params[:q] %>" placeholder="Search" 	/>
+	<input type="submit" value="Search" />
+</form>
+
+<div class="gator-search">
+<% @records.each do |record| %>
+	<div style="background-image:url(<%= record['fb_image_url'] %>)">
+		<h3><%= link_to record['title'], record['url'] %></h3>
+	</div>
+<% end %>
+</div>

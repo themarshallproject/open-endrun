@@ -1,0 +1,103 @@
+
+<% if @featured_block.is_active? == true %>
+  <div class="alert alert-danger" style="margin-top: 30px; margin-bottom: 50px; padding: 20px; padding-top: 5px;">
+    <h1>This featured block is live and cannot be updated. Please duplicate it and edit that.</h1>
+    <p>If you believe this shouldn't be so, contact Gabriel or Ivar.</p>
+    </div>
+<% end %>
+
+<%= form_for(@featured_block) do |f| %>
+  <% if @featured_block.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@featured_block.errors.count, "error") %> prohibited this featured_block from being saved:</h2>
+
+      <ul>
+      <% @featured_block.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-1">
+          <label>
+          <%= f.label :template %>
+          </label>
+
+    </div>
+      <div class="col-md-1">
+          <%= f.select :template, @featured_block.templates.map{|k, v| [v.name, k]}, class: "form-control" %>
+    </div>
+    <div class="col-md-10"><%= image_tag "homepage.svg", style:"max-width: 800px;" %></div><br>
+  </div><br><br>
+
+
+
+  <% if @featured_block.persisted? %>
+
+  <!--
+    @featured_block.slots
+<%= raw JSON.pretty_generate @featured_block.slots rescue 'error generating slots debug' %>
+  -->
+<%
+post_options = @all_posts.map{ |post|
+  [post.title, post.id]
+}
+%>
+
+  <table class="table table-striped">
+    <thead>
+      <th>Slot</th>
+      <th>Post</th>
+      <th>Image?</th>
+    </thead>
+    <% (1..@featured_block.slot_count).each do |slot_index| %>
+    <tr>
+        <td><%= slot_index %></td>
+        <td>
+          <%= select_tag(
+                "featured_block[slots][#{slot_index}][post_id]",
+                options_for_select(
+                  post_options,
+                  (@featured_block.slot(slot_index)['post_id'] rescue '1')
+              ))
+          %>
+        </td>
+        <td>
+          <% show_image = @featured_block.slot(slot_index)['show_image'] rescue false %>
+          <%= check_box_tag  "featured_block[slots][#{slot_index}][show_image]", 'true', (show_image == 'true') %>
+          <!-- <%= show_image %> -->
+        </td>
+    </tr>
+    <% end %>
+  </table><br><br>
+
+  <% end # persisted? check %>
+
+  <% if @featured_block.is_active? == false %>
+    <%= f.submit class: 'btn btn-block btn-success' %>
+  <% end %>
+<br>
+<hr>
+  <br>
+
+  <% if @featured_block.persisted? %>
+    <div class="pull-left">
+     <h4>Review Before Publishing</h4>
+   </div>
+
+    <div class="pull-right">
+    <% if @featured_block.all_posts_published? and (@featured_block.is_active? == false) %>
+      <%= link_to 'Activate Now', activate_featured_block_path(@featured_block), method: :post, class: 'btn btn-info' %>
+    <% end %>
+    </div>
+    <div class="clearfix"></div>
+    <br><br>
+
+  <iframe frameborder="0" class="featured-block-preview-1140" width="100%"  height="500px" src="<%= featured_block_preview_path(@featured_block) %>"></iframe><br><br>
+  <iframe frameborder="0" class="featured-block-preview-740"  width="740px" height="600px" src="<%= featured_block_preview_path(@featured_block) %>"></iframe>
+  <iframe frameborder="0" class="featured-block-preview-320"  width="320px" height="900px" src="<%= featured_block_preview_path(@featured_block) %>" style="float:right;"></iframe>
+  <% end %>
+
+<% end %>

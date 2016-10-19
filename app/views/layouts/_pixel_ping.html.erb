@@ -1,0 +1,5 @@
+<% if Rails.env.production? %>
+<img src="<%= ENV['PIXEL_PING_HOST'] %>/pixel.gif?key=<%= request.path %>">
+<% else %>
+<!-- pixel ping <img> goes here, ignoring it becase we're not in production -->
+<% end %>

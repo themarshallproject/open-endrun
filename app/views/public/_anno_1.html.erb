@@ -1,0 +1,94 @@
+<div class="annotation-detail"></div>
+
+<style>
+.annotation-detail {
+	position: absolute;
+	width: 300px;
+	height: 200px;
+	z-index: 7000;
+	background: #eee;
+}
+.tmp-annotation {
+	background-color: #d6d6d6;
+padding: 3px 6px;
+letter-spacing: -0.3px;
+font-family: Pressura;
+font-size: 16px;
+text-transform: uppercase;
+font-style: normal !important;
+}
+</style>
+
+<script>
+$(document).ready(function() {
+	
+	var annos = [];
+
+	var parse_post_id = function(class_name) {
+		try {
+			return class_name.split('-')[1];
+		} catch(e) {
+			return null;
+		}
+	}
+
+	var flash_invalid_selection = function() {
+		// console.log('no')
+	}
+
+	var regex_for_text = function(text) {
+		return new RegExp("("+text+")", "m");
+	}
+
+	var prompt_to_create = function(post_id, text) {
+		console.log(JSON.stringify({
+			model_type: 'Post',
+			model_id: post_id,
+			match_text: text
+		}))
+
+		var $post = $('.post-'+post_id);
+		var html = $post.html();
+		var re = regex_for_text(text);
+		var el_html =  "<span class=\"tmp-annotation\" data-annotation-id=\"-1\">" + text + "</span>";
+
+		var updated_post_html = html.replace(re, el_html);
+		console.log(updated_post_html)
+
+		$post.html(updated_post_html);
+	}
+
+	var getSelectionText = function() {
+	    var text = "";
+	    if (window.getSelection) {
+	        text = window.getSelection().toString();
+	    } else if (document.selection && document.selection.type != "Control") {
+	        text = document.selection.createRange().text;
+	    }
+	    return $.trim(text);
+	}
+	$(document).ready(function (){
+	   $('body').on('mouseup', function (e){
+	   		var text = getSelectionText()
+	   		  , post_id = parse_post_id( $(e.target).closest('article').attr('class') )
+	   		  , $post = $('.post-'+post_id)
+	   		  , post_text = $post.text();
+
+	   		if (post_text.split(text).length === 2) {
+	   			prompt_to_create(post_id, text);
+	   		} else {
+	   			flash_invalid_selection();
+	   		}
+	   });
+
+	   $('body').on('click', '.tmp-annotation', function() {
+		   	var $this = $(this);
+		   	var position = $this.position();
+		   	var $detail = $('.annotation-detail');
+		   	$detail.css('top', position.top);
+		   	$detail.css('left', $('h1').position().left+'px');
+		   	$detail.text($this.text())
+	   });
+	});
+});
+</script>

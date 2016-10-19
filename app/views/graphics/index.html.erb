@@ -1,0 +1,32 @@
+<h1>Graphics <%= link_to '', new_graphic_path, class: "btn btn-info pull-right glyphicon glyphicon-plus" %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Slug</th>
+      <th>Token</th>
+      <th>Posts</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @graphics.each do |graphic| %>
+      <tr>
+        <td>[graphic id=<%= graphic.id %>]</td>
+        <td><%= graphic.slug %></td>
+        <td><%= graphic.deploy_token %></td>
+        <td>
+          <%= raw @post_embeds.where(embed: graphic).pluck(:post_id).map{ |post_id|
+            "<a href='#{edit_post_path(post_id)}'>#{post_id}</a>"
+          }.join(", ") %>
+        </td>
+        <td><%= link_to '', rotate_deploy_token_graphic_path(graphic), method: :post, class: "btn btn-warning glyphicon glyphicon-refresh pull-right" %>
+        <%= link_to '', edit_graphic_path(graphic), class: "btn btn-primary glyphicon glyphicon-pencil pull-right", style: "margin-right: 10px;" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

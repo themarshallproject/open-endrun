@@ -1,0 +1,22 @@
+
+<table class="table table-striped">
+<% @dynos.each do |dyno| %>
+	<tr>		
+		<td><%= Rails.cache.read("ar_slow_count_by_dyno:#{dyno['name']}") || '?' %></td>
+		<td><%= dyno['id'] %></td>
+		<td><%= dyno['state'] %></td>
+		<td><%= dyno['name'] %></td>
+		<td><%= dyno['created_at'] %></td>
+		<td><%= time_ago_in_words Time.parse(dyno['created_at']) %></td>
+		<td><%= link_to "Restart", admin_ops_restart_dyno_path(dyno['id']), method: :post, confirm: 'Are you sure?' %></td>
+	</tr>
+<% end %>
+<tr>
+</table>
+
+Production:
+<iframe src="https://metrics.librato.com/share/dashboards/lam1y8xk" width="100%" height="700px" frameborder="0"></iframe>
+
+<pre>
+<%= JSON.pretty_generate @dynos %>
+</pre>

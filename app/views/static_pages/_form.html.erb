@@ -1,0 +1,37 @@
+<%= form_for(@static_page) do |f| %>
+  <% if @static_page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@static_page.errors.count, "error") %> prohibited this static_page from being saved:</h2>
+
+      <ul>
+      <% @static_page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label><%= f.label :title %></label><br>
+    <%= f.text_area :title, class: 'form-control', rows: 1 %>
+  </div><br>
+    <div class="field">
+    <label><%= f.label :page_title %></label><br>
+    <%= f.text_area :page_title, class: 'form-control', rows: 1 %>
+  </div><br>
+  <div class="field">
+    <label><%= f.label :description %></label><br>
+    <%= f.text_area :description, class: 'form-control', rows: 5 %>
+  </div><br>
+  <div class="field">
+    <label><%= f.label :content %></label><br>
+    <%= f.text_area :content, class: 'form-control', rows: 20 %>
+  </div><br>
+    <div class="field">
+    <label><%= f.label :slug %></label><small> Don't edit this</small><br>
+    <%= f.text_field :slug, class: 'form-control' %>
+  </div>
+  <div class="actions"><br>
+    <%= f.submit class: 'btn btn-success btn-block' %><br>
+  </div>
+<% end %>

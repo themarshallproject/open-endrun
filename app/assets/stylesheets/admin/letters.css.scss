@@ -1,0 +1,49 @@
+// Place all the styles related to the Letters controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.letter-status-pending {
+	background-color: grey !important;
+	color:#fff;
+}
+.letter-status-approved {
+	background-color: #4cae4c !important;
+	color:#fff;
+}
+.letter-status-rejected {
+	background-color: #d43f3a !important;
+	color:#fff;
+}
+
+// 
+
+.letter-is-promotable-false {
+	background-color: #d43f3a !important;
+	color:#fff;
+}
+
+.letter-is-promotable-true {
+	background-color: #4cae4c !important;
+	color:#fff;
+}
+
+.letter-is-published-false {
+	background-color: #d43f3a !important;
+	color:#fff;
+}
+
+.letter-is-published-true {
+	background-color: #4cae4c !important;
+	color:#fff;
+}
+
+//
+
+.letter-is-anon-true {
+	background-color: #d43f3a !important;
+	color:#fff;
+}
+.letter-is-anon-false {
+	background-color: #4cae4c !important;
+	color:#fff;
+}

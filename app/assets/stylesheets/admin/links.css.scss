@@ -1,0 +1,52 @@
+// Place all the styles related to the Links controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.link-og-image {
+	background-size: contain;
+    background-repeat: no-repeat;
+    width: 163px;
+    height: 150px;
+}
+.link-content {
+	font-size: 15px;
+	line-height: 1.1em;
+}
+
+.no-tags {
+	background: rgba(255, 50, 50, 0.2) !important;
+}
+
+
+.link-head {
+	font-size: 19px !important;
+	line-height: 22px;
+}
+
+.link-source {
+	text-transform:uppercase;
+	font-size: 10px;
+}
+
+.link-source a {
+	color: #aaa;
+}
+
+.link-row-invalid-url {
+	border: 3px solid red;
+	td {
+		background-color: rgba(255,0,0,0.3) !important;
+	}
+}
+
+.padded-table {
+	tr, td {
+		padding: 15px 8px 15px 8px !important;
+	}
+}
+
+.btn-dead {
+	color: #ccc !important;
+	background-color: #fff !important;
+	border-color: #ccc !important;
+}

@@ -1,0 +1,28 @@
+<div class="base-feature-header post-<%= post.id %>">
+	<div class="timestamp">
+		<%= post.revised_at > post.published_at ? 'Updated' : 'Filed' %>
+		<span><%= post.revised_at.strftime("%l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.')%></span>
+	</div>
+	<div class="date">
+		<%= post.revised_at.strftime("%m.%d.%Y") %>
+	</div>
+	<div class="kicker">
+		<% if post.rubric.present? and post.rubric.name.present? and post.rubric.slug.present? %>
+			<%= link_to post.rubric.name, public_tag_path(post.rubric.slug) %>
+		<% end %>
+	</div>
+	<h1 class="headline">
+		<%= post.title %>
+	</h1>
+	<h4 class="deck">
+		<%= post.deck %>
+	</h4>
+	<% if post.lead_photo.present? %>
+		<div class="img">
+			<div class="fullbleed-container">
+				<img data-src="<%= post.lead_photo.url_for(size: '2000x') %>">
+			</div>
+	    <div class="img-caption"><%= post.lead_photo.caption.try(:html_safe) %> <span><%= post.lead_photo.byline.try(:html_safe) %></span></div>
+		</div>
+	<% end %>
+</div>

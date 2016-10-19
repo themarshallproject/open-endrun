@@ -1,0 +1,6 @@
+<% content_for(:body_classes) { 'post-index-body' } %>
+<div class="post-index-narrow">
+	<% @posts.each do |post| %>
+		<%= render 'post_full', post: post %>		
+	<% end %>
+</div>

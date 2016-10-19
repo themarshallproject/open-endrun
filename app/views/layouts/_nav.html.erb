@@ -1,0 +1,45 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#tmp-navcollapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>      
+      <%= link_to home_path do %> 
+        <%= image_tag "m.svg", style: "width: 25px; padding-top: 13px !important;
+margin-right: 16px;" %>
+      <% end %>
+    </div>
+
+    <div class="collapse navbar-collapse" id="tmp-navcollapse">
+      <ul class="nav navbar-nav">  
+  		<% if current_user %>
+          <li><%= link_to "Dashboard", admin_path %></li>
+          <li><%= link_to "Posts", admin_posts_index_path %></li>
+          <li><%= link_to "Photos", photos_path %></li>
+          <li><%= link_to "Links", links_path %></li>
+          <li><%= link_to "Tags", tags_path %></li>
+          <li><%= link_to "Homepages", featured_blocks_path %></li>
+
+
+  		<% end %>        
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      <% if current_user %>
+        <li><%= link_to current_user.try(:name), (author_path(current_user.slug) rescue '#') %></li>
+
+        <li><%= link_to "Logout", logout_path, method: :post %></li>
+    <% else %>
+        <li><%= link_to "Log In", new_session_path %></li>
+    <% end %>
+      </ul>
+
+
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

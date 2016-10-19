@@ -1,0 +1,28 @@
+<% cache ['collection_index_tag', 'v2', tag, label_text, inject_classes] do %>
+
+<%
+
+if tag.featured_photo.present?
+  inject_classes << "photo"
+  url = tag.featured_photo.url_for(size: '360x') rescue '?'
+else
+  inject_classes << "no-photo"
+  url = asset_path("collections-bg.png")
+end
+
+%>
+
+<li class="collections-js-clickable hover <%= inject_classes.join(' ') %>" style="background-image: url(<%= url %>);" data-tag-id="<%= tag.id %>">
+  <div class="overlay">
+    <div class="link" data-updated="<%= label_text %>">
+      <div class="logo">
+        <svg version="1.1" width="20px" height="20px" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve"><g><g><polygon style="fill:#888888;" points="0,0 0,20 2.857,20 2.857,2.857 "/><polygon style="fill:#888888;" points="5.714,5.714 5.714,20 8.571,20 8.571,8.571 "/><polygon style="fill:#888888;" points="17.143,2.857 17.143,20 20,20 20,0 "/><polygon style="fill:#888888;" points="11.429,8.571 11.429,20 14.286,20 14.286,5.714 "/></g></g></svg>
+      </div>
+      <div class="card-tag-name">
+      <%= link_to tag.name, collections_show_path(tag, ref: 'c-hp'), class: 'collections-js-link' %>
+      </div>
+    </div>
+  </div>
+</li>
+
+<% end %>

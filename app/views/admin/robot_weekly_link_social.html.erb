@@ -1,0 +1,19 @@
+
+<% @links.first(10).each_with_index do |link, index| %>
+<div style="margin-bottom:50px; max-width:600px;">
+<% formatted_count = number_with_delimiter(link.facebook_count, :delimiter => ',') %>
+<% if link.photo.present? %>
+	<%= image_tag link.photo.url_for(size: '360x'), style: 'float: left; margin-right: 20px; width: 100px; margin-bottom: 50px;' %>
+<% end %>
+<div style="">
+	<% if link.newsletters_appeared_in.empty? == false %>
+		<%= markdown link.email_content+" *(#{formatted_count} shares)*" %>
+	<% else %>
+		<b><%= link_to link.display_title, link.url %></b>
+		<%= link.og_description %> <i><%= "(#{formatted_count} shares)" %></i>
+	<% end %>
+	<!--<small><%= link_to "Tweets about this", "https://twitter.com/search?q=#{link.url}&src=typd" %></small>-->
+</div>
+<div style="clear:left;"></div>
+</div>
+<% end %>

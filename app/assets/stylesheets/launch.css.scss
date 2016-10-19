@@ -1,0 +1,401 @@
+@import "app/fonts";
+@import "bourbon";
+@import "neat";
+
+
+$max-width: em(900);
+$mobile: new-breakpoint(max-width em(700) 1);
+
+.container {
+	@include outer-container;
+	padding-left: 30px;
+	padding-right: 30px;
+
+	.col6 {
+		@include span-columns(6);
+		@include media($mobile) { 
+			@include span-columns(1);
+		}
+	}
+	.col12 {
+		@include span-columns(12);
+		@include media($mobile) { 
+			@include span-columns(1);					
+		}
+	}
+}
+
+body {
+	margin: 0;
+	background: #111111;
+	color: #FFF;
+}
+
+.words {
+	z-index: -1;
+	position: absolute;
+	overflow: hidden;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	p {
+		text-align: right;
+		margin: 0;
+		font-family: "PressuraLight", Courier;
+		color: #888888;
+		font-size: 22px;
+		line-height: 1.1em;
+		opacity: 0.3;
+	}
+}
+
+.logo {
+	img {
+		max-width: 295px;
+	}
+}
+
+.page-margin {
+	margin-top: 80px;
+}
+
+.footer {
+	margin-bottom: 60px !important;
+}
+
+.section-margin {
+	margin: 25px 0;
+}
+
+.clear {
+	clear: both;
+}
+
+h1 {
+	font-family: "MillerBold", Georgia, serif;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 500;
+	font-size: 48px;
+	line-height: 1em;
+}
+
+.kicker {
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	font-size: 13px;
+	text-transform: uppercase;
+	margin-bottom: 25px;
+	color: #888888;
+}
+
+.kicker a {
+	color: #888888;
+}
+
+
+
+.copy {
+	font-family: "Utopia-Std", Georgia, serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 1.5em;
+}
+
+.about-copy {
+	padding-right: 100px;
+}
+
+.stories {
+	font-family: "MillerBold", Georgia, serif;
+	font-weight: 500;
+	-webkit-font-smoothing: antialiased;
+	font-size: 20px;
+	line-height: 1.1em;
+	float: left;
+	margin-bottom: 20px;
+}
+
+
+.stories a:hover {
+	svg {
+		polygon {
+			fill: #ff0b3a;
+			webkit-transition: all 0.25s ease-in-out;
+				-moz-transition: all 0.25s ease-in-out;
+				-o-transition: all 0.25s ease-in-out;
+				-webkit-transition: all 0.25s ease-in-out;
+				transition: all 0.25s ease-in-out;
+		}
+	}
+}
+
+a {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+a:hover {
+	color: #ff0b3a;
+	webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;	
+}
+
+.bullet {
+	float: left;
+	margin-right: 15px;
+	svg {
+		height: 18px;
+	}
+}
+
+.inline-bullet {
+	margin: 0 6px;
+}
+
+.email-signup {
+	background-color: #ff0b3a;
+	padding: 40px;
+	min-height: 135px;
+}
+
+.email-signup-copy {
+	padding-top: 21px;
+	line-height: 1.1em;
+}
+
+.success-copy {
+	padding-top: 22px;
+	line-height: 1.2em;
+}
+
+.success-copy a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.success-copy a:hover {
+	color: #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+.input {
+	float: left;
+	background-color: #ececea;
+	margin-bottom: 30px;
+	border: none;
+	height: 55px;
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	letter-spacing: -.2px; 
+	font-size: 16px;
+	color: #111111;
+	padding: 10px 10px 12px 24px;
+	width: 65%;
+	margin-bottom: 0px;
+}
+
+.input:focus {
+	outline: 0;
+}
+
+input {
+    -webkit-appearance: none;
+    -webkit-border-radius:0; 
+    border-radius:0;
+}
+
+::-webkit-input-placeholder {
+    color: #999;
+}
+
+:-moz-placeholder {
+   color: #999;
+   opacity: 1;
+}
+
+::-moz-placeholder {
+   color: #999;
+   opacity: 1;
+}
+
+:-ms-input-placeholder { 
+   color: #999;
+}
+
+.button {
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	letter-spacing: -.2px;
+	float: left;
+	background-color: #000000;
+	border: none;
+	height: 55px;
+	width: 35%;
+	color: #ffffff;
+	font-size: 16px;
+		webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: #353535;
+}
+
+.button:focus {
+	outline: 0;
+}
+
+.share-tools {
+	display: inline-block;
+	float: right;
+}
+
+.share-button {
+	margin-right: 10px;
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	letter-spacing: -.2px;
+	position: relative;
+	width: 50px;
+	height: 35px;
+	float: left;
+	padding: 7px 10px 10px 10px;
+	border: 2px solid #888888;
+	text-align: center;
+	color: #888888;
+	text-transform: uppercase;
+	font-size: 14px;
+		webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+	svg {
+		height: 18px;
+		path {
+			fill: #888888;
+			webkit-transition: all 0.25s ease-in-out;
+				-moz-transition: all 0.25s ease-in-out;
+				-o-transition: all 0.25s ease-in-out;
+				-webkit-transition: all 0.25s ease-in-out;
+				transition: all 0.25s ease-in-out;
+		}
+	}
+}
+
+.donate {
+	width: 85px !important;
+	padding: 6px 10px 10px 10px;
+}
+
+.share-button-link {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.share-button:hover {
+	background-color: #ff0b3a;
+	color: #000000;
+	border: 2px solid #ff0b3a;
+		webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+	svg {
+		path {
+			fill: #000000;
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	h1 {
+		padding-right: 0px;
+	}
+
+	.full-bleed {
+		padding: 0;
+	}
+	.about-copy {
+		padding-right: 50px;
+	}
+	.success-copy {
+		padding: 4px;
+		line-height: 1.5em;
+	}
+}
+
+@media (max-width: 700px) {
+	.kicker {
+		line-height: 1.5em;
+	}
+
+	.success-copy {
+		padding-top: 5px;
+	}
+	.share-tools {
+		float: none;
+		margin-top: 45px;
+	}
+
+	.about-copy {
+		padding-right: 0px;
+	}
+
+	.email-signup-copy {
+		padding-top: 0;
+		padding-bottom: 30px;
+	}
+	
+	.words {
+		display: none;
+	}
+
+	.page-margin {
+		margin-top: 30px;
+	}
+
+	.section-margin {
+		margin-bottom: 20px;
+	}
+
+	.copy {
+		padding-right: 0px;
+		width: 100%;
+	}
+
+	.stories {
+		padding-right: 0px;
+	}
+
+	.bullet {
+		height: 30px;
+	}
+
+	.email-signup-form {
+		input {
+			width: 100%;
+		}
+		button {
+			width: 100%;
+		}
+	}
+
+	h1 {
+		font-size: 40px;
+	}
+
+}

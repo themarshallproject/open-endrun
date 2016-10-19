@@ -1,0 +1,106 @@
+<% newsletter = Newsletter.published.last %>
+<% link_ids = newsletter.items.map(&:taggable).map{|_| _.id } %>
+<% links = Link.where(id: link_ids) %>
+<div class="home-topshelf-bleed">
+
+	<div class="topshelf-height-tester" style="position:absolute;left:-9999em;"></div>
+
+	<div class="container topshelf-container">
+		<div class="home-topshelf-wrapper">
+			<div class="nav">
+				<div class="topshelf-picker">
+					<div class="picker-item" data-selection="opening-statement">Opening Statement</div>
+					<div class="picker-item" data-selection="facebook"><svg width="12px" height="12px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 223.2 223.2" enable-background="new 0 0 223.2 223.2" xml:space="preserve"><g><g><polygon fill="#FFFFFF" points="3.6,3.6 3.6,219.6 34.5,219.6 34.5,34.5 		"></polygon><polygon fill="#FFFFFF" points="65.3,65.3 65.3,219.6 96.2,219.6 96.2,96.2 		"></polygon><polygon fill="#FFFFFF" points="188.7,34.5 188.7,219.6 219.6,219.6 219.6,3.6 		"></polygon><polygon fill="#FFFFFF" points="127,96.2 127,219.6 157.9,219.6 157.9,65.3 		"></polygon></g></g></svg> Popular on Facebook</div>
+					<div class="picker-item" data-selection="quick-reads"><svg width="12px" height="12px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 223.2 223.2" enable-background="new 0 0 223.2 223.2" xml:space="preserve"><g><g><polygon fill="#FFFFFF" points="3.6,3.6 3.6,219.6 34.5,219.6 34.5,34.5 		"></polygon><polygon fill="#FFFFFF" points="65.3,65.3 65.3,219.6 96.2,219.6 96.2,96.2 		"></polygon><polygon fill="#FFFFFF" points="188.7,34.5 188.7,219.6 219.6,219.6 219.6,3.6 		"></polygon><polygon fill="#FFFFFF" points="127,96.2 127,219.6 157.9,219.6 157.9,65.3 		"></polygon></g></g></svg> Quick Reads</div>
+				</div>
+				<div class="topshelf-dropdown">
+					<div class="topshelf-title">
+
+						<span class="topshelf-title-display"></span><!-- js -->
+
+					<svg version="1.1" width="8px" height="5px" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 77 40" enable-background="new 0 0 77 40" xml:space="preserve">
+					<polygon points="77,0 39.4,37.6 1.8,0 "/>
+					</svg>
+						
+					</div>
+					<div class="topshelf-desc topshelf-desc-opening-statement">
+						Links from this morning’s criminal justice roundup.
+						<div class="topshelf-desc-links">
+							<a href="/subscribe?ref=topshelf_<%= params[:action] %>">Sign up</a>
+							<%= link_to "Today’s Issue", newsletter.archive_url %>
+						</div>
+					</div>
+					<div class="topshelf-desc topshelf-desc-quick-reads">
+						<span>Shorter stories for when time is tight.</span>
+					</div>
+					<div class="topshelf-desc topshelf-desc-facebook">
+						<span>Our most shared stories.</span>
+					</div>
+				</div>
+			</div><!-- .nav -->
+
+			<div class="ul-wrap">
+
+				<ul class="opening-statement-items">
+					<% link_ids.each do |link_id| %>
+					<% link = links.select{|_| _.id == link_id.to_i }.first %>
+						<li>
+							
+							 <div class="topshelf-link"><%= link_to truncate(link.display_source, length: 20, separator: '.', omission: ''), link.url %></div>
+							<div class="topshelf-headline"><%= link_to link.display_title,  link.url %></div>
+						</li>		
+					<% end %>
+					<li>
+						<div class="topshelf-opening-statement-blurb">
+							<span>Like these links?</span> Get them with context and attitude each morning.
+						</div>
+						<%= form_tag v2_email_subscribe_path do %>
+	 						<%= hidden_field_tag :form_placement, "topshelf_1_#{params[:action]}" %>
+	 						<%= text_field_tag :email, '', class: 'email-signup-field input topshelf-input', placeholder: "email@example.com" %>
+	 						<input type="submit" class="button submit-email topshelf-button" value="»"></input>
+	 					<% end %>
+					</li>			
+
+				</ul><!-- OS -->
+
+				<%= render(partial: 'topshelf_facebook') rescue "" %>
+
+				<% cache ['topshelf_quickreads_v1', Post.published.order('updated_at DESC').first.updated_at] do %>
+				<!-- generated_at <%= Time.now.utc.to_f %> -->
+				<ul class="quick-reads-items">				
+				<% Post.topshelf_quickreads.each do |post| %>
+						<li>					
+
+						    <div class="topshelf-link"><%= link_to post.rubric.name, post.path+"?ref=ts" %>   <span><%= (post.content.split(' ').count / 250.0).round + 1 %> min read</span></div>
+
+							<%= link_to post.path+"?ref=ts" do %>
+								<div class="topshelf-headline topshelf-headline-truncatable" data-original="<b><%= post.title %></b> <%= post.deck.strip %>">
+									<b><%= post.title %></b> <%= post.deck.strip %>								
+								</div>
+							<% end %>
+
+						</li>		
+				<% end %>
+				</ul><!-- quick-reads -->
+				<% end %>
+
+			</div><!-- .ul-wrap -->
+
+			<div class="topshelf-controls">
+				<div class="right-arrow">		
+					<svg width="25px" height="10px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+					 viewBox="0 275.5 612 241" enable-background="new 0 275.5 612 241" xml:space="preserve"><g><line stroke="#000000" stroke-width="28" stroke-miterlimit="10" x1="0" y1="395.2" x2="569.3" y2="395.2"/><g><polygon points="481.1,510.9 461.1,491 563.6,394.2 461.1,300.3 481.1,277.5 606.3,394.2 		"/></g></g></svg>
+				</div>
+				
+				<div class="topshelf-counter"></div>
+
+				<div class="left-arrow">
+					<svg width="25px" height="10px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 275.5 612 241" enable-background="new 0 275.5 612 241" xml:space="preserve"><g><line stroke="#000000" stroke-width="28" stroke-miterlimit="10" x1="37" y1="395.2" x2="606.3" y2="395.2"/><g><polygon points="0,394.2 125.2,277.5 145.2,300.3 42.7,394.2 145.2,491 125.2,510.9 		"/></g></g></svg>
+				</div>	
+			</div><!-- .topshelf-controls -->
+
+		</div><!-- .home-topshelf-wrapper -->
+	</div><!-- .container -->
+</div><!-- .home-topshelf-bleed -->

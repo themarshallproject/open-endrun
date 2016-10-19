@@ -1,0 +1,44 @@
+<h1>Upload To S3</h1>
+
+<form>
+	<label>Filename</label><br>
+	<input name="name" pattern=".{4,}" required title="At Least 4 Characters" class="form-control"><br>
+
+	<label>Content Type</label><br>
+	<select name="content_type" class="form-control">
+		<option value="text/csv">text/csv</option>
+		<option value="text/tsv">text/tsv</option>
+		<option value="application/json">application/json</option>
+		<option value="text/javascript">text/javascript</option>
+		<option value="text/css">text/css</option>
+		<option value="text/html">text/html</option>
+	</select>
+	<br>
+
+	<label>Contents</label><br>
+	<textarea name="contents" cols="80" rows="30" style="max-width: 100%;" class="form-control"></textarea>
+	<br>
+
+	<input type="submit" class="btn btn-success btn-lg btn-block" value="Upload">
+</form>
+
+<div class="response well" style="display:none; margin-top: 40px;">
+	<div class="inner" style="word-wrap:break-word;"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('form').on('submit', function(e) {
+		e.preventDefault();
+		$.post("<%= process_quick_s3_upload_path %>", $('form').serialize())
+			.done(function(url) {
+				var html = "<a href='" + url + "'>" + url + "</a>";
+				$('.response').show();
+				$('.response .inner').html(html);
+			}).fail(function(res) {
+				$('.response').show();
+				$('.response .inner').text("Error!");
+			});
+	});
+});
+</script>

@@ -1,0 +1,11 @@
+<!-- scss start -->
+<style><%= @post.rendered_scss.html_safe %></style>
+<!-- scss end -->
+
+<!-- post content start -->
+<%= raw @post.content %>
+<!-- post content end -->
+
+<!-- raw inject start -->
+<%= raw @post.inject_html if @post.inject_html.present? %>
+<!-- raw inject end -->

@@ -1,0 +1,39 @@
+<% if @post.present? and @post.persisted? %>
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:url" content="<%= @post.canonical_url %>">
+<meta property="og:title" content="<%= @post.metadata_provider.facebook_headline %>">
+<meta property="og:description" content="<%= @post.metadata_provider.facebook_description %>">
+<meta property="og:image" content="<%= @post.metadata_provider.og_facebook_photo_url %>">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@MarshallProj">
+<meta name="twitter:title" content="<%= @post.metadata_provider.twitter_headline %>">
+<meta name="twitter:description" content="<%= @post.metadata_provider.twitter_description %>">
+<meta name="twitter:image:src"   content="<%= @post.metadata_provider.og_twitter_photo_url %>">
+
+<meta name="article:published_time" content="<%= @post.published_at.utc.iso8601 %>"><!-- iso8601 -->
+<meta name="article:modified_time"  content="<%= @post.updated_at.utc.iso8601 %>"><!-- iso8601 -->
+
+<meta itemprop="name" content="<%= @post.title.html_safe %>">
+<meta itemprop="description" content="<%= @post.deck.html_safe %>">
+<meta itemprop="image" content="<%= @post.metadata_provider.og_facebook_photo_url %>">
+
+<script type="application/ld+json">
+<%= JSON.pretty_generate({
+  "@context" => "http://schema.org",
+  "@type" => "NewsArticle",
+  "url": @post.canonical_url,
+  "headline": @post.title.html_safe,
+  "alternativeHeadline" => @post.metadata_provider.facebook_headline,
+  "thumbnailUrl" => @post.metadata_provider.og_facebook_photo_url,
+  "articleSection" => @post.rubric&.name,
+  "datePublished" => @post.published_at.iso8601,
+  "dateModified" => @post.updated_at.iso8601,
+  "description" => @post.metadata_provider.social_description,
+}).html_safe %>
+</script>
+
+<% end %>

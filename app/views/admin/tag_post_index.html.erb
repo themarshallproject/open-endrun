@@ -1,0 +1,32 @@
+<br><h2><%= @user.name %>’s stories</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Headline</th>
+      <th>Byline</th>
+      <th>Tags</th>
+    </tr>
+  </thead>
+<tbody>
+<% @posts.each do |post| %>
+	<tr>
+		<td style="width: 100px;"><%= link_to "Add Tags", "/admin/tag-posts/#{post.id}", class: "btn btn-primary btn-xs"%></td>
+		<td><%= link_to post.title, post.path %></td>
+		<td><%= raw post.byline.gsub("By ", "") %>
+		<td>
+			<% post.taggings.each do |tagging| %>
+				<% if tagging.tag.tag_type != 'category' %>
+					<button class="btn btn-success btn-xs"><%= tagging.tag.name %></button>
+				<% end %>
+			<% end %>
+
+			<% if post.taggings.select{|tagging| tagging.tag.tag_type != 'category' }.empty? %>
+				This article has no tags.
+			<% end %>
+		</td>
+	</tr>
+
+<% end %>
+</tbody>
+</table>

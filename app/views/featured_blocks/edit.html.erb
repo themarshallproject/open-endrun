@@ -1,0 +1,8 @@
+<h1 class="pull-left">Editing Homepage</h1>
+<%= link_to 'Dupe', dupe_featured_block_path(@featured_block), method: :post, class: 'pull-right btn btn-warning' %>
+<div class="clearfix" style="margin-bottom: 30px;"></div>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @featured_block %> |
+<%= link_to 'Back', featured_blocks_path %>

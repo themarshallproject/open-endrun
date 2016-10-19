@@ -1,0 +1,68 @@
+<% content_for(:title) {
+	"Letter to the Editor | The Marshall Project"
+} %>
+
+<% content_for(:head) do %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:title" content="Letter to the Editor">
+<meta property="og:description" content="Submitted on <%= @letter.stream_sort_key.strftime("%m.%d.%Y") %> at <%= @letter.stream_sort_key.strftime("%l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.')%>">
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<% end %>
+
+
+<div class="container page-margin">
+		<div class="post-timestamp">
+			Submitted
+			<span><%= @letter.stream_sort_key.strftime("%l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.')%></span>
+		</div>
+		<div class="post-date">
+			<%= @letter.stream_sort_key.strftime("%m.%d.%Y") %>
+		</div>
+		<div class="letter-kicker">
+			<%= link_to "Letter to the Editor", letters_index_path %>
+			<span></span>
+		</div>
+		<div class="letter-quote">
+			&ldquo;
+		</div>
+		<h1 class="letter-headline">
+			<%= @letter.excerpt %>&rdquo;
+		</h1>
+
+		<div class="letter-byline">
+			 <span><%= @letter.name %></span> <% if @letter.street_address.present? %>of <%= @letter.street_address %><% end %>
+		</div>
+		<article>
+			<%= markdown @letter.content %>
+			<div class="post-footer">
+				<div class="post-footer-item letter-footer">
+				</div>
+			</div>
+		</article>
+</div>
+<% @letter.adjacent.each do |adjacent_letter| %>
+	<%= render partial: "public/stream/letter", locals: { item: adjacent_letter } %>
+<% end %>
+
+<% if @letter.post.present? %>
+<div class="letter-line"></div>
+	<div class="container stream-promo-fullbleed">
+		<div class="col4">
+			&nbsp;
+		</div>
+		<div class="col8">
+			<div class="letter-deck">
+				<% if @letter.adjacent.count == 0 %>
+				This letter
+				<% else %>
+				These letters
+				<% end %>
+				written in response to
+			</div>
+		</div>
+	</div>
+	<% item = @letter.post %>
+	<%= render partial: "public/stream/#{item.class.model_name.singular}", locals: { item: item } %>
+<% end %>

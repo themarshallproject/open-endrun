@@ -1,0 +1,29 @@
+@import "bourbon";
+@import "neat";
+
+$max-width: em(740);
+$mobile: new-breakpoint(max-width $max-width 1);
+
+.container {
+	@include outer-container;
+	padding-left: 30px;
+	padding-right: 30px;
+
+	.col6 {
+		@include span-columns(6);
+		@include media($mobile) { 
+			@include span-columns(1);
+		}
+	}
+	.col12 {
+		@include span-columns(12);
+		@include media($mobile) { 
+			@include span-columns(1);					
+		}
+	}
+}
+
+body {
+	background: #131313;
+	color: #FFF;
+}

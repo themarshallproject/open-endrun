@@ -1,0 +1,9 @@
+{
+  "name": "endrun",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "devDependencies": {}
+}

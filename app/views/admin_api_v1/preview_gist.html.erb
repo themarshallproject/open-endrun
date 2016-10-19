@@ -1,0 +1,7 @@
+<style><%= @post.rendered_scss.html_safe %></style>
+
+<%= render "public/posts/#{post_format}" %>
+
+<% if params.keys.include? 'debug' %>
+<pre><%= YAML.dump @debug %></pre>
+<% end %>

@@ -1,0 +1,25 @@
+<form action="<%= search_email_archive_path %>" method="GET">
+Search: <input name="q" value="<%= params[:q] %>"></input>
+<input type="submit"></input> 
+</form>
+
+<% if @links.present? %>
+
+	<hr>
+
+	<ul>
+	<% @links.each do |link| %>
+		<li style="margin-bottom: 20px;">
+			<%= markdown link.email_content %><br>
+			<%= raw "<b>Appeared in:</b>" unless link.newsletters_appeared_in.empty? %>
+			<% link.newsletters_appeared_in.each do |newsletter| %>
+				<%= newsletter.email_subject %>
+				<%= link_to(newsletter.archive_url, newsletter.archive_url) if newsletter.archive_url.present? %>
+			<% end %>
+		</li>
+		<hr>
+	<% end %>
+	</ul>
+<% else %>
+	Enter something in the box above.
+<% end %>

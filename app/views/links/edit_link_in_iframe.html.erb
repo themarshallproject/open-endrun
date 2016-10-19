@@ -1,0 +1,127 @@
+
+<div class="container link-frame">
+
+<h1>Add to Gator</h1>
+<% if @link.persisted? %>
+	<div class="alert alert-success" role="alert"><strong>This link already exists.</strong> <%= @link.creator.email %> added it <%= time_ago_in_words @link.created_at %> ago.</div>
+<% else %>
+	<div class="alert alert-success" role="alert"><strong>No one has submitted this link yet!</strong> You're about to create it.</div>
+<% end %>
+
+<script>window.link_is_persisted = <%= @link.persisted?.to_json %>;</script>
+
+<div id="main"></div>
+
+<style>
+.col-sm-2, .col-sm-10 {
+	float: left;
+}
+.col-sm-2 {
+	width: 16%;
+}
+.col-sm-10 {
+	width: 83%;
+}
+</style>
+
+<script id='template' type='text/ractive'>
+<form method="POST" class="form-horizontal" role="form">
+	<div class="form-group form-hide">
+		<label class="col-sm-2 control-label">URL</label>
+		<div class="col-sm-10">
+			<textarea rows=2 class="form-control" value="{{link.url}}" disabled></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Title</label>
+		<div class="col-sm-10">
+			<textarea rows=1 class="form-control" value="{{link.title}}"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Summary</label>
+		<div class="col-sm-10">
+			<textarea rows=2 class="form-control" value="{{link.content}}"></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-10">
+			<div class="checkbox">
+				<label class="col-sm-2 control-label"><input type="checkbox" checked="{{link.approved}}"> Public?</label>
+			</div>
+		</div>
+	</div>
+
+		<div class="form-group">
+			<div class="container-fluid"><label>Tags</label><br>
+				<div id="rattlecan-app"></div>
+			</div>			
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label"></label>
+		<div style="position: absolute; bottom: 30px; left: 30px; width: 690px">
+			<% if @link.persisted? %>
+				<button on-click='save' class="btn btn-lg btn-primary btn-block">Update</button>
+			<% else %>
+				<button on-click='save' class="btn btn-lg btn-primary btn-block">Next: Add Tags</button>
+			<% end %>
+		</div>
+	</div>
+</form>
+</script>
+
+<script>
+(function() {
+	$(document).ready(function() {
+		$.ajaxSetup({
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', "<%= form_authenticity_token %>"); // is this needed? or was it the .original.preventDefault();
+			}
+		});      
+	});
+})();
+
+(function() {
+	var ractive = new Ractive({
+		el: '#main',
+		template: '#template',
+		data: {
+			link: <%= raw @link.to_json(except: [:html]) %>
+		}
+	});
+
+	var link_save = function(link_data) {		
+		console.log("about to save for:", link_data)
+		$.post("<%= iframe_update_path %>", link_data)
+			.done(function(data) {
+				if (window.link_is_persisted === true) {
+					var msg = JSON.stringify({
+						'event': 'load',
+						'message': 'Saved successfully!' // the 'successfully' substring is important in the bookmarklet JS!!!!!
+					});
+					window.parent.postMessage(msg, '*');
+				} else {
+					window.location.reload(); //TODO HACKed ugz boo
+				}
+			}).fail(function(data) {
+				console.log('FAIL!', data);
+			});					
+	}
+
+	ractive.on({
+		save: function(e) { 
+			e.original.preventDefault();
+			console.log(e);
+			link_save(this.data.link);			
+		}
+	});
+
+})();
+</script>
+
+<% if @link.persisted? %>
+	<%= render 'rattle_can/app', item: @link %>
+<% end %>

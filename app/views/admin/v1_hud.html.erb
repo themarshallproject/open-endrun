@@ -1,0 +1,19 @@
+<script>
+$(document).ready(function() {
+	if (read_cookie('_rewrite_links') === null) {
+		return true;
+	}
+	$('a').each(function() {
+		var $this = $(this)
+		  , href = $this.attr('href')
+		  , qs = "_a="+(new Date()).getTime();
+		if (href[0] === '/') {
+			if (href.indexOf("?") > 0) {
+				$this.attr('href', href+"&"+qs);				
+			} else {
+				$this.attr('href', href+"?"+qs);	
+			}
+		}
+	});
+})	
+</script>

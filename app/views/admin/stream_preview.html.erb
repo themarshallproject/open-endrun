@@ -1,0 +1,9 @@
+<table class="table table-striped">
+<% @items.each do |item| %>
+	<tr>
+		<td><%= item.class %></td>
+		<td><%= link_to (item.try(:title) || item.try(:name) || item.id), edit_polymorphic_path(item) %>
+		<td><%= item.published_at %></td>
+	</tr>
+<% end %>
+</table>

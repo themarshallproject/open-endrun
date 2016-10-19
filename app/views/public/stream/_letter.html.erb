@@ -1,0 +1,25 @@
+<section data-stream-key="<%= Stream.key(item) %>" data-revised-at="<%= item.updated_at.strftime('%Y%m%d') %>">
+	<div class="promo-full-bleed">
+		<div class="container">
+			<div class="col8-shift4 promo-shim-special promo-rule">
+				<div class="promo-content-special">
+					<div class="tease-kicker">
+						<%= link_to "LETTER TO THE EDITOR", letters_index_path %>
+						<span><%= item.stream_sort_key.strftime("%B %e").gsub('am', 'a.m.').gsub('pm', 'p.m.') %></span>
+					</div>
+					<div class="promo-headline-brighten tease-head-letter">
+						<%= link_to view_letter_path(item) do %>
+						    <span class="tease-head-letter-quote">&ldquo;</span><%= item.excerpt %>&rdquo;
+						<% end %>
+					</div>
+					<div class="clear"></div>
+					<div class="tease-byline no-margin-bottom">
+						<% if item.post.present? %>
+							Responding to <span><%= link_to item.post.title, item.post.path rescue 'none' %></span>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+</section>

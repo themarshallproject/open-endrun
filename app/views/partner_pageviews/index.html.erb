@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Partner Pageviews</h1>
+
+<%= link_to 'New Partner Pageview Report', new_partner_pageview_path, class: 'btn btn-primary' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Last Updated</th>
+      <th>Post</th>
+      <th>Partner</th>
+      <th>URL</th>
+      <th>Pageviews</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @partner_pageviews.each do |partner_pageview| %>
+      <tr>
+        <td><%= partner_pageview.updated_at.to_s %></td>
+        <td><%= partner_pageview.post.try(:title) %></td>
+        <td><%= partner_pageview.partner.try(:name) %></td>
+        <td><%= partner_pageview.url %></td>
+        <td><%= partner_pageview.pageviews %></td>
+        <td><%= link_to 'Edit', edit_partner_pageview_path(partner_pageview) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,55 @@
+<style>
+.header-v2 input:focus {
+  outline: none;
+}
+.header-items svg {
+  height: 18px;
+  margin-bottom: -3px;
+}
+.header-tagline {
+  font-family: PressuraLight;
+  color: #888888;
+  font-size: 13px;
+  margin-left: 17px;
+  margin-top: 24px;
+  float: left;
+}
+@media (max-width: 1075px) {
+  .header-tagline {
+    display: none;
+  }
+}
+</style>
+<header class="header-v2">
+  <div class="header-menu-trigger">
+    <a class="header-menu-button" href="#"><span></span></a>
+  </div>
+  <div class="header-logo">
+    <a href="/?ref=nav">
+      <img id="nav-logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYAAAAAzCAMAAACpMC/iAAAC9FBMVEX////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////3x43lAAAA+3RSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg6Ozw9Pj9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVpb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" data-retina-src="<%= image_path 'm-header.png' %>">
+    </a>
+    <div class="header-tagline">
+      Nonprofit journalism about criminal justice
+    </div>
+  </div>
+
+  <div class="header-items">
+
+    <a href="/search?via=navright">Search</a>
+
+    <a href="/about?via=navright">About</a>
+
+    <a href="/donate?via=navright">Donate</a>
+
+    <a href="https://bit.ly/fbmp-topnav" class="header-link">
+      <svg version="1.1" id="Layer_1" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 14 14" style="enable-background:new 0 0 14 14;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M5.17,10.46C5.168,9.649,5.159,8.838,5.171,8.027C5.18,7.459,5.128,6.949,4.375,6.988c-0.948,0.048-0.96-0.564-0.956-1.257c0.003-0.641,0.043-1.161,0.894-1.13c1.183,0.044,0.806-0.886,0.862-1.494c0.228-2.444,0.965-3.124,3.433-3.097c0.685,0.008,1.424-0.141,1.391,0.985c-0.024,0.821,0.007,1.492-1.133,1.415c-0.83-0.056-1.023,0.506-1.032,1.256C7.824,4.48,8.234,4.638,8.917,4.616c0.513-0.017,1.165-0.064,0.975,0.766C9.756,5.98,10.086,6.979,9,6.948C7.887,6.916,7.813,7.51,7.835,8.362c0.038,1.505-0.031,3.014,0.021,4.518c0.036,1.045-0.588,1.074-1.343,1.07c-0.743-0.003-1.415-0.002-1.351-1.058C5.212,12.084,5.173,11.271,5.17,10.46z"/></g></svg>
+    </a>
+    <a href="https://bit.ly/twittermp-topnav" class="header-link">
+      <svg version="1.1" width="20px" height="20px" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M1.2,16.9c1.9-0.2,3.4-0.4,5.1-1.8c-3.2-0.2-3.3-3.2-3.9-4.9C1.7,8.4,0.7,5.8,2,3.3
+    c1.9,1.8,3.9,3.2,6.2,3.8c1.3,0.3,2,0.4,2.3-1.4c0.4-2.7,3-3.9,5.5-2.9c0.7,0.3,1.3,0.7,2.3,0.7c1.1,0,1.8,1.2,1,2.1
+    c-0.8,0.9-0.9,1.9-1,2.9C17.4,16.6,8.5,21.2,1.2,16.9z"/></g></svg>
+    </a>
+  </div>
+
+</header>

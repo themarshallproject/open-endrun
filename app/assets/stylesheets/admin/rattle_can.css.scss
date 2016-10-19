@@ -1,0 +1,63 @@
+// Place all the styles related to the RattleCan controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.active-model-tag {
+	display: inline-block;
+	color: #FFF;
+	padding: 5px 10px;
+	font-size: 12px;
+	border-radius: 3px;
+	border-color: #ccc;
+	margin: 5px;
+	margin-left: 0;
+	.glyphicon {
+		top: 2px;
+		margin-left: 3px;
+		cursor: pointer;
+	}
+}
+
+
+.tag-type-topic {
+	background: #5cb85c;
+}
+
+.tag-type-person {
+	background: #f0ad4e;
+}
+
+.tag-type-location {
+	background: #d9534f;
+}
+
+.tag-type-category {
+	background: #777;
+}
+
+.tag-type-court_case {
+	border: 1px solid #777 !important;
+	color: #777;
+}
+
+.tag-type-other {
+	background: #777777;
+}
+.label-content_type {
+	background: #428bca;
+}
+.tag-type-content_type {
+	background: #428bca;
+}
+
+.inactive-tag-type {
+	opacity: 0.25;
+}
+.active-tag-type {
+	opacity: 1.0;
+}
+
+.form-hide {
+	
+	display:none;
+}

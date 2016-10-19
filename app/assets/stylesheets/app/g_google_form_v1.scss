@@ -1,0 +1,296 @@
+.g-google-form-v1 {
+    .ss-form input:focus,
+    .ss-form textarea:focus {
+        outline: 0;
+    }
+    .ss-form input,
+    .ss-form textarea,
+    .ss-form button {
+        border-radius: 0;
+        // -webkit-appearance: none;
+        -webkit-border-radius: 0;
+    }
+    .ss-form ul {
+        list-style-type: none;
+        -webkit-padding-start: 0;
+    }
+    .ss-form {
+        letter-spacing: -0.2px;
+    }
+    .ss-q-title {
+        line-height: 1.45em;
+        margin-bottom: 3px;
+    }
+    .ss-secondary-text,
+    .ss-choice-item,
+    .ss-q-datetime,
+    .ss-q-time {
+        margin-bottom: 14px;
+    }
+    .ss-form-entry select {
+        max-width: 100%;
+    }
+    .ss-q-datetime,
+    .ss-q-time {
+        padding: 20px;
+        font-size: 14px;
+        font-family: Pressura;
+        letter-spacing: 3px;
+        background-color: #ececea;
+        color: #888888;
+        border: 1px solid #ff0b3a;
+        text-transform: uppercase;
+    }
+    .ss-q-datetime > .ss-q-time {
+        padding: 0;
+        border: 0;
+        margin: 0;
+    }
+    .goog-inline-block {
+        display: inline-block;
+    }
+    .ss-grid-button-wrapper {
+        text-align: center;
+    }
+    .ss-gridnumbers,
+    .ss-secondary-text,
+    .ss-scalerow,
+    .ss-gridrow,
+    .ss-scalenumbers,
+    .required-message,
+    .ss-choice-label,
+    .ss-section-description {
+        font-family: PressuraLight;
+    }
+    .ss-grid, .ss-scale {
+        overflow-x: auto;
+    }
+    .ss-form-question {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+    .ss-q-checkbox,
+    .ss-q-radio {
+        margin: 0;
+    }
+    .ss-form-container,
+    .ss-resp-card {
+        background-color: rgb(255, 255, 255);
+    }
+    .ss-footer,
+    .ss-response-footer {
+        background-color: rgb(255, 255, 255);
+    }
+    .ss-grid-row-odd {
+        background-color: rgb(242, 242, 242);
+    }
+    .ss-form-container,
+    .ss-resp-card {
+        border-color: rgb(212, 212, 212);
+    }
+    .ss-form-title {
+        text-align: left;
+    }
+    .ss-form-title[dir="rtl"] {
+        text-align: right;
+    }
+    .ss-form-desc {
+        text-align: left;
+    }
+    .ss-form-desc[dir="rtl"] {
+        text-align: right;
+    }
+    .ss-header-image-container {
+        height: 0;
+    }
+    .ss-item {
+        font-size: 14px;
+    }
+    .ss-choices {
+        font-size: 14px;
+    }
+    .ss-record-username-message {
+        color: rgb(119, 119, 119);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-form-title {
+        color: rgb(80, 80, 80);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-confirmation {
+        color: rgb(80, 80, 80);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-scalerow {
+        margin-left: 0;
+        padding-left: 0;
+    }
+    .ss-section-title {
+        color: rgb(80, 80, 80);
+        font-weight: 400;
+        font-size: 28px;
+        font-family: MillerBold;
+        margin-bottom: 0;
+        margin-top: 60px;
+        font-style: normal;
+    }
+    .ss-form-desc,
+    .ss-page-description,
+    .ss-section-description {
+        color: rgb(140, 140, 140);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-resp-content {
+        color: rgb(119, 119, 119);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-q-title {
+        color: #111;
+        font-weight: 700;
+        font-size: 18px;
+        font-style: normal;
+    }
+    .ss-scalenumbers {
+        padding: 0;
+    }
+    .ss-embeddable-object-container .ss-q-title {
+        color: rgb(80, 80, 80);
+        font-weight: 700;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-q-help,
+    .ss-q-time-hint {
+        color: rgb(140, 140, 140);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-choice-label,
+    .video-secondary-text,
+    .ss-gridrow-leftlabel,
+    .ss-gridnumber,
+    .ss-scalenumber,
+    .ss-leftlabel,
+    .ss-rightlabel {
+        color: rgb(80, 80, 80);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .error-message,
+    .required-message,
+    .ss-required-asterisk {
+        display: none;
+        color: #ff0b3a;
+        font-weight: 400;
+        font-size: 11px;
+        margin-top: 15px;
+        text-transform: uppercase;
+        font-style: normal;
+    }
+    .ss-send-email-receipt {
+        color: rgb(80, 80, 80);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-form {
+        font-family: Pressura;
+    }
+    .ss-password-warning {
+        color: rgb(119, 119, 119);
+        font-weight: 400;
+        font-size: 14px;
+        display: none;
+    }
+    .disclaimer {
+        color: rgb(119, 119, 119);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-footer-content {
+        color: rgb(80, 80, 80);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    .ss-q-long,
+    .ss-q-short {
+        width: 100%;
+        padding: 20px;
+        border: 0;
+        background-color: #ececea;
+        font-family: Pressura;
+        font-size: 14px;
+        color: #888888;
+        border: 1px solid #ff0b3a;
+    }
+    .progress-label {
+        color: rgb(140, 140, 140);
+        font-weight: 400;
+        font-size: 14px;
+        font-style: normal;
+    }
+    a:link {
+        color: rgb(0, 0, 238);
+    }
+    a:visited {
+        color: rgb(85, 26, 139);
+    }
+    a:active {
+        color: rgb(252, 0, 0);
+    }
+    input[type='text'],
+    input:not([type]),
+    textarea {
+        font-size: 14px;
+    }
+    .error,
+    .required,
+    .errorbox-bad {
+        border-color: rgb(196, 59, 29);
+    }
+    .jfk-progressBar-nonBlocking .progress-bar-thumb {
+        background-color: rgb(140, 140, 140);
+    }
+    .jfk-button {
+        padding: 20px;
+        border: 0;
+        font-size: 16px;
+        background-color: #888;
+        color: #fff;
+        display: block;
+        width: 100% !important;
+        font-family: PressuraLight;
+        webkit-transition: all 0.25s ease-in-out;
+        border-left: 0;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        -webkit-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+    }
+    .jfk-button:hover {
+        background-color: #ff0b3a;
+        cursor: pointer;
+        webkit-transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        -webkit-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+    }
+    .ss-rightlabel {
+        padding-left: 10px;
+    }
+}

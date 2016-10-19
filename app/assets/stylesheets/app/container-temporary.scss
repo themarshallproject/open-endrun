@@ -1,0 +1,39 @@
+/* mobile by default */
+.container-temporary {	
+	width: 100%;
+}
+.col4, .col8, .col12 {
+	width: 100%;
+}
+$temp_cols: 12;
+
+@media (min-width: 740px) {
+	.col4, .col8 {
+		float: left;
+	}
+	.col4 {
+		width: 4/$temp_cols * 100%;
+	}
+	.col8 {
+		width: 8/$temp_cols * 100%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container {
+		width: 1140px;		
+	}
+}
+
+.stream {
+	.base {
+		padding: 100px 0;
+		h1 {
+			padding: 40px 0;
+			font-size: 30px;
+		}
+		padding: 40px 0;
+		border-bottom: 1px solid #CCC;
+		margin-bottom: 40px;
+	}
+}

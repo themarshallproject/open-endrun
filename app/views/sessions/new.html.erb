@@ -1,0 +1,15 @@
+<div class="login">
+	<div class="logo">
+		<%= image_tag "m-white-small.svg" %>
+	</div>
+	<div class="the-name">
+		EndRun
+	</div>
+	<div class="clear"></div>
+	<p>Don't have an account or don't know your password? <%= link_to 'Get an email with a login link.', '/login/with_token' %></p>
+	<%= form_tag sessions_path do %>
+			<%= text_field_tag :email, params[:email], class: "input", placeholder: "Email Address"  %>
+			<%= password_field_tag :password, nil, class: "input", placeholder: "Password" %>
+			<%= submit_tag "Log In", class: "button" %>
+	<% end %>
+</div>

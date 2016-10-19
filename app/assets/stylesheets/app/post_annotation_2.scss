@@ -1,0 +1,61 @@
+/* this is the annotation short code scss */
+
+.post-annotation-2-selector {
+	display: inline;
+	background-color: $mainrules; 
+	padding: 3px 6px;
+	margin-right: 2px;
+	@include font-detail-bold; 
+	font-size: 16px; 
+	letter-spacing: -0.3px;
+	text-transform: uppercase;
+	sup {
+		font-size: 10px;
+		margin-left: 3px;
+	}
+}
+
+.post-annotation-2-body {
+	position: relative;
+	margin: 0;
+	.body-inner {
+		position: absolute;
+		width: 40%;
+		max-width: 330px;
+		@include font-detail; 
+		font-size: 13px;
+		.content {
+			margin-top: 5px;
+			@include font-detail; 
+			line-height: 23px;
+		}
+		a {
+			text-decoration: underline;
+		}
+		span {
+			@include font-detail-bold;
+			font-size: 14px; 
+			line-height: 18px;
+			text-transform: uppercase;
+		}
+		sup {
+			@include font-detail-bold;
+			font-size: 8px;
+			margin-left: -3px;
+		}
+		strong, b {
+			@include font-detail-bold;
+		}
+	}
+}
+
+@media (max-width: 739px) {
+	.post-annotation-2-body {
+		.body-inner {
+			max-width: 100%;
+			position: initial;
+			width: 100%;
+			margin-bottom: 40px;
+		}
+	}
+}

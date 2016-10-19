@@ -1,0 +1,42 @@
+<div class="btn-group btn-block">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Attach <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="disabled"><a href="#">Select an active <br>newsletter:</a></li>
+ 	<li class="divider"></li>
+ 	<% @active_newsletters.each do |newsletter| %>
+	    <li><%= link_to newsletter.name, attach_newsletter_to_taggable_path(@newsletter, 'Link', 1), method: :post %></li>
+    <% end %>    
+  </ul>
+</div>
+
+<div class="btn-group btn-block">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+    Attach <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="disabled"><a href="#">Attached to <br>active newsletter:</a></li>
+ 	<li class="divider"></li>
+    <li><a href="#">Datey Date</a></li>
+    <li class="disabled"><a href="#">Newsletter Attached Name</a></li>
+    <li><a href="#">Datey Date</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Unattach</a></li>
+  </ul>
+</div>
+
+<div class="btn-group btn-block">
+  <button type="button" class="btn btn-default dropdown-toggle btn-dead" data-toggle="dropdown">
+    Attach <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="disabled"><a href="#">Attached to <br>unactive newsletter:</a></li>
+ 	<li class="divider"></li>
+    <li><a href="#">Datey Date</a></li>
+    <li class="disabled"><a href="#">Newsletter Attached Name</a></li>
+    <li><a href="#">Datey Date</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Unattach</a></li>
+  </ul>
+</div>

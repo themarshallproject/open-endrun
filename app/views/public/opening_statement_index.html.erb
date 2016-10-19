@@ -1,0 +1,25 @@
+<div class="container page-margin">
+
+	<article>
+
+	<aside class="col4">
+		<div class="inner">
+			<div class="tag-description">
+				Opening Statement
+			</div>
+			<div class="tag-name">
+				Past Issues
+			</div>
+		</div>
+	</aside>
+	<div class="tag-freeform">
+		<div class="tag-desc">
+			Every weekday morning, Andrew Cohen, The Marshall Project's commentary editor, combs the Web for the most interesting news and opinion about the American criminal justice system and serves it up with authority and a bit of attitude. We call his roundup the Opening Statement. It's free.
+		</div>
+	</div>
+	</article>
+</div>
+
+<% @newsletters.first(50).each do |newsletter| %>
+	<%= render partial: "public/stream/newsletter", locals: { item: newsletter } %>
+<% end %>

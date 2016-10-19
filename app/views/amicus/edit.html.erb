@@ -1,0 +1,24 @@
+<script>
+var App = React.createClass({
+  getInitialState: function() {
+    return {post: {}};
+  },
+  // handleEmailSelected: React.autoBind(function(index) {
+  //   var read = this.state.read;
+  //   read[this.state.selected] = true;
+  //   this.setState({selected: index, read: read});
+  // }),
+  render: function() {
+    return (
+      <div class="content">
+        
+      </div>
+    );
+  }
+});
+
+$.getJSON('<%= "/admin/amicus/api/#{params[:id]} %>', function(post) {
+  console.log(post)
+  React.renderComponent(<App post={post} />, document.body);
+});
+</script>

@@ -1,0 +1,81 @@
+<% content_for(:head) do %>
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="og:url" content="https://www.themarshallproject.org">
+<meta property="og:title" content="The Marshall Project">
+<meta property="og:description" content="A nonprofit news organization covering the U.S. criminal justice system.">
+<meta name="description" content="A nonprofit news organization covering the U.S. criminal justice system.">
+<meta property="twitter:site" content="@MarshallProj">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://www.themarshallproject.org">
+<meta property="twitter:title" content="The Marshall Project">
+<meta property="twitter:description" content="A nonprofit news organization covering the U.S. criminal justice system.">
+<meta property="twitter:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-tw-og.png">
+<% end %>
+
+
+<% content_for(:canonical_url) do
+	"https://www.themarshallproject.org/"
+end %>
+
+<% content_for(:stream_config_js) do %>
+window.stream_config.is_homepage = true;
+<% end %>
+
+<% begin %>
+<%= render 'public/featured_block', featured_block: @featured_block %>
+<% rescue
+	Slack.perform_async('SLACK_DEV_LOGS_URL', {
+		channel: "#endrun",
+		username: "Homepage ERROR",
+		text: "Exception parsing featured_block: #{@featured_block.to_json}",
+		icon_emoji: ":doughnut:"
+	})
+
+	logger.error $!
+%>
+<!--
+	error parsing featured_block
+	<%= raw @featured_block.to_json %>
+-->
+<% end %>
+
+<div class="email-onboard-container-wrapper">
+	<div class="container">
+		<div class="email-onboard email-onboard-fullbleed" data-placement="homepage-top" data-checkboxes="false" data-archive-link="<%= Newsletter.most_recent_archive_link %>">
+		</div>
+	</div>
+</div>
+
+<div class="stream">
+	<div class="stream-rule-first"></div>
+	<%= render 'public/stream', stream: @stream %>
+	<span class="bottom-of-stream"></span>
+</div>
+
+<script>
+$(document).ready(function() {
+	$.getJSON("/api/v1/stream-topshelf").done(function(data) {
+		var records            = data.v1.records;
+		var quickreads         = data.v1.quickreads;
+		var facebook           = data.v1.facebook;
+		var openingstatement   = data.v1.openingstatement;
+
+		var promos = $('.stream section');
+
+		$(promos[1]).after(records);
+		$(promos[2]).find('.promo-shim-special').removeClass('promo-rule');
+
+		$(promos[5]).after(openingstatement);
+		$(promos[6]).find('.promo-shim-special').removeClass('promo-rule');
+
+		$(promos[9]).after(quickreads);
+		$(promos[10]).find('.promo-shim-special').removeClass('promo-rule');
+
+		window.requestAnimationFrame(function() {
+			$(window).trigger('setup_topshelf');
+		});
+
+	})
+})
+</script>

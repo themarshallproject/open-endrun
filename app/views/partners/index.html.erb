@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Partners</h1>
+
+<%= link_to 'New Partner', new_partner_path, class: 'btn btn-primary' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @partners.each do |partner| %>
+      <tr>
+        <td><%= partner.name %></td>
+        <td><%= link_to 'Edit', edit_partner_path(partner) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,454 @@
+<style>
+
+/* endrun overrides */
+
+.posts-being-edited {
+	display: none;
+}
+
+.navbar {
+	z-index: 100;
+}
+
+.navbar-header img { margin-left: 15px; }
+
+body {
+	margin: 0;
+	background-color: #f6f6f4;
+}
+
+.container {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+/* layout */
+
+.quiz-section {
+	padding: 50px;
+	max-width: 75%;
+}
+
+.quiz-row {
+	margin-bottom: 20px;
+}
+
+.quiz-row:last-child {
+	margin-bottom: 0;
+}
+
+.quiz-col {
+	float: left;
+	margin-right: 20px;
+}
+
+.quiz-clear {
+	clear: both;
+}
+
+.quiz-border {
+	border-top: 1px solid #cccccc;
+}
+
+.quiz-sidebar {
+	overflow: scroll;
+	position: fixed;
+	background-color: #ececea;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 25%;
+}
+
+.quiz-sidebar-section {
+	padding: 30px;
+	padding-bottom: 0;
+}
+
+.quiz-draggable {
+    list-style-type: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0px;
+}
+
+.quiz-draggable-item {
+	cursor: grab;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	font-family: PressuraLight;
+	font-size: 13px;
+	background-color: #ff0b3a;
+	color: #fff;
+  padding: 15px;
+  border-bottom: 1px solid white;
+}
+
+.quiz-draggable-item a {
+	color: white;
+	text-decoration: underline;
+}
+
+/* typography */
+
+.quiz-headline {
+	font-family: MillerItalic;
+	font-size: 70px;
+	margin-top: 40px;
+	margin-bottom: 10px;
+	letter-spacing: -3px;
+}
+
+.quiz-headline a {
+	color: #111;
+}
+
+.quiz-headline a:hover {
+	text-decoration: none;
+}
+
+.quiz-headline svg {
+	fill: #111;
+}
+
+.quiz-deck {
+	font-family: PressuraLight;
+	font-size: 17px;
+	line-height: 1.7em;
+	max-width: 650px;
+	margin-bottom: 50px;
+}
+
+label {
+	font-family: Pressura;
+	margin-bottom: 10px;
+	display: block;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+label span {
+	font-size: 13px;
+	font-family: PressuraLight;
+	color: #888888;
+}
+
+.quiz-section-heading {
+	font-family: Pressura;
+	text-transform: uppercase;
+	background-color: #f6f6f4;
+	display: table;
+	margin-top: -12px;
+	margin-left: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #ccc;
+}
+
+/* form */
+
+input, textarea {
+	font-family: PressuraLight;
+	width: 100%;
+	padding: 13px;
+	font-size: 16px;
+	border: 1px solid #ff0b3a;
+	background-color: #ececea;
+}
+
+input:focus, textarea:focus, .quiz-button:focus {
+    outline: none !important;
+}
+
+.quiz-not-required {
+	border: 1px solid #111;
+}
+
+.quiz-button {
+	font-family: PressuraLight;
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+	background-color: #ff0b3a;
+	cursor: pointer;
+	color: white;
+	padding: 10px;
+	border: 0;
+	border-radius: 5px;
+	webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+.quiz-button:hover {
+	background-color: black;
+	webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+.quiz-delete-button {
+    border-radius: 20px;
+    padding: 0px 9px 3px 9px;
+    margin-top: 12px;
+    font-size: 17px;
+}
+
+.quiz-question-delete-button {
+	margin-top: 0;
+}
+
+/* debug */
+
+.quiz-debug, .quiz-embed {
+	display: none;
+}
+
+.quiz-code {
+	overflow: scroll;
+	font-family: courier;
+	word-wrap: break-word;
+	font-size: 12px;
+	padding: 10px;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+	color: #888;
+	height: 500px;
+	background-color: #f6f6f4;
+}
+
+.quiz-checkbox {
+	width: 15px;
+	height: 15px;
+	border-radius: 15px;
+	background-color: #fff;
+	border: 1px solid #cccccc;
+	margin-top: 4px;
+	margin-right: -7px;
+}
+
+.quiz-checked {
+	border: 5px solid #ff0b3a;
+	background-color: #111111;
+}
+
+/* styling buttons */
+
+.quiz-tools {
+	font-family: MillerBold;
+	z-index: 100;
+	position: fixed;
+	left: 0;
+	width: 30px;
+	padding: 0px;
+	background-color: #ffffff;
+	border: 1px solid #ff0b3a;
+	border-left: none;
+	color: #ff0b3a;
+}
+.quiz-tools span {
+	cursor: pointer;
+	border-bottom: 1px solid #ff0b3a;
+	font-size: 11px;
+	line-height: 0.8em;
+	padding-top: 11px;
+	width: 30px;
+	height: 30px;
+	display: block;
+	text-align: center;
+}
+
+.quiz-tools span:last-child {
+	border: none;
+}
+
+.quiz-tools span:hover {
+	background-color: #ff0b3a;
+	color: #fff;
+}
+
+</style>
+
+<script>
+window.existingQuiz = <%= raw @attrs.to_json %>;
+</script>
+
+<div class="quiz-tools" style="top:467px;">
+  <span class="markdown-link-tool">∞</span></span>
+  <span class="markdown-bold-tool"><b>B</b></span></span>
+  <span class="markdown-italic-tool"><i>i</i></span></span>
+</div>
+
+<div class="quiz-container">
+	<div class="quiz-header quiz-section">
+		<div class="quiz-headline">
+			<%= image_tag "m.svg", style:"margin-right: 10px; margin-top: -10px; width: 20px; padding: 0px !important;" %>
+			<a href="/admin/quizbuilder">Quizbuilder</a>
+		</div>
+		<div class="quiz-deck">
+			Quizzes are a quick and unique way into the day’s news, as well as, adding complementary explanation to a more complicated story. This tool produces multiple choice quizzes with unlimited choices but only one correct answer. The quiz will show what you chose, the correct answer and reveal an explanation.
+		</div>
+	</div>
+	<div class="quiz-editor"></div>
+	<div class="quiz-sidebar">
+		<div class="quiz-sidebar-section" style="margin-top: 50px;">
+			<button class="quiz-button quiz-save-button" value="save" data-preview="false">Save This Quiz</button>
+		</div>
+		<div class="quiz-sidebar-section">
+			<button class="quiz-button quiz-save-button" value="save" data-preview="true">Preview This Quiz</button>
+		</div>
+		<div class="quiz-sidebar-section">
+			<label>Question Ordering. <span>Click and drag a question below to reorder.</span></label>
+		</div>
+		<ul class="quiz-draggable" style="margin-top: 30px;" id="sortable">
+		</ul>
+		<div class="quiz-sidebar-section quiz-debug">
+			<div class="quiz-code quiz-json"></div>
+		</div>
+		<div class="quiz-sidebar-section quiz-embed">
+			<div class="quiz-code quiz-url">&lt;script type=&quot;text/javascript&quot; src=&quot;https://d229kj59cs0571.cloudfront.net/quizbuilder/v1/app.js&quot;&gt;&lt;/script&gt;&lt;div id=&quot;g-container&quot; data-quiz=&quot;<span class="quiz-json-url"></span>&quot;&gt;&lt;/div&gt;</div>
+		</div>
+	</div>
+</div>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script id="quiz-draggable-template" type="text/html">
+	<%% questions.forEach(function(question) { %>
+		<li class="quiz-draggable-item" data-id="<%%= question._id %>"><%%= question.position %>. <%%= question.text %></li>
+	<%% }); %>
+</script>
+
+<script id="quiz-editor-template" type="text/html">
+
+<div class="quiz-editor-meta quiz-border">
+	<div class="quiz-section-heading">Background</div>
+	<div class="quiz-section">
+		<div class="quiz-row">
+			<label>Slug. <span>The one word description of the story.</span></label>
+			<input class="quiz-slug quiz-meta-editable" id="slug" value="<%%= slug %>">
+		</div>
+		<div class="quiz-row">
+			<label>Creator. <span>Your name.</span></label>
+			<input class="quiz-creator quiz-meta-editable" id="creator" value="<%%= creator %>">
+		</div>
+		<div class="quiz-row">
+			<label>Description. <span>Brief description of the quiz.</span></label>
+			<input class="quiz-desc quiz-meta-editable" id="desc" value="<%%= description %>">
+		</div>
+		<div class="quiz-row">
+			<label>Reveal Type. <span>Blur initially blurs the text to make it unreadable. Unfold pushes down the content to reveal.</span></label>
+			<div class="quiz-col">
+				<div class="quiz-checkbox" data-value="blur"></div>
+			</div>
+			<div class="quiz-col">
+				<label><span>Blur</span></label>
+			</div>
+			<div class="quiz-col">
+				<div class="quiz-checkbox" data-value="unfold"></div>
+			</div>
+			<div class="quiz-col">
+				<label><span>Unfold</span></label>
+			</div>
+			<div class="quiz-clear"></div>
+		</div>
+	</div>
+</div>
+
+<div class="quiz-editor-social quiz-border">
+	<div class="quiz-section-heading">Social</div>
+	<div class="quiz-section">
+		<div class="quiz-row">
+			<label>Facebook. <span>This will fill in the share headline on Facebook. Use *|SCORE|* and *|TOTAL|* to fill in results.</span></label>
+			<input class="quiz-fb quiz-meta-editable" id="facebook" value="<%%= facebook %>">
+		</div>
+		<div class="quiz-row">
+			<label>Twitter. <span>This’ll poluate the tweet message. You can use the merge tags above here also.</span></label>
+			<input class="quiz-tw quiz-meta-editable" id="twitter" value="<%%= twitter %>">
+		</div>
+	</div>
+</div>
+
+<%% questions.forEach(function(question) { %>
+<div class="quiz-editor-question quiz-border">
+	<div class="quiz-section">
+		<div class="quiz-row">
+			<label>Question <%%= question.position %>. <span>You can have as many questions and answers as you’d like.</span></label>
+			<textarea class="quiz-question quiz-editable" id="question" value="<%%= question.text %>" data-id="<%%= question['_id'] %>"><%%= question.text %></textarea>
+		</div>
+		<div class="quiz-row">
+			<label>Image. <span>Enter the photo’s URL. Make sure we have rights to use the photo.</span></label>
+			<input class="quiz-img quiz-editable quiz-not-required" id="img" value="<%%= question.img_url %>" data-id="<%%= question['_id'] %>">
+		</div>
+		<%% question.answers.forEach(function(answer) { %>
+		<div class="quiz-row quiz-answer" data-answer="<%%= answer.correct %>" data-id="<%%= answer['_id'] %>">
+				<div class="quiz-col">
+					<div class="delete quiz-button quiz-delete-button" data-id="<%%= answer['_id'] %>" data-question="<%%= question['_id'] %>">×</div>
+				</div>
+				<div class="quiz-col" style="padding-top: 14px;">
+					<label>Choice <%%= answer.position %>. <span></span></label>
+				</div>
+				<div class="quiz-col">
+					<input class="quiz-editable" value="<%%= answer.text %>" id="answer" data-id="<%%= answer['_id'] %>">
+				</div>
+				<div class="quiz-col" style="padding-top: 14px;">
+					<input type="checkbox" tabindex="-1" style="margin: 0; width: 22px;" class="correct_answer" data-id="<%%= answer['_id'] %>" <%%= answer.correct ? 'checked' : '' %>><label style="display: inline-block;"><span>Check if correct.</span></label>
+				</div>
+				<div class="quiz-clear"></div>
+		</div>
+		<%% }); %>
+		<div class="quiz-row">
+			<div class="new_answer quiz-button" value="New Answer" data-id="<%%= question['_id'] %>">Add New Choice</div>
+		</div>
+		<div class="quiz-row" data-reveal="<%%= style %>">
+			<label>Explanation. <span>What we’ll reveal to the reader after they’ve made their guess.</span></label>
+			<textarea class="quiz-explanation quiz-editable" id="explanation" data-id="<%%= question['_id'] %>"><%%= question.explanation %></textarea>
+		</div>
+		<div class="quiz-row">
+			<div class="quiz-col">
+				<div class="delete quiz-button quiz-delete-button quiz-question-delete-button" style="width: 27px;" data-id="<%%= question['_id'] %>">×</div>
+			</div>
+			<div class="quiz-col" style="margin-top: 4px;">
+				<label>Delete Question. <span>Everything will be deleted.</span></label>
+			</div>
+			<div class="quiz-clear"></div>
+		</div>
+	</div>
+</div>
+<%% }); %>
+
+<div style="border-top: 1px solid gray">
+	<div class="quiz-section">
+		<div class="new_question quiz-button" value="New Answer">Add Another Question To This Quiz</div>
+	</div>
+</div>
+</script>
+
+<script>
+window.exampleQuiz = {
+	"slug": "",
+	"description": "",
+	"creator": "",
+	"created_at": 0,
+	"reveal_type": "blur",
+	"facebook_share": "You got *|SCORE|*/*|TOTAL|* on The Marshall Project's quiz.",
+	"twitter_share": "You got *|SCORE|*/*|TOTAL|* on @MarshallProj's quiz.",
+	"questions": [
+		{
+			"position": 1,
+			"text": "",
+			"img_url": "",
+			"explanation": "",
+			"answers": []
+		},
+	]
+}
+</script>
+
+<%= javascript_include_tag 'admin/quizbuilder_standalone' %>

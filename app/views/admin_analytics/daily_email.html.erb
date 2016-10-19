@@ -1,0 +1,146 @@
+<body style="background:#f6f6f4;color:#111111;">
+<style>
+body {
+	margin: 0;
+}
+html, body, h2, td {
+	background:#f6f6f4;
+	color:#111111;
+	font-family: "Helvetica";
+}
+thead {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	padding-bottom: 10px;
+}
+table {
+  border-collapse: collapse;
+}
+td {
+  padding: 4px 0px;
+  padding-right: 4px;
+}
+h2 {
+	padding-top: 15px;
+	color: #353535;
+}
+</style>
+<% current_day_index = @date.day %>
+<% total_day_count = @date.end_of_month.day %>
+<% projected_month = (@this_month_total / (1.0*current_day_index/total_day_count)).to_i %>
+
+<table style="width: 100%;">
+	<tr>
+		<td style="width: 100%; padding: 20px; background-color: #111;">
+			<a href="https://themarshallproject.org">
+				<img src='https://www.themarshallproject.org/assets/m-standard.png' style='max-width: 250px; border: 0; margin-top:7px; margin-left: 10px;' >
+			</a>
+		</td>
+	</tr>
+</table> 
+
+<div style="margin: 0 auto; padding-top: 20px; max-width: 800px;">
+<h1>Yesterday</h1>
+<h2>Pageviews</h2>
+<table style="line-height: 20px;">
+	<tr>
+		<td>
+			Yesterday
+		</td>
+		<td>
+			<%= number_with_delimiter(@daily_total_pageviews, delimiter: ',') %>
+		</td>
+	</tr>
+	<tr>
+		<td style="padding-right: 45px;">
+			So far this month
+		</td>
+		<td>
+			<%= number_with_delimiter(@this_month_total, delimiter: ',') %><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Last month
+		</td>		
+		<td>
+			<%= number_with_delimiter(@last_month_total, delimiter: ',') %><br>
+		</td>
+	</tr>
+
+
+</table>
+
+
+
+<h2>Email Signups</h2>
+<table style="line-height: 20px;">
+	<tr>
+		<td>			
+<%= EmailSignup
+	.where('created_at > ?', @days_ago.days.ago.beginning_of_day())
+	.where('created_at < ?', @days_ago.days.ago.end_of_day())
+	.count %> 
+</td>
+<tr>
+	</table>
+
+
+<h2>Our Top Stories</h2>
+<table>
+	<thead>
+	<tr>
+		<td>Story</td>
+		<td style="color: #1FBEC3">Yesterday</td>
+		<td style="color: #ff0b3a; text-align: right;">Total</td>
+		<td></td>
+	</tr>
+	</thead>
+
+<% max_total = @top_stories.first(5).map{ |post|
+	@top_stories_all_pvs.select{ |(path, count)| post[:path] == path }.first[1].to_i rescue 1
+}.max %>
+
+<% @top_stories.first(5).each do |post| %>
+	<% total = @top_stories_all_pvs.select{ |(path, count)| post[:path] == path }.first[1].to_i rescue 1 %>
+	<tr style="padding:0px;">
+		<td style="padding-top: 15px; padding-bottom: 0px;">
+			<b><%= post[:post].title rescue post[:path] %></b>
+		</td>
+		<td style="text-align:right; padding-top: 15px; padding-bottom: 0px;"><%= number_with_delimiter(post[:pvs], delimiter: ',') %></td>
+		<td style="text-align:right; padding-top: 15px; padding-bottom: 0px;"><%= number_with_delimiter(total, delimiter: ',') %></td>
+	</tr>
+	<tr>
+		<td>
+			<% img = MiniAnalyticsBarChart.new(daily: post[:pvs], total: total, domain_max: max_total).base64 %>
+			<img class="inline" data-encoded="<%= img %>" src="data:image/png;base64,<%= img %>">			
+		</td>
+	</tr>
+<% end %>
+</table>
+
+<h2>How People Found Us</h2>
+<table>
+<% @source.first(10).each do |(source, data)| %>
+	<tr>
+		<td style="padding-bottom: 2px; padding-right: 25px;"><%= source %></td>
+		<td style="padding-bottom: 2px;"><%= (100.0*data[:total_pvs]/@daily_total_pageviews).round(0) %>%</td>
+	</tr>
+<% end %>
+</table>
+
+<h2>Top Facebook Post</h2>
+<% @crowdtangle.first(1).each do |post| %>
+<div style="line-height: 20px; padding-bottom: 50px;">
+	<%= post['message'] %><br><br>
+	<%= image_tag post['picture'], style: 'max-width: 250px;' %><br><br>
+	<b><%= post['feedName'] %></b><br>
+	<%= post['like_count'] %> likes<br>
+	<%= post['share_count'] %> shares<br>
+	<%= link_to "View on Facebook", post['post_url'], style: 'color:#ff0b3a' %><br>
+</div>
+<% end %>
+
+</div>
+</body>

@@ -1,0 +1,92 @@
+<table class="table table-striped">
+<thead>
+	<th>Path</th>
+	<th>PublishDate</th>
+	<th>Title</th>
+	<th>WordCount</th>
+	<th>Rubric</th>
+	<th>Author</th>
+	<th>LTESubmitCount</th>
+	<th>InlinePhoto</th>
+	<th>LeadPhoto</th>
+	<th>Pageviews</th>
+	<th>Facebook</th>
+	<th>Twitter</th>
+	<th>Scroll:20%</th>
+	<th>Scroll:40%</th>
+	<th>Scroll:60%</th>
+	<th>Scroll:80%</th>
+	<th>Scroll:100%</th>
+	<th>share_tools:facebook</th>
+	<th>share_tools:twitter</th>
+	<th>share_tools:mailto</th>
+	<th>share_tools:print</th>
+</thead>
+<tbody>
+	<% @posts.each do |post| %>
+		
+		<% ga_rows = @ga_file.select{|row|
+			row[0].include?(post.path)
+		}.map{|row|
+			row[1].gsub(",", "").gsub("\"", "").to_i # pageviews
+		}.reduce(:+) %>
+
+		<% thriller_row = @thriller['links'].select{|row|
+			row['url'].include?(post.path)
+		}.first %>
+
+		<% 
+		scroll_events = @ga_scroll.select{|row|
+			row[1].include?(post.path)
+		} 
+		zero_counts = scroll_events.select{|event|
+			event[0] == '0%'
+		}.first[2].gsub(",", "").gsub("\"", "").to_i rescue 9999999999
+
+		percents = {}
+		[0, 20, 40, 60, 80, 100].each do |percent|
+			row = scroll_events.select{|event|
+				event[0] == "#{percent}%"
+			}.first rescue []
+
+			count = row[2].gsub(",", "").gsub("\"", "").to_i rescue -1
+
+			percents[percent.to_s] = "#{(100.0 * count / zero_counts).to_i}%"
+		end
+		%>
+
+		<% share_tools = {} 
+		   ['facebook', 'twitter', 'mailto', 'print'].each do |action|
+			   row = @ga_sharetools.select{|row|
+			   		row[1].include?(post.path) and row[0] == "#{action}:click"
+			   }.first
+			   share_tools[action] = row[3] rescue row
+			end
+		%>
+
+		<tr>
+			<td><%= post.path %></td>
+			<td><%= post.published_at.strftime('%m/%d/%Y') %></td>
+			<td><%= post.title %></td>
+			<td><%= post.word_count %></td>
+			<td><%= post.rubric.name %></td>
+			<td><%= post.authors.map(&:name).join(", ") %></td>
+			<td><%= post.letters.count %></td>
+			<td><%= post.content.include?('[photo') %></td>
+			<td><%= post.lead_photo.present? %></td>
+			<td><%= ga_rows %></td>
+			<td><%= thriller_row['facebook'] rescue nil %></td>
+			<td><%= thriller_row['twitter'] rescue nil %></td>
+			<td><%= percents['20'] %></td>
+			<td><%= percents['40'] %></td>
+			<td><%= percents['60'] %></td>
+			<td><%= percents['80'] %></td>
+			<td><%= percents['100'] %></td>
+			<td><%= share_tools['facebook'] %></td>
+			<td><%= share_tools['twitter'] %></td>
+			<td><%= share_tools['mailto'] %></td>
+			<td><%= share_tools['print'] %></td>
+		</tr>
+	<% end %>
+</tbody>
+</table>

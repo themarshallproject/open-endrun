@@ -1,0 +1,63 @@
+<%
+content_for(:title) do
+	[@post.title, "The Marshall Project"].join(" | ")
+end
+
+content_for(:canonical_url) do
+	@post.canonical_url
+end
+%>
+
+<% content_for(:google_analytics_pageload) do %>
+var ga_pageview = {
+    dimension1: "<%= @post.google_analytics_config[:dimension1] %>",
+    dimension2: "<%= @post.google_analytics_config[:dimension2] %>",
+    dimension3: "<%= @post.google_analytics_config[:dimension3] %>"
+  }
+<% end %>
+
+<% content_for(:stream_config_js) do %>
+window.stream_config.is_post_hottub = true;
+window.stream_config.featured_block_config = <%= (params['_hp'] || '').gsub(/[^0-3-]/, "").to_json.html_safe %>;
+<% end %>
+
+<div class="email-onboard-container-wrapper">
+	<div class="container">
+		<div class="email-onboard email-onboard-fullbleed" data-placement="post-top" data-checkboxes="false">
+		</div>
+	</div>
+</div>
+
+<span data-mark="top-of-post"></span>
+<%= render "public/posts/root", layout: false %>
+<span data-mark="bottom-of-post"></span>
+
+<% if @stream.present? %>
+	<div class="stream nocontent robots-nocontent">
+		<!-- js -->
+	</div>
+	<span class="bottom-of-stream"></span>
+<% end %>
+
+<script>
+$(document).ready(function() {
+	var stream_collection_inserted = false;
+	$.getJSON("/api/v1/stream-topshelf").done(function(data) {
+		var quickreads = data.v1.quickreads;
+		var facebook   = data.v1.facebook;
+		$(window).on('tmp_scroll', function() {
+			if ($('.stream-post').length > 6 && stream_collection_inserted === false) {
+				stream_collection_inserted = true;
+				var promos = $('.stream-post');
+				// $(promos[1]).after(facebook);
+				// $(promos[2]).find('.promo-shim-special').removeClass('promo-rule');
+				$(promos[5]).after(quickreads);
+				$(promos[6]).find('.promo-shim-special').removeClass('promo-rule');
+				window.requestAnimationFrame(function() {
+					$(window).trigger('setup_topshelf');
+				});
+			}
+		});
+	});
+});
+</script>

@@ -1,0 +1,431 @@
+@import "bourbon";
+@import "neat";
+
+$max-width: em(1139);
+$mobile: new-breakpoint(max-width em(739) 1);
+$tablet: new-breakpoint(max-width $max-width 1);
+
+@media (max-width: 1199px) {
+	.container {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+}
+
+@media (max-width: 739px) {
+	.admin-dashboard-link, .stream-sticker {
+		display: none;
+	}
+	.page-margin {
+		padding-top: 40px !important;
+	}
+	.error {
+		font-size: 50px;
+	}
+}
+
+
+.newsletter-home-signup-only-mobile {
+	display: none;
+}
+.mobile .newsletter-home-signup-only-mobile {
+	display: block;
+}
+
+.mobile .hide-mobile {
+	display: none;
+}
+
+.wf-loading {
+	visibility: hidden; //hide typekit FOUT, TODO: revisit
+}
+
+.lights-out { // menu dimmer
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 200;
+	opacity: 0;
+	background-color: #111;
+}
+
+section, div {	// TODO! clean this up! used from stream tease stuff
+    -webkit-transition: opacity 0.25s linear;  /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.25s linear;
+}
+
+.container {
+	@include outer-container;
+
+	.col4 {
+		@include span-columns(4);
+		@include media($mobile) {
+			@include span-columns(1);
+
+		}
+	}
+	.col8 {
+		@include span-columns(8);
+		@include media($mobile) {
+			@include span-columns(1);
+		}
+	}
+	.col8-shift4 {
+		@include span-columns(8);
+		@include shift(4);
+		@include media($mobile) {
+			@include span-columns(1);
+			@include shift(0);
+		}
+	}
+	.col12 {
+		@include span-columns(12);
+		@include media($mobile) {
+			@include span-columns(1);
+		}
+	}
+}
+
+// library
+
+@mixin mobile-position-static {
+	@include media($mobile) {
+		position: static;
+	}
+}
+
+@mixin font-detail {
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	letter-spacing: -0.2px;
+}
+
+@mixin font-detail-bold {
+	font-family: "Pressura", Courier;
+	font-weight: normal;
+	letter-spacing: -0.2px;
+}
+
+@mixin font-light-head {
+	font-family: "Miller", Georgia, serif;
+	font-weight: 500;
+}
+
+@mixin font-head {
+	font-family: "MillerBold", Georgia, serif;
+	font-weight: 500;
+}
+
+@mixin font-body {
+	font-family: "Utopia-Std", Georgia, serif;
+	font-weight: normal;
+	word-wrap: break-word;
+}
+
+@mixin animate {
+	webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+@mixin vertical-align {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+$bg: #111;
+$link: #ff0b3a;
+$timestamps: #888;
+$lightbg: #ececea;
+$mainbg: #f6f6f4;
+$mainrules: #cececc;
+$rules: #353535;
+$white: #fff;
+$black: #111;
+
+
+// site-wide
+// "fonts" is loaded separately
+@import "nav";
+
+// homepage
+@import "featured-block";
+@import "newsletter";
+@import "stream_promo";
+
+// article
+@import "article";
+@import "post_photo_essay";
+@import "post_annotation_2";
+@import "base_feature_header";
+
+// other pages
+@import "author";
+@import "static_page";
+@import "library";
+@import "letters";
+@import "newsletter_subscribe";
+
+@import "print";
+@import "donate";
+
+@import "topshelf";
+@import "topshelf_collection";
+
+@import "tag_collection";
+@import "collections";
+
+@import "collection_homepage";
+@import "audioplayer_1";
+
+@import "series";
+@import "email_signup";
+
+@import "landing-unbelievable";
+@import "g_google_form_v1";
+
+.lock-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+.stream-sticker {
+	z-index: 1000;
+	left: -900px;
+	padding: 0px;
+	margin: 0;
+	top: 250px;
+	position: fixed;
+	font-family: "Pressura";
+	text-transform: uppercase;
+	font-size: 14px;
+}
+
+.stream-sticker-timestamp {
+	@include font-detail;
+	text-transform: none;
+	margin-left: 8px;
+}
+
+.stream-sticker-date {
+	margin-top: 3px;
+	display: block;
+	@include font-detail;
+	color: $timestamps;
+	font-size: 14px;
+	margin-bottom: 54px;
+}
+
+.stream-promo-fullbleed .stream-sticker {
+	color: #FFF;
+	.stream-sticker-date {
+		color: $timestamps;
+	}
+}
+
+
+hr {
+	border: 0;
+	height: 1px;
+	background-color: $mainrules;
+	color: $mainrules;
+}
+
+a {
+	text-decoration: none;
+	color: $black;
+	@include animate;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: $link;
+	@include animate;
+}
+
+.clear {
+	clear:both;
+}
+
+.page-margin {
+	padding-top: 85px;
+}
+
+/* header */
+
+body {
+	background-color: $mainbg;
+    margin: 0;
+    padding: 0;
+    margin-top: 64px;
+    color: $black;
+}
+
+p {
+	margin-top: 0;
+}
+
+.big-tease-quote {
+	color: $white;
+	&:hover {
+		color: $mainbg;
+	}
+}
+
+.footer {
+	margin: 0 auto;
+	width: 300px;
+	padding-top: 30px;
+	padding-bottom: 50px;
+}
+
+.footer-logo-shim {
+	width: 100%;
+}
+
+.footer-logo {
+	display: block;
+	margin: 0 auto;
+	width: 20px;
+	height: 20px;
+	svg {
+		polygon {
+		fill: $mainrules;
+		@include animate;
+		}
+	}
+	svg:hover {
+		polygon {
+		fill: $link;
+		@include animate;
+		}
+	}
+}
+
+.footer-item {
+	text-transform: uppercase;
+	margin-bottom: 50px;
+	width: 24%;
+	padding: 20px;
+	display: inline-block;
+	@include font-detail-bold;
+	font-size: 12px;
+	height: 20px;
+	text-align: center;
+	a {
+		color: $mainrules;
+	}
+	a:hover {
+		color: $link;
+		text-decoration: none;
+	}
+	svg {
+		height: 16px;
+		width: 16px;
+		path{
+			fill: $mainrules;
+			@include animate;
+		}
+	}
+	svg:hover {
+		path {
+		fill: $link;
+		@include animate;
+		}
+	}
+}
+
+@media (max-width: 740px) {
+	.footer {
+		padding-top: 50px;
+	}
+	.footer-item {
+		width: 100%;
+		margin: 10px 0;
+		padding: 0px;
+	}
+	.footer-logo {
+		margin-top: 30px;
+	}
+}
+
+
+::-webkit-input-placeholder {
+    color: #999;
+}
+
+:-moz-placeholder {
+   color: #999;
+   opacity: 1;
+}
+
+::-moz-placeholder {
+   color: #999;
+   opacity: 1;
+}
+
+:-ms-input-placeholder {
+   color: #999;
+}
+
+/* error pages */
+.error-styles {
+  .error-page {
+    max-width: 400px;
+    margin: 0 auto;
+    padding-top: 300px;
+    padding-bottom: 300px;
+    color: #ffffff;
+    font-family: "PressuraLight", Courier;
+  }
+
+  .error-page p {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.3em;
+  }
+
+  .error-page a {
+    color: #ff0b3a;
+    text-decoration: none;
+  }
+
+  .error-page a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  .logo {
+    float: left;
+  }
+  .logo svg {
+      width: 30px;
+      padding: 0px !important;
+      margin-bottom: 30px;
+  }
+
+  .clear {
+    clear: both;
+  }
+}
+
+  @media (max-width: 400px) {
+    .error-styles {
+	    .error-page {
+	      margin-top: 100px;
+	      margin-bottom: 100px;
+	      padding-left:20px;
+	      padding-right: 20px;
+	    }
+	  }
+	}
+
+

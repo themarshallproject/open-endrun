@@ -1,0 +1,8 @@
+<ul>
+<% @files.each do |file| %>
+	<li data-mimetype="<%= file['mimeType'] %>">
+		<%= image_tag file['thumbnailLink'] %>
+		<%= link_to file['title'], admin_parse_spreadsheet_path(file['id']) %>
+	</li>
+<% end %>
+</ul>

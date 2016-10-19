@@ -1,0 +1,8 @@
+<h1>Editing Yahoo Post</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'All Yahoo Posts', yahoo_posts_path %><br>
+<br>
+<%= link_to 'Delete (Warning, no undo)', @yahoo_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+

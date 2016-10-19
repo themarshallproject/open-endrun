@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Yahoo Posts</h1>
+
+<ul>
+  <li><%= link_to "Yahoo RSS Feed", yahoo_rss_path %></li>
+  <li><%= link_to 'Create New Yahoo Post', new_yahoo_post_path %></li>
+</ul>
+<br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>TMP Post</th>
+      <th>Yahoo Title</th>
+      <th>Published?</th>
+      <th>Send Photo?</th>
+      <th>Potential Photo</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @yahoo_posts.each do |yahoo_post| %>
+      <tr>
+        <td><%= link_to yahoo_post.post.title, yahoo_post.post.path %></td>
+        <td><%= yahoo_post.title %></td>
+        <td>
+        <% if yahoo_post.published? %>
+          <div style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3D8B37;"></div> Yes
+        <% else %>
+          <div style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f00;"></div> No
+        <% end %>
+        </td>
+        <td>
+          <% if yahoo_post.lead_photo? %>
+          <div style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3D8B37;"></div> Yes
+        <% else %>
+          <div style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f00;"></div> No
+        <% end %>
+        </td>
+        <td><% photo = yahoo_post.post.featured_photo %>
+            <% if photo.present? %>
+              <%= image_tag photo.url_for(size: '360x'), width: '100px' %>
+            <% else %>
+              None
+            <% end %>
+        </td>
+        <td><strong><%= link_to 'Edit', edit_yahoo_post_path(yahoo_post) %></strong></td>
+        <td><%= link_to 'Preview Yahoo Version', yahoo_renderer_path(yahoo_post.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @yahoo_post.post_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @yahoo_post.title %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @yahoo_post.published %>
+</p>
+
+<%= link_to 'Edit', edit_yahoo_post_path(@yahoo_post) %> |
+<%= link_to 'All Yahoo Posts', yahoo_posts_path %>

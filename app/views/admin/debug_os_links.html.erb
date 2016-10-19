@@ -1,0 +1,9 @@
+<table>
+<% @assignments.each do |assignment| %>
+	<% if assignment.taggable.is_a? Link %>
+		<%= assignment.taggable.url %><br>
+		<%= assignment.taggable.short_token %><br>
+		<br>
+	<% end %>
+<% end %>
+</table>

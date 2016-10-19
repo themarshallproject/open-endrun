@@ -1,0 +1,77 @@
+<style>
+
+.weekly-newsletter-preview {
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	height: 100%;
+	z-index: 1;
+	width: 360px;
+}
+
+.weekly-newsletter-label {
+	margin-top: 20px;
+	font-weight: normal !important;
+}
+
+@media (max-width: 739px) { 
+	.weekly-newsletter-preview { display: none; }
+	.markdown-tools { display: none; }
+}
+
+</style>
+
+<div class="container">
+
+	<iframe class="weekly-newsletter-preview" src="<%= weekly_newsletter_build_path(weekly_newsletter_id: @weekly_newsletter) %>" frameborder="0" scrolling="yes"></iframe>
+
+	<div class="row" style="margin-top: 40px;">
+	    <div class="col-md-8">
+			<h1>Editing Weekly Newsletter</h1>
+			<%= render 'form' %>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 40px; margin-bottom: 40px;">
+	    <div class="col-md-8">
+	    	<label class="weekly-newsletter-label">Byline Helpers <small>(Ensure a space precedes the em-dash.)</small></label>
+			<% User.all.each do |user| %>
+				<div style="margin: 10px 0; background-color: lightgrey; padding: 5px; border-radius: 2px; border: 1px solid #ddd; ">
+					— *[<%= user.name %>](https://www.themarshallproject.org/staff/<%= user.slug %>)*
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="markdown-tools" style="border-right: 1px solid #ccc; border-left: none; right: auto; left: 0;">
+	<span class="markdown-link-tool"><span class="glyphicon glyphicon-link"></span></span>
+	<span class="markdown-bold-tool"><span class="glyphicon glyphicon-bold"></span></span>
+	<span class="markdown-italic-tool"><span class="glyphicon glyphicon-italic"></span></span>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('.markdown-link-tool').on('mousedown', function(e){
+		e.preventDefault();	
+		$this = $(':focus');
+		var url = prompt("URL:");	
+		console.log(url)
+		$this.surroundSelectedText("[", "]("+url+")");
+		make_dirty($this);
+	});
+	$('.markdown-bold-tool').on('mousedown', function(e){
+		$this = $(':focus');
+		e.preventDefault();		
+		$this.surroundSelectedText("**", "**");
+		make_dirty($this);
+	});
+	$('.markdown-italic-tool').on('mousedown', function(e){
+		$this = $(':focus');
+		e.preventDefault();		
+		$this.surroundSelectedText("*", "*");
+		make_dirty($this);
+	});
+
+});
+</script>

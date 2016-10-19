@@ -1,0 +1,51 @@
+<h1>Editing User</h1><br>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post_thread from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+   <div class="field">
+    <label><%= f.label :email %></label><br>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+   <div class="field"><br>
+    <label><%= f.label :name %></label><br>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+   <div class="field"><br>
+    <label><%= f.label :slug %></label><br>
+    <%= f.text_field :slug, class: 'form-control' %>
+  </div>
+  <div class="field"><br>
+    <label><%= f.label :twitter %></label><br>
+    <%= f.text_field :twitter, class: 'form-control' %>
+  </div>
+  <div class="field"><br>
+    <label><%= f.label :phone %></label><br>
+    <%= f.text_field :phone, class: 'form-control' %>
+  </div>
+  <div class="field"><br>
+    <label><%= f.label :title %></label><br>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="field"><br>
+    <label><%= f.label :bio %></label><br>
+    <%= f.text_area :bio, class: 'form-control', rows: '5' %>
+  </div>
+  <div class="field"><br>
+    <label><%= f.label :public_key %></label><br>
+    <%= f.text_area :public_key, class: 'form-control' %>
+  </div>
+  <div class="actions"><br>
+    <%= f.submit class: 'btn btn-success btn-block' %>
+  </div><br>
+<% end %>

@@ -1,0 +1,103 @@
+<section class="stream-collection stream-collection-facebook">
+<div class="topshelf-collection"
+     data-placement="<%= params[:action] %>"
+     data-default-tab="facebook"
+     data-config="<%= {
+     	breakpoints: [
+     		{min: nil,  max: 600,  panes: 1}, # inclusive on both ends
+     		{min: 501,  max: 800,  panes: 2},
+     		{min: 801,  max: 1140, panes: 3},
+     		{min: 1141, max: nil,  panes: 4},
+     	],
+     	gutter_width: 20
+     }.to_json %>">
+	<div class="topshelf-height-tester" style="position:absolute;left:-9999em;"></div>
+	<div class="container topshelf-container">
+		<div class="topshelf-wrapper">
+
+			<div class="topshelf-controls left-controls">
+
+				<div class="left-arrow">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 275.5 612 241" enable-background="new 0 275.5 612 241" xml:space="preserve"><g><line stroke="#000000" stroke-width="28" stroke-miterlimit="10" x1="37" y1="395.2" x2="606.3" y2="395.2"/><g><polygon points="0,394.2 125.2,277.5 145.2,300.3 42.7,394.2 145.2,491 125.2,510.9 		"/></g></g></svg>
+				</div>
+			</div><!-- .topshelf-controls -->
+
+			<% cache ['ts', 'stream', 'quickreads', 'v1', Post.published.order('revised_at DESC').first] do %>
+
+			<!-- generated <%= Time.now.utc.to_f %> -->
+			<div class="col8 ul-wrap">
+				<ul class="topshelf-collection-promos facebook-items">
+
+					<li>
+						<div class="topshelf-inner no-photo title-card">
+						  <div class="overlay no-hover">
+						    <div class="link" data-updated="For when you only have a few minutes">
+									<b>Quick Reads</b><a href="#"></a>
+								</div>
+						  </div>
+						</div>
+					</li>
+
+				<% Post.topshelf_quickreads.first(15).each do |post| %>
+
+					<% if post.featured_photo.present? %>
+						<li>
+							<div class="topshelf-inner" style="background-image: url('<%= post.stream_promo_photo_url %>')">
+
+							  <div class="overlay">
+							    <div class="link" data-updated="<%= (post.word_count / 250.0).round + 1 %> minute read">
+							      <div class="logo">
+							      </div>
+							      <a class="collections-js-link" href='<%= post.path + "?ref=tsqr_stream" %>'><%= post.title %>
+
+							      	</a>
+							    </div>
+							  </div>
+
+							</div>
+						</li>
+					<% else %>
+						<li>
+							<div class="topshelf-inner no-photo">
+							<%= link_to post.path + "?ref=tsqr_stream" do %>
+
+							  <div class="overlay">
+							    <div class="link" data-updated="<%= (post.word_count / 250.0).round + 1 %> minute read">
+							      <div class="logo">
+							      </div>
+							      <a class="collections-js-link" href='<%= post.path + "?ref=tsqr_stream" %>'><%= post.title %></a>
+							    </div>
+							  </div>
+
+							<% end %>
+							</div>
+						</li>
+					<% end %>
+				<% end %>
+
+			</ul>
+			</div><!-- .ul-wrap -->
+			<% end %>
+
+			<div class="topshelf-controls">
+				<div class="right-arrow">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+					 viewBox="0 275.5 612 241" enable-background="new 0 275.5 612 241" xml:space="preserve"><g><line stroke="#000000" stroke-width="28" stroke-miterlimit="10" x1="0" y1="395.2" x2="569.3" y2="395.2"/><g><polygon points="481.1,510.9 461.1,491 563.6,394.2 461.1,300.3 481.1,277.5 606.3,394.2 		"/></g></g></svg>
+				</div>
+			</div><!-- .topshelf-controls -->
+
+			<div class="nav-circles-wrapper">
+			<div class="nav-circles"></div> <!-- JS! -->
+			</div>
+
+		</div><!-- .topshelf-wrapper -->
+	</div><!-- .container -->
+</div><!-- .stream-topshelf -->
+</section>
+
+<script>
+	$(".stream-collection .overlay").click(function(){
+		window.location = $(this).find("a").attr("href");
+	})
+</script>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Asset:</strong>
+  <%= @asset_file.asset_id %>
+</p>
+
+<p>
+  <strong>S3 bucket:</strong>
+  <%= @asset_file.s3_bucket %>
+</p>
+
+<p>
+  <strong>S3 key:</strong>
+  <%= @asset_file.s3_key %>
+</p>
+
+<%= link_to 'Edit', edit_asset_file_path(@asset_file) %> |
+<%= link_to 'Back', asset_files_path %>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+    	html, body {
+    		margin: 0;
+    		padding: 0;
+    		background: "#f6f6f4";
+    		color: "#111111";
+    	}    	
+    	.container {
+    		background: "#f6f6f4";
+    		color: "#111111";
+    		width: 600px;
+    		max-width: 90%;
+    		margin: 0 auto;    		
+    	}
+    	h3 {
+    		margin: 0;
+    		margin-top: 20px;
+    	}
+    	a {
+    		color: red;
+    	}
+    	.link {
+    		margin-bottom: 20px;
+    		border-bottom: 1px solid '#111';
+    		padding-bottom: 20px;
+    	}
+    	.link-tag {
+    		padding-right: 5px;
+    		text-transform: uppercase;
+    	}
+    </style>
+  </head>
+  <body>
+  <div class="container background">  	
+  	<h2><%= @links.count %> new links</h2>
+    <% @links.each do |link| %>
+      <div class="link">
+      	<p>Created <%= time_ago_in_words link.created_at %> ago by <%= link.creator.name %></p>
+      	<p>
+      		<% link.taggings.each do |tagging| %>
+      			<% tag = tagging.tag %>
+      			<%= link_to tag.name, "#", class: 'link-tag' %>
+      		<% end %>
+  		</p>
+      	<h3><%= link_to link.og_title, link.url %></h3>
+      	<small><%= link.display_source %></small>
+      	<p><%= link.og_description.to_s.truncate(200) %></p>
+      </div>
+    <% end %>
+  </div>
+  </body>
+</html>

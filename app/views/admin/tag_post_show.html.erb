@@ -1,0 +1,57 @@
+<a href="/admin/tag-posts" class="btn btn-primary pull-right">Return to story list</a>
+<br>
+<br><br>
+<h4>You're currently tagging <b><%= link_to @post.title, @post.path %>:</b> <%= @post.deck %></h4>
+
+
+<hr>
+<span style="text-transform: uppercase;"><b>Search For a Tag</b><small style="margin-left: 5px;">You can also <a href="#" id="create_tag">create a new one.</a></small></span><br><br>
+
+<input class="search"></input><br><br>
+
+
+<div class="tagger">
+</div>
+
+<script>
+$(document).ready(function() {
+	var url = function(q) {
+		return "/admin/tag-posts/<%= params[:post_id] %>/search?q=" + q;
+	}
+	var updating = false;
+	var update = function(query) {
+		if (updating) {
+			setTimeout(function() {
+				update(query);
+			}, 500);
+			return;
+		}
+		updating = true;
+		$.get(url(query)).done(function(html) {
+			updating = false;
+			$('.tagger').html(html)
+		});
+	}
+	update('');
+	
+	var timer;
+	$('.search').on('keyup', function() {
+		clearTimeout(timer);
+		timer = setTimeout(function() {
+			update($('.search').val())
+		}, 250);
+	});
+
+	$(document).on('ajax:success', function() {
+		setTimeout(function() {
+			update($('.search').val())
+			
+		}, 150);
+	});
+
+	$('#create_tag').click(function(e) {
+		e.preventDefault();
+		window.open('/tags/new', 'akj2438vh', 'left=10,top=200,width=350,height=400,toolbar=1,resizable=0');
+	});
+});
+</script>

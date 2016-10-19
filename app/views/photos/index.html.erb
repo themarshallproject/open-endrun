@@ -1,0 +1,50 @@
+<h1>Photos <%= link_to "Upload Photos", upload_photo_path, class: 'btn btn-info pull-right' %></h1>
+
+<% if @page >= 1 %>
+<%= link_to "<< Prev ", photos_path(page: @page-1) %>
+<% end %>
+Page <%= @page+1 %> of <%= @total_pages %>
+<%= link_to " Next >>", photos_path(page: @page+1) %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Preview</th>
+      <th>Caption</th>
+      <th>Byline</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @photos.each do |photo| %>
+      <tr>
+
+        <td><%= photo.photo_inline_shortcode %></td>
+
+        <td><%= link_to edit_photo_path(photo) do %><%= image_tag(photo.url_for(size: '360x')) %><% end %></td></a>
+        <td style="max-width: 400px;"><%= photo.caption %></td>
+        <td style="width: 200px;"><%= photo.byline %></td>
+        <!--<td><%= photo.sizes.map{|k,_| k}.join(' ') rescue '?' %></td>-->
+        <td>
+          <%= link_to 'Edit', edit_photo_path(photo), class: 'btn btn-primary btn-block' %>
+          <%= link_to 'Delete', photo, method: :delete, class: 'btn btn-danger btn-block', data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<% if @page >= 1 %>
+<%= link_to "<< Prev ", photos_path(page: @page-1) %>
+<% end %>
+Page <%= @page+1 %> of <%= @total_pages %>
+<%= link_to " Next >>", photos_path(page: @page+1) %>
+
+
+
+<br>
+
+<!--<%= link_to 'New Photo', new_photo_path %>-->

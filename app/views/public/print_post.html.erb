@@ -1,0 +1,153 @@
+<% 
+content_for(:title) do
+	[@post.title, "The Marshall Project"].join(" | ")
+end
+
+content_for(:canonical_url) do
+	@post.canonical_url
+end
+%>
+
+<% content_for(:google_analytics_pageload) do %>
+var ga_pageview = {
+    dimension1: "<%= @post.google_analytics_config[:dimension1] %>",
+    dimension2: "<%= @post.google_analytics_config[:dimension2] %>"
+  } 
+<% end %>
+
+<% content_for(:stream_config_js) do %>
+window.stream_config.is_post_hottub = true;
+window.stream_config.featured_block_config = <%= (params['_hp'] || '').gsub(/[^0-3-]/, "").to_json.html_safe %>;
+<% end %>
+
+<style>
+body {
+	margin: 0 !important;
+	background-color: #ffffff;
+}
+
+.print-wrapper .photo .meta .byline {
+font-family: PressuraLight !important;
+}
+
+p, a, span, div {
+	font-family: "Utopia-Std";
+	font-weight: normal;
+	word-wrap: break-word;
+	font-size: 14px;
+	line-height: 1.5em;
+	margin-bottom: 16px;
+}
+.print-wrapper article > * {
+	float: none  !important;
+	display: block;
+	margin-right: 0 !important;
+	width: 100%;
+	margin-left: 0 !important;
+}
+.print-wrapper {
+	width: 700px;
+	margin: 0 auto;
+}
+.print-header {
+	background-color: #111;
+	padding: 20px 20px 10px 20px;
+}
+.print-header img {
+	height: 30px;
+}
+.print-content {
+	padding-top: 20px;
+}
+.print-wrapper h4 { 
+	font-weight: normal;
+}
+
+.print-wrapper .photo img {
+	margin-top: 0px;
+	width: 50%;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	float: left;
+}
+
+.print-wrapper .photo .meta {
+	width: 50%;
+	font-size: 14px !important;
+	margin-bottom:50px;
+	float: left;
+}
+
+.print-wrapper .photo .meta .caption {
+	margin-top: 0px;
+	line-height: 14px;
+}
+
+.print-wrapper .sans-serif-dropcap, .serif-dropcap {
+  font-size: 50px;
+  line-height: 50px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+}
+
+.photo-sidebar {
+	display: none !important;
+}
+
+.print-wrapper .photo .meta .caption p {
+margin-top: 0px;
+text-transform: uppercase;
+font-size: 12px;
+line-height: 14px !important;
+}
+
+.print-footer {
+	margin-top: 50px;
+}
+
+.print-header-url {
+	float: right;
+	font-family: MillerBold;
+	color: #ffffff;
+	font-weight: 500;
+	margin-top: 10px;
+}
+
+</style>
+
+<div class="print-wrapper">
+
+	<div class="print-header">
+		<%= image_tag 'm-standard.png' %>
+		<div class="print-header-url">themarshallproject.org</div>
+	</div>
+	<div class="print-content">
+		<h1><%= @post.title %></h1>
+		<h3><%= @post.deck %></h3>
+		<h4><%= @post.byline.html_safe %>. Posted on <%= @post.published_at.strftime("%A, %B %e, %Y at %l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.') %></h4>
+		<%= PrintRenderer.new(@post).render() %>
+	</div>
+	<div class="print-footer">
+	<b>The Marshall Project</b><br>
+	156 West 56th Street, Suite 701<br>
+	New York, NY 10019<br>
+	212-803-5200<br>
+	</div>
+
+</div>
+
+<script>
+$(document).ready(function() {
+       $('header').remove();
+       $('.menu-wrapper').remove();
+       $('aside').remove();
+       $('.letter-tools').remove();
+       $('.post-footer').remove();
+       $('.footer').remove();
+       $('.DC-note').remove();
+       $('.DV-container').remove();
+       setTimeout(function() {
+               window.print();
+       }, 2000);
+});
+</script>

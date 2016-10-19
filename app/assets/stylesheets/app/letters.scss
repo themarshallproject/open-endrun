@@ -1,0 +1,203 @@
+/* submit_letter */
+
+.letter-submit-form {
+	.checkbox {		
+		-webkit-appearance: checkbox;
+	}
+}
+
+.letter-submit-button {
+	input {
+		padding: 0px !important;
+		margin-bottom: 10px;
+		text-align: center;
+		float: right;
+		background-color: $timestamps;
+		border: none;
+		width: 78px;
+		color: $white;
+		@include animate;
+	}
+	input:hover {
+		cursor: pointer;
+		background-color: $link;
+		color: $black;
+	}
+	input:focus {
+		outline: 0;
+	}
+}
+
+.letter-field {
+	@include font-detail;
+	font-size: 14px;
+	line-height: 18px;
+	margin-bottom: 10px;
+	span {
+		color: $link;
+	}
+}
+
+.letter-field-subtext {
+	@include font-detail;
+	color: $timestamps;
+	font-size: 12px;
+	margin-bottom: 10px;
+	span {
+		color: $link;
+	}
+}
+
+letter-head {
+	margin-bottom: 100px;
+}
+
+.letter-float {
+	float: left;
+	margin-bottom: 10px;
+}
+
+.letter-checkbox {
+	margin-left: 20px;
+	margin-top: 3px;
+	float: left;
+	width: 20px;
+	input {
+		height: 20px;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.letter-checkbox-subtext {
+	margin-top: 2px;
+	margin-bottom: 30px;
+	margin-left: 5px;
+	float: left;
+	@include font-detail;
+	color: $white;
+	font-size: 12px;
+}
+
+.letter-checkbox-container {
+	float: left;
+	margin-left: 40px;
+}
+
+@media (max-width: 1140px) {
+	.letter-checkbox-container {
+		clear: both;
+		margin-left: 0;
+	}
+	.letter-submit-button {
+	input {
+		width: 100%;
+	}
+	}
+}
+
+
+.letter-kicker {
+	@include font-detail-bold;
+	font-size: 14px;
+	margin-bottom: 30px;
+	text-transform: uppercase;
+	span {
+		@include font-detail;
+		font-size: 12px;
+		color: $timestamps;
+		text-transform: none;
+		display: inline-block;
+	}
+	span:first-letter {
+	    text-transform: uppercase;
+	}
+	a {
+		color: $link;
+	}	
+}
+
+.letter-headline {
+   font-family: 'MillerItalic';
+   font-size: 40px;
+   font-weight: 500;
+   line-height: 1.33em;
+   margin-bottom: 30px;
+}
+	
+.letter-deck {
+	@include font-detail-bold;
+	font-size: 14px;
+	text-transform: uppercase;
+	line-height: 1.66em;
+	margin-top: -13px;
+	background-color: $mainbg;
+	color: $mainrules;
+	display: table;
+	margin-bottom: 30px;
+	margin-left: -10px;
+	padding-left: 10px;
+	padding-right: 13px;
+	a {
+		text-decoration: underline;
+	}
+}
+
+.letter-line {
+	margin-top: 30px;
+	height: 1px; 
+	background-color: $mainrules;
+}
+
+@media (max-width: 740px) {
+
+	.letter-line {
+		display: none;
+	}
+
+}
+
+.letter-byline {
+	@include font-detail;
+	font-size: 12px;
+	color: $bg;
+	margin-bottom: 75px;
+	span {
+		@include font-detail-bold;
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+	a {
+		color: $link;
+	}
+}
+
+.letter-short-rule {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 60px;
+	border-top: 1px solid $black;
+}
+
+.letter-quote {
+	@include font-head;
+	font-size: 130px;
+	line-height: 0px;
+	margin-top: 105px;
+	margin-bottom: -15px;
+}
+
+.letter-footer {
+	margin-top: 40px;
+}
+
+@media (max-width: 740px) {
+	.letter-checkbox {
+	margin-left: 0px;
+	clear: both;
+	}
+	.letter-headline {
+		margin-top: 30px;
+		font-size: 25px;
+	}
+}

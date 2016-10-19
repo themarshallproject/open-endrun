@@ -1,0 +1,199 @@
+.static-margin {
+	margin-top: 165px;
+}
+
+.static-logo {
+	margin-bottom: 40px;
+	img {
+		width: 200px;
+	}
+}
+
+.static-title {
+	@include font-detail;
+	font-size: 50px;
+	line-height: 1.2em;
+	letter-spacing: -2.5px;
+	margin-bottom: 30px;
+	margin-left: -2px;
+	max-width: 270px;
+}
+
+.static-desc {
+	@include font-detail;
+	font-size: 14px;
+	line-height: 1.7em;
+	max-width: 250px;
+	margin-top: 30px;
+	letter-spacing: -.2px;
+	margin-bottom: 80px;
+	span {
+		text-transform: uppercase;
+		@include font-detail-bold;
+	}
+}
+
+.static-short-rule {
+	width: 50px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	display: block;
+	border-top: 1px solid $white;
+}
+
+.static-anchor {
+	margin-top: 30px;
+	font-family: "PressuraLight";
+	font-size: 15px; 
+	text-transform: uppercase;
+	a {
+		color: $link;
+		text-decoration: none;
+		display: block;
+		margin-bottom: 8px;
+	}
+	a:hover {
+		color: $link;
+		text-decoration: underline;
+	}
+}
+
+.static-anchor-land {
+	position:absolute; 
+	top: -100px;
+}
+
+.static-anchor-shim {
+	position: relative;
+}
+
+
+.static-page {
+	h1 {
+		margin-top: 80px;
+		margin-bottom: 30px;
+		line-height: 1.3em;
+		@include font-detail;
+		font-size: 35px;
+		color: $timestamps;
+	}
+	h3 {
+		font-size: 17px;
+		line-height: 25px;
+		margin-bottom: 20px;
+		display: block;
+		font-family: "PressuraLight";
+		font-weight: normal;
+		letter-spacing: 6px;
+		color: white;
+		text-transform: uppercase;
+		padding-top: 10px;
+		a {
+			text-decoration: none;
+			color: $link;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	h4 {
+		font-size: 17px;
+		margin-bottom: 5px;
+		display: block;
+		font-family: "PressuraLight";
+		font-weight: normal;
+		color: white;
+		text-transform: none;
+		margin-top: 0px;
+		margin-bottom: 10px;
+	}
+	article p {
+		font-size: 21px;
+		line-height: 1.5em;
+	}
+}
+
+.masthead-big-names, .masthead-names {
+	font-size: 12px;
+	text-transform: none;
+	@include font-detail;
+	color: $white;
+	span {	
+		color: $timestamps;	
+		@include font-detail;
+	}
+	a {
+		color: $link;
+	}
+}
+
+.masthead-big-names {
+	font-size: 22px;
+	line-height: 30px;
+	span {
+		font-size: 14px;
+		display: block;
+	}
+}
+
+.masthead-no-margin {
+	margin-top: 0px;
+}
+
+.masthead-names {
+	text-transform: uppercase;
+	font-size: 15px;
+	line-height: 30px;
+	span {
+		text-transform: none !important;
+		font-size: 12px;
+	}
+}
+
+.static-content {
+	min-height: 500px;
+	margin-bottom: 75px;
+		p {
+			a {
+			color: $white !important;
+			}
+			a:hover {
+			color: $link !important;
+			}
+		}
+}
+
+.static-page h1:first-of-type {
+	margin-top: -8px;
+}
+
+@media (max-width: 740px) {	
+	.static-page {
+		h1 {
+			font-size: 30px;
+		}
+		article p {
+			font-size: 18px;
+			margin-left: 0px;
+			width: 100%;
+		}
+	}
+	.static-logo {
+		margin-bottom: 20px;
+		img {
+			width: 100px;
+		}
+	}	
+	.static-margin {
+		margin-top: 125px;
+	}
+	.static-title {
+		margin-bottom: 20px;
+		max-width: 100%;
+		font-size: 30px;
+		letter-spacing: none;
+	}
+	.static-desc { 
+		max-width: 100%;
+	}
+}

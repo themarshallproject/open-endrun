@@ -1,0 +1,29 @@
+<%= form_for(@asset_file) do |f| %>
+  <% if @asset_file.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@asset_file.errors.count, "error") %> prohibited this asset_file from being saved:</h2>
+
+      <ul>
+      <% @asset_file.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :asset_id %><br>
+    <%= f.number_field :asset_id %>
+  </div>
+  <div class="field">
+    <%= f.label :s3_bucket %><br>
+    <%= f.text_field :s3_bucket %>
+  </div>
+  <div class="field">
+    <%= f.label :s3_key %><br>
+    <%= f.text_area :s3_key %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

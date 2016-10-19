@@ -1,0 +1,50 @@
+
+		<div class="jumbotron dash-jumbo">
+		  <%= link_to new_post_path do %>
+			  <%= image_tag "m-white.svg", style:"width: 150px; padding: 0px !important;" %>
+		  <% end %>
+		  <h5 class="dash-name">Welcome to EndRun.</h5>
+		</div>
+
+		<p class="dash-buttons">
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-file"></span> <%= link_to "Posts", admin_posts_index_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-envelope"></span> <%= link_to "Daily Newsletters", newsletters_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-envelope"></span> <%= link_to "Weekly Newsletters", weekly_newsletters_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-picture"></span> <%= link_to "Photos", photos_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-pencil"></span> <%= link_to "Letters", letters_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-tags"></span> <%= link_to "Tags", tags_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-link"></span> <%= link_to "Links", links_path %></button>
+						<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-th-large"></span> <%= link_to "Homepages", featured_blocks_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-folder-close"></span> <%= link_to "Documents", documents_path %></button>
+
+
+						<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-info-sign"></span> <a href="http://bit.ly/1oDt55j">Documentation</a></button>
+<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-star"></span> <%= link_to "Outcome Tracker", outcome_tracker_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> <%= link_to "Users", users_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-list-alt"></span> <%= link_to "Pages", static_pages_path %></button>
+
+		</p>
+
+		<hr>
+		<p class="dash-buttons">
+					<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-certificate"></span> <%= link_to "Quizbuilder", quizbuilder_index_path %></button>
+
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-stats"></span> <%= link_to "Graphics", graphics_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-star"></span> <%= link_to "Visuals Style Guide", style_guide_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-cloud-upload"></span> <%= link_to "Send-to-S3", quick_s3_upload_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-cloud-download"></span> <%= link_to "Story Converter", admin_all_google_docs_path %></button>
+			<button type="button" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-cloud-download"></span> <%= link_to "Spreadsheet Extractor", admin_all_spreadsheets_path %></button>
+		</p>
+
+		<br><br><br>
+
+		<p class="dash-buttons">
+			<strong style="margin-left: 15px; margin-right: 10px;">Bookmarklets</strong>
+
+			<button type="button" class="btn btn-link"><span class="glyphicon glyphicon-link"></span> <a href='javascript:(function(){window.TMPGatorBase="<%= ENV['GATOR_PROXY_BASE'] %>"})();<%= @js %>'>Gator</a></button>
+
+			<button type="button" class="btn btn-link"><span class="glyphicon glyphicon-link"></span> <a href='javascript:window.location="<%= request.protocol + request.host_with_port %>/admin/ingress/google_drive/parse_url?url="+window.location'>Markdownify</a></button>
+
+			<button type="button" class="btn btn-link"><span class="glyphicon glyphicon-link"></span> <a href="javascript:(function(){window.location=window.location.pathname+'?edit'})();">Edit</a></button>
+		</p>
+</div>

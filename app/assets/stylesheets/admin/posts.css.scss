@@ -1,0 +1,157 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.er-markdown-tools {
+	z-index: 100;
+	position: fixed;
+	right: 0;
+	width: 55px;
+	padding: 0px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-right: none;
+	span {
+		cursor: pointer;
+		border-bottom: 1px solid #ccc;
+		font-size: 11px;
+		line-height: 0.8em;
+		padding-top: 15px;
+		width: 55px;
+		height: 40px;
+		display: block;
+		text-align: center;
+	}
+	span:last-child {
+		border: none;
+	}
+	span:hover {
+		background-color: #5bc0de;
+		color: #fff;
+	}
+}
+
+.post-index-body, .article-single-body {
+	background: #EEE;
+}
+.post-index-narrow {
+	max-width: 94%;
+	width: 600px;
+
+	margin: 0px auto;	
+	
+	
+}
+
+.post-submit-letter-to-editor {
+	border-bottom: 2px solid #222;
+}
+
+.first-seen {
+	&:before {
+	 	content: ' ';
+	 	background: green;
+	 	color: white;
+	 	width: 8px;
+	 	height: 8px;
+	 	margin-right: 4px;
+	 	border-radius: 16px;
+	 	display: inline-block;
+	}
+}
+
+.post-header {
+	text-align: center;
+	color: #FFF;
+	font-size: 14px;
+	&.trawl {
+		background: #0a7223;
+	}
+	&.stub {
+		background: #0d486a;
+	}
+	&.follow {
+		background: blue;
+	}
+}
+
+.attach-to-thread {
+	border: 1px solid #CCC;
+	padding: 10px;
+	margin: 10px;
+}
+
+
+.inactive-thread-post {
+	opacity: 0.8;
+	background: #EFEFEF;
+} 
+
+.post-editor-sticky-tools {
+	border: 1px solid #ccc;
+	border-right: none;
+	z-index: 100;
+	background: #fff;
+	position: fixed;
+	top: 142px;
+	padding-left: 10px;
+	right: 0;
+	.inner {
+		padding-bottom: 10px;
+		width: 90px;
+		margin: 0 auto;
+	}
+	
+}
+.post-editor-sticky-subtext {
+	padding-left: 2px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width:50px;
+	line-height: 1.2em;
+	text-transform: uppercase;
+	font-size: 10px;
+	font-weight: bold;
+}
+.post-editor-sticky-tools-shim {
+	height: 70px;
+}
+
+.md-preview {
+	padding: 30px;
+	font-size: 23px !important;
+	line-height: 36px;
+	font-family: 'utopia-std' !important;
+	p {
+	margin-bottom: 36px;
+	}
+	a {
+	color: #000;
+	border-bottom: 1px solid #ff0b3a;
+	}
+
+	article p a:hover {
+		text-decoration: none !important;
+		-webkit-text-stroke-width: .5px;
+		-webkit-text-stroke-color: #ff0b3a;
+		webkit-transition: -webkit-text-stroke-width 0.25s ease-in-out;
+			-moz-transition: -webkit-text-stroke-width 0.25s ease-in-out;
+			-o-transition: -webkit-text-stroke-width 0.25s ease-in-out;
+			-webkit-transition: -webkit-text-stroke-width 0.25s ease-in-out;
+			transition: -webkit-text-stroke-width 0.25s ease-in-out;
+	}
+}
+
+.md-header, .btn-toolbar {
+	display: none !important;
+}
+
+.md-editor>textarea {
+	border-top: none;
+	border-bottom: none;
+}
+
+.max-char-counter {
+	font-size: 10px;
+}

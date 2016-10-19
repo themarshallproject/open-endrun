@@ -1,0 +1,13 @@
+<% @stream.items.each do |item| %>	
+	<% # some serious polymorphic shit about to happen, get ready now: %>
+	<% begin %>
+		<%= render partial: "public/stream/#{item.class.model_name.singular}", locals: { item: item } %>
+	<% rescue %>
+		<!-- ERROR rendering <%= item.class.model_name.singular %> <%= item.id %> -->
+		<% logger.error "ERROR RENDERING STREAM PROMO #{item.class.model_name.singular} #{item.id}" %>
+	<% end %>
+<% end %>
+
+<% if @stream.infinite? %>
+	<span class="bottom-of-stream"></span>
+<% end %>

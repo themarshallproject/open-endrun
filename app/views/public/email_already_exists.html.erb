@@ -1,0 +1,23 @@
+<% content_for(:body_classes) { " light-on-dark " } %>
+
+<div class="container page-margin static-page">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="static-logo">
+					<%= image_tag "static-m.svg" %>
+				</div>
+				<div class="static-title">
+					Subscribe
+				</div>
+				<div class="static-desc">
+				
+				</div>
+			</div>
+		</aside>
+		<div class="static-content">
+			<h1>Already a Subscriber</h1>
+			<p><%= params[:email] %> is already subscribed to Opening Statement. If you want to update your subscription preferences, click the link at the bottom of the newsletter.</p>
+		</div>
+	</article>
+</div>

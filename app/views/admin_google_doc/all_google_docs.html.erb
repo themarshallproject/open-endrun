@@ -1,0 +1,12 @@
+<%= link_to "Deauthorize Google Docs", admin_google_doc_unset_token_path, method: :post %>
+
+<a href='javascript:window.location="<%= request.protocol + request.host_with_port %>/admin/ingress/google_drive/parse_url?url="+window.location'>markdownify</a>
+
+<ul>
+<% @files.each do |file| %>
+	<li>
+		<%= image_tag file['thumbnailLink'] %>
+		<%= link_to file['title'], admin_parse_doc_path(file['id']) %>
+	</li>
+<% end %>
+</ul>

@@ -1,0 +1,29 @@
+<%= form_for(@post_lock) do |f| %>
+  <% if @post_lock.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post_lock.errors.count, "error") %> prohibited this post_lock from being saved:</h2>
+
+      <ul>
+      <% @post_lock.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :post_id %><br>
+    <%= f.number_field :post_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :acquired_at %><br>
+    <%= f.datetime_select :acquired_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

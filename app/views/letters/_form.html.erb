@@ -1,0 +1,70 @@
+<%= form_for(@letter) do |f| %>
+  <% if @letter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@letter.errors.count, "error") %> prohibited this letter from being saved:</h2>
+
+      <ul>
+      <% @letter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :post_id %>:
+    <%= @letter.post.title rescue 'None' %><br>
+  </div><br>
+
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :email %><br>
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :twitter %><br>
+      <%= f.text_field :twitter, class: "form-control" %>
+    </div>
+  </div><br>
+  <div class="field">
+    <label>City and State</label>
+    <%= f.text_area :street_address, rows: "1", class: "form-control" %>
+  </div><br>
+  <div class="field">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.label :status %> <%= f.select :status, @letter.statuses.map{|status| [status.capitalize, status]} %> 
+      </div>
+      <div class="col-md-4">
+        <label class="checkbox-inline">
+          <%= f.check_box :is_anonymous, class: "checkbox" %> Not for publication 
+        </label>
+      </div>
+      <div class="col-md-4">
+        <label class="checkbox-inline">
+          <%= f.check_box :stream_promo, class: "checkbox" %> Stream? <small style="text-transform: uppercase;"> This puts it in the stream on homepage.</small>
+        </label>
+      </div>
+    </div><br>
+  </div>
+
+  Published at:
+  <%= f.datetime_select :published_at %>
+  <a href="#" class="set-to-now label label-success" data-target="#letter_published_at">NOW</a>
+
+  <div class="field">
+    <%= f.label :excerpt %><br>
+    <%= f.text_area :excerpt, class: "form-control" %>
+  </div><br>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content, class: "form-control", rows: "20" %>
+  </div><br>
+  <div class="actions">
+    <%= f.submit class: 'btn-success btn btn-block btn-lg'  %>
+  </div><br>
+<% end %>

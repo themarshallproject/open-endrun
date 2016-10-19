@@ -1,0 +1,50 @@
+<% twitter_url  = post.canonical_url + "?" + post.social_query_params(utm_source: 'twitter',  utm_content: 'post-top') %>
+<% facebook_url = post.canonical_url + "?" + post.social_query_params(utm_source: 'facebook', utm_content: 'post-top') %>
+<% email_url    = post.canonical_url + "?" + post.social_query_params(utm_source: 'email', utm_medium: 'email', utm_content: 'post-top') %>
+
+<div class="share-tools">
+	<div class="share-button" data-action="facebook">
+			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M8.3,15.5c0-1.2,0-2.3,0-3.5c0-0.8-0.1-1.5-1.1-1.5c-1.4,0.1-1.4-0.8-1.4-1.8c0-0.9,0.1-1.7,1.3-1.6
+		c1.7,0.1,1.2-1.3,1.2-2.1c0.3-3.5,1.4-4.5,4.9-4.4c1,0,2-0.2,2,1.4c0,1.2,0,2.1-1.6,2c-1.2-0.1-1.5,0.7-1.5,1.8
+		c0,1.2,0.6,1.4,1.6,1.4c0.7,0,1.7-0.1,1.4,1.1c-0.2,0.9,0.3,2.3-1.3,2.2c-1.6,0-1.7,0.8-1.7,2c0.1,2.2,0,4.3,0,6.5
+		c0.1,1.5-0.8,1.5-1.9,1.5c-1.1,0-2,0-1.9-1.5C8.4,17.8,8.3,16.7,8.3,15.5z"/></g></svg>
+			<a href="https://www.facebook.com/sharer/sharer.php?u=<%= escape_url(facebook_url).html_safe %>" onclick="window.open(this.href, '', 'height=279,width=575'); return false;" class="share-button-link"></a>
+	</div>
+	<div class="share-button" data-action="twitter">
+			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M1.2,16.9c1.9-0.2,3.4-0.4,5.1-1.8c-3.2-0.2-3.3-3.2-3.9-4.9C1.7,8.4,0.7,5.8,2,3.3
+		c1.9,1.8,3.9,3.2,6.2,3.8c1.3,0.3,2,0.4,2.3-1.4c0.4-2.7,3-3.9,5.5-2.9c0.7,0.3,1.3,0.7,2.3,0.7c1.1,0,1.8,1.2,1,2.1
+		c-0.8,0.9-0.9,1.9-1,2.9C17.4,16.6,8.5,21.2,1.2,16.9z"/></g></svg>
+			<a href="https://twitter.com/intent/tweet?text=<%= post.metadata_provider.tweet_intent_headline %>&url=<%= escape_url(twitter_url).html_safe %>&via=MarshallProj" class="share-button-link"></a>
+	</div>
+
+	<div class="share-button" data-action="mailto">
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><g><path fill="#111111" d="M0.9,7.2c0,3.6,0,7.2,0,10.7c6.4,0,12.7,0,19.1,0c0-3.6,0-7.1,0-10.7c-0.2,0.1-0.3,0.1-0.5,0.2
+			c-2.9,1.4-5.7,2.7-8.6,4.1c-0.3,0.1-0.6,0.2-0.9,0c-1.5-0.7-3-1.4-4.4-2.1C4.1,8.7,2.6,8,0.9,7.2z M0.9,3.4c0,0.6,0,1.1,0,1.7
+			c0,0.1,0.2,0.3,0.3,0.4c3,1.4,5.9,2.9,8.9,4.3c0.2,0.1,0.5,0.1,0.7,0c3-1.4,6-2.9,8.9-4.3c0.1-0.1,0.3-0.2,0.3-0.3
+			c0-0.6,0-1.1,0-1.7C13.7,3.4,7.3,3.4,0.9,3.4z"/><path fill="#111111" d="M0.9,7.2C2.6,8,4.1,8.7,5.6,9.5c1.5,0.7,3,1.4,4.4,2.1c0.3,0.2,0.6,0.1,0.9,0c2.9-1.4,5.7-2.7,8.6-4.1
+			c0.1-0.1,0.3-0.1,0.5-0.2c0,3.6,0,7.1,0,10.7c-6.4,0-12.7,0-19.1,0C0.9,14.4,0.9,10.9,0.9,7.2z"/><path fill="#111111" d="M0.9,3.4c6.4,0,12.7,0,19.1,0c0,0.6,0,1.1,0,1.7c0,0.1-0.2,0.3-0.3,0.3c-3,1.4-5.9,2.9-8.9,4.3
+			c-0.2,0.1-0.5,0.1-0.7,0c-3-1.4-5.9-2.8-8.9-4.3C1.1,5.3,1,5.2,0.9,5C0.9,4.5,0.9,3.9,0.9,3.4z"/></g></g></svg>
+			<a class="share-button-link" href="mailto:?subject=<%= post.title %> (The Marshall Project)&body=<%= escape_url(email_url).html_safe %>"></a>
+	</div>
+	<div class="share-button" data-action="print">
+			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M5.2,6.6c0-2.2,0-4.4,0-6.6c3.4,0,6.7,0,10.1,0c0,2.2,0,4.4,0,6.6C12,6.6,8.6,6.6,5.2,6.6z"/><path fill="#111111" d="M21,6c-2,0-3,0-4,0c0,1,0,2,0,2C12,8,9,8,3,8c0-1,0-1,0-2c0,0-1,0-3,0c0,4,0,7,0,11c2,0,2.6,0,3.9,0
+		c-0.4,1-0.8,2-1.2,4c5.1,0,10.1,0,15.2,0c-0.4-2-0.8-3-1.2-4c1.3,0,2.3,0,4.3,0C21,13,21,10,21,6z M18,14.2c0,0-1.1,0-1.6,0
+		c-0.1,0-0.2-0.1-0.3-0.2c-0.1-0.2-0.1-0.4-0.2-0.6c-0.1-0.1-0.3-0.3-0.4-0.3c-3.5,0-7.1,0-10.6,0c0,0-0.1,0-0.1,0
+		c0,0-0.1,0.5-0.1,0.5c-0.4,1-0.4,1.4-1.4,1.4C3.1,15,3,15,3,15c0-1,0-3,0-4c5,0,10,0,15,0C18,12,18,13.4,18,14.2z"/></g></svg>
+
+			<%  # todo: this is not a good place to do this
+				print_path = public_print_post_path(
+					year:  post.published_at.strftime('%Y'),
+					month: post.published_at.strftime('%m'),
+					day:   post.published_at.strftime('%d'),
+					slug:  post.slug,
+				) rescue '#'
+			%>
+			<a class="share-button-link" href="<%= print_path %>" target="_blank"></a>
+	</div>
+</div>
+

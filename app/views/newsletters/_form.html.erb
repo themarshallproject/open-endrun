@@ -1,0 +1,50 @@
+<%= form_for(@newsletter) do |f| %>
+  <% if @newsletter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@newsletter.errors.count, "error") %> prohibited this newsletter from being saved:</h2>
+
+      <ul>
+      <% @newsletter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control" %><br>
+  </div>
+  <div class="field">
+    <%= f.label :email_subject %><br>
+    <%= f.text_field :email_subject, class: "form-control" %><br>
+  </div>
+  <div class="field">
+    <%= f.label :blurb %><br>
+    <%= f.text_area :blurb, class: "form-control" %>
+  </div>
+<br>
+  <div class="field">
+    <%= f.label :published_at %><br>
+    <%= f.datetime_select :published_at, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <b>Public?</b>
+    <%= f.check_box :public, class: "form-control"  %>
+  </div>
+
+  <br>
+  <div class="field">
+    "Byline"<br>
+    Default: (leave blank to use this)
+    <pre><%= 'Edited by <a href="https://www.themarshallproject.org/staff/andrew-cohen" style="color: #ff0b3a; text-decoration: none; font-size: 13px; text-transform: uppercase;">Andrew Cohen</a>' %></pre>
+    <%= f.label :byline %><br>
+    <%= f.text_area :byline, class: "form-control" %>
+  </div>
+
+  <div class="actions"><br>
+    <%= f.submit class: "btn btn-success" %>
+  </div>
+<% end %>
+

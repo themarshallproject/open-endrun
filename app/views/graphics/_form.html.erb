@@ -1,0 +1,36 @@
+<%= form_for(@graphic) do |f| %>
+  <% if @graphic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@graphic.errors.count, "error") %> prohibited this graphic from being saved:</h2>
+
+      <ul>
+      <% @graphic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br>
+
+  <div class="actions">
+    <%= f.submit "Save", class: "btn btn-success pull-right", style: 'margin-top:-69px; margin-right:70px; z-index:9000; position: relative;' %>
+  </div>
+
+  <br>
+
+  <div class="field">
+    <%= f.label :slug %><br>
+    <%= f.text_field :slug, class: "form-control" %>
+  </div>
+
+  <br>
+
+
+  <div class="field">
+    <label>Source</label>
+    <%= f.text_area :html, class: "form-control", rows: "500", style: "font-family: Courier;" %>
+  </div>
+
+
+<% end %>

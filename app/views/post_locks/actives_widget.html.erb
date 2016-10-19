@@ -1,0 +1,10 @@
+<small>Currently Being Editing</small><br>
+<ul>
+<% @post_locks.each do |post_lock| %>
+	<li>
+		<small><%= post_lock.last_seen %></small>
+		<b><%= post_lock.post.title rescue "post_id:#{post_lock.post_id}" %></b> 
+		(<%= post_lock.user.name rescue 'unknown' %>)
+	</li>
+<% end %>
+</ul>

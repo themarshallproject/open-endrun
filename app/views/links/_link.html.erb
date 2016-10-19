@@ -1,0 +1,41 @@
+<% cache ['link_row', link, 'v4'] do %>
+<tr class="link-row link-type <%= link.valid_url? ? '' : 'link-row-invalid-url' %>" data-link-id="<%= link.id %>" data-created-at="<%= link.created_at.utc.to_i %>">
+	<td>
+		<% if link.valid_url? == false %>
+			<h3>INVALID URL</h3>
+		<% end %>
+
+		<% if link.photo.present? %>
+			<div class="link-og-image" style="background-image: url('<%= link.photo.url_for(size: '360x') rescue nil %>')"></div>
+		<% end %>
+	</td>
+	<td>
+		<p class="link-head"><%= link_to link.title, link.url %> <strong class="link-source"><%= link_to link.domain.gsub('www.', ''), "http://#{link.domain}" %></strong></p>
+		</td>
+
+	<td><p><%= link.creator.email.split('@').first %> on <%= link.created_at.to_s(:full_date) %></p></td>
+
+	<td><p><%= link.facebook_count %></p></td>
+
+	<td class="<%= link.tags.count == 0 ? 'no-tags' : '' %>">
+		<p>
+		<% taggings = link.taggings %>
+		<% taggings_count = taggings.count %>
+		<% taggings.each_with_index do |tagging, index| %>
+			<%= link_to tagging&.tag&.name, collections_show_path(tagging.tag) %><%= index < taggings_count-1 ? ',' : '' %>
+		<% end %>
+		</p>
+	</td>
+
+	<td>
+		<%= link_to 'Edit', edit_link_path(link), class: 'btn btn-primary btn-block' %>
+		<% if link.approved == true %>
+			<%= link_to 'Public', reject_link_path(link),  method: :post, remote: true, class: 'btn btn-success btn-block' %>
+		<% else %>
+			<%= link_to 'Private', approve_link_path(link), method: :post, remote: true, class: 'btn btn-danger btn-block' %>
+		<% end %>
+	</td>
+
+</tr>
+<% end %>
+

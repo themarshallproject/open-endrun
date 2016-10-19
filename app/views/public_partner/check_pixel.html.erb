@@ -1,0 +1,58 @@
+<style>
+div {
+	color: white;
+}
+span {
+	padding: 20px;
+	display: inline-block;
+	width: 300px;
+	margin-bottom: 5px;
+}
+.success {
+	background: green;
+}
+.failure {
+	background: red;
+}
+</style>
+
+<%= form_tag '/partner/check-pixel' do %>
+	URL: <input name="url"  value="<%= @url %>" style="width:80%;" /><br>
+	<input type="submit" />
+<% end %>
+
+<% if @doc.present? %>
+	<% 
+
+	has_non_js_pixel = @doc.css('img').map{ |img| 
+		(img['src'] || '').include?("https://d18glvfsbyiquw.cloudfront.net/p.gif") 
+	}.any? 
+
+	has_js_pixel = @doc.css('script').map{ |script| 
+		(script['src'] || '') == "https://www.themarshallproject.org/pixel.js"
+	}.any? 
+
+	%>
+		
+	<h3>Tracking is working if *one* of these is successful:</h3>
+
+	<div>
+	<% if has_non_js_pixel %>
+		<span class="success">Success! Has the non-JS tracking pixel.</span>
+	<% else %>
+		<span class="failure">Does not have the non-JS tracking pixel.</span>
+	<% end %>
+	</div>
+
+	<div>
+	<% if has_js_pixel %>
+		<span class="success">Success! Has the JS tracking pixel.</span>
+	<% else %>
+		<span class="failure">Does not have the JS tracking pixel.</span>
+	<% end %>
+	</div>
+
+<% end %>
+
+<br><br>
+<small>Processed in <%= (1000.0*(Time.now.utc.to_f - @start_time)).to_i %>ms</small>

@@ -1,0 +1,25 @@
+<table class="table table-striped">
+<thead>
+	<th>Date Requested</th>
+	<th>Stream Items Returned</th>
+	<th>"Min" date for post returned</th>
+<th>Days-spanned by returned stream</th>
+</thead>
+<% @dateslugs.reverse.each do |dateslug| %>
+<% 
+	stream = Stream.new(end_date: dateslug) 
+	items = stream.main
+	post_dates = items.map{|item|
+		item.revised_at if item.is_a?(Post)
+
+	}.compact
+	date_lag = (Time.strptime(dateslug, '%Y%m%d').to_date - post_dates.min.to_date).to_i
+%>
+<tr>
+	<td><%= dateslug %></td>
+	<td><%= stream.main.count %></td>
+	<td><%= post_dates.min.to_date %></td>
+	<td><%= date_lag %></td>
+</tr>
+<% end %>
+</table>

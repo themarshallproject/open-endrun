@@ -1,0 +1,109 @@
+// Place all the styles related to the Newsletters controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.newsletter-preview {
+ 	margin: 0px 0 0 40px;
+	max-width:324px;
+	padding: 2px 2px 15px 2px;
+	background-color: #dcdcdc;
+    border-radius: 5px;
+}
+
+.newsletter-inner {	
+	background-color: #fff;
+	padding: 0px;
+}
+
+.newsletter-panel {
+	padding-left:0px;
+	padding-right:0px;
+
+}
+
+.live-preview-iframe {
+	height: 2000px;
+}
+
+.admin-newsletter-show {
+	
+	.sortable { 
+		list-style-type: none; 
+		margin: 0; 
+		padding: 0;
+		margin-right: 10px; 
+		min-height: 20px;
+	}
+	
+	.sortable li {  
+		padding-bottom: 5px; 
+		font-size: 1.2em;
+	}
+
+
+	.sortable li:last-child {  
+		padding-bottom: 0px; 
+	}
+
+	#newsletter-app .taggable-edit-textarea { 
+		margin-left: 20px;		
+		width: 96%; 
+		border: 0px; 
+		padding: 10px; 
+		font-size: 12px;
+		height: 0px;
+		padding: 0;
+	}
+	.edit-nub {
+		float: left;
+		cursor: pointer;
+		font-size: 12px;
+		margin-right: 5px;
+		transition-duration: 0.3s;
+	}
+	.edit-nub-rotate {
+		transform: rotate(90deg);
+	}
+
+}
+
+.btn-padded {
+	margin-left: 10px;
+}
+
+
+.markdown-tools {
+	z-index: 100;
+	position: fixed;
+	right: 0;
+	top: 190px;
+	width: 55px;
+	height: 168px;
+	padding: 0px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-right: none;
+	span {
+		cursor: pointer;
+		border-bottom: 1px solid #ccc;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		font-size: 16px;
+		width: 55px;
+		text-align: center;
+	}
+	span:last-child {
+		border: none;
+	}
+	span:hover {
+		background-color: #5bc0de;
+		color: #fff;
+	}
+}
+
+.newsletter-item-preview {
+	display: block;
+	margin-left: 20px;
+	font-size: 12px;
+	line-height: 14px;
+}

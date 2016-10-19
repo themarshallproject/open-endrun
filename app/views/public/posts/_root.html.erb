@@ -1,0 +1,5 @@
+<% cache ['posts_root', 'v4', @post] do %>
+<!-- single_post_partial <%= @post.post_format %> generated at <%= Time.now.utc.to_f %> -->
+<style><%= @post.rendered_scss.html_safe %></style>
+<%= render partial: "public/posts/#{@post.post_format}", layout: false %>
+<% end %>

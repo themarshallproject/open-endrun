@@ -1,0 +1,31 @@
+<ul class="facebook-items">
+	<% api_result = ExternalServiceResponse.where(action: 'topshelf_v1_social').order('created_at DESC').first %>					
+
+	<% if api_result.try(:response).present? %>
+
+		<% cache ['ts', 'facebook1', api_result] do %>
+			<!-- generated at <%= Time.now.utc.to_f %> -->
+
+			<% items = api_result.response.sort_by{|item| -1*item['facebook_count'] } %>
+			<% posts = Post.published.where('published_at > ?', 2.weeks.ago) %>
+			<% items.each do |item| %>
+				<% post = posts.select{|post| item['url'].include?(post.path) }.first %>
+				<% if post.present? %>
+					<li>					
+						<%= link_to post.path+"?ref=tsfb" do %>
+							<div class="topshelf-link"><%= post.rubric.name %></div>
+							<div class="topshelf-headline topshelf-headline-truncatable" data-original="<b><%= post.title %></b> <%= post.deck.strip %>">
+									<b><%= post.title %></b> <%= post.deck.strip %>		
+							</div>
+						<% end %>
+					</li>
+				<% end %>
+			<% end %>	
+		<% end #cache %>
+	<% else %>
+		<li>
+			An error occurred.
+		</li>				
+	<% end %>
+
+</ul><!-- facebook -->

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @post_lock.post_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @post_lock.user_id %>
+</p>
+
+<p>
+  <strong>Acquired at:</strong>
+  <%= @post_lock.acquired_at %>
+</p>
+
+<%= link_to 'Edit', edit_post_lock_path(@post_lock) %> |
+<%= link_to 'Back', post_locks_path %>

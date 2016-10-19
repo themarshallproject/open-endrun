@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Marshall Project // Error 500</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+  
+  @font-face { font-family: "PressuraLight"; src: url("//d2b200hbvr9pbb.cloudfront.net/assets/GT-Pressura-Mono-Light-20bfda88d62f05c451c63299f3cf4208.eot"); src: url("//d2b200hbvr9pbb.cloudfront.net/assets/GT-Pressura-Mono-Light-20bfda88d62f05c451c63299f3cf4208.eot#iefix") format("embedded-opentype"), url("//d2b200hbvr9pbb.cloudfront.net/assets/GT-Pressura-Mono-Light-7d869c9f1ca8747cb6cd5cf7e365be74.ttf") format("truetype"), url("//d2b200hbvr9pbb.cloudfront.net/assets/GT-Pressura-Mono-Light-700ee60c619b15bfb27864ba3aad6bba.woff") format("woff"), url("//d2b200hbvr9pbb.cloudfront.net/assets/GT-Pressura-Mono-Light-f64800659aa004ab1e8bdbd2770fb6a0.svg") format("svg"); }
+
+  body {
+    background-color: #111 !important;
+  }
+
+  .error-page {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 350px;
+    margin-bottom: 350px;
+    color: #ffffff;
+    font-family: "PressuraLight", Courier;
+  }
+
+  .error-page p {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.3em;
+  }
+
+  .error-page a {
+    color: #ff0b3a;
+    text-decoration: none;
+  }
+
+  .error-page a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  .logo {
+    float: left;
+  }
+  .logo svg {
+      width: 30px; 
+      padding: 0px !important; 
+      margin-bottom: 30px;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  @media (max-width: 400px) {
+    .error-page {
+      margin-top: 100px;
+      margin-bottom: 100px;
+      padding-left:20px;
+      padding-right: 20px;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <!-- This file lives in public/500.html -->
+<div class="error-page">
+  <div class="logo">
+    <svg width="30px" height="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1400 1354.8" enable-background="new 0 0 1400 1354.8" xml:space="preserve"><g><g><polygon fill="#FFFFFF" points="22.6,-2 22.6,1352.8 216.4,1352.8 216.4,191.8     "/><polygon fill="#FFFFFF" points="409.6,385 409.6,1352.8 603.4,1352.8 603.4,578.8    "/><polygon fill="#FFFFFF" points="1183.6,191.8 1183.6,1352.8 1377.4,1352.8 1377.4,-2     "/><polygon fill="#FFFFFF" points="796.6,578.8 796.6,1352.8 990.4,1352.8 990.4,385    "/></g></g></svg>
+  </div>
+  <div class="clear"></div>
+  <p>We're sorry. Something is wrong. <a href="/">Return.</a></p>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-47849981-1', 'auto');  
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

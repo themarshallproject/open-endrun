@@ -1,0 +1,26 @@
+<h1>Post Locks</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>User</th>
+      <th>Created</th>
+      <th>Last Seen</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @post_locks.each do |post_lock| %>
+      <tr>
+        <td><%= post_lock.post.try(:title) || "post_id:#{post_lock.post.id}" %></td>
+        <td><%= post_lock.user.try(:name)  || "user_id:#{post_lock.user.id}" %></td>
+        <td><%= post_lock.created_at %> (<%= time_ago_in_words post_lock.created_at %>)</td>
+        <td><%= post_lock.updated_at %> (<%= time_ago_in_words post_lock.updated_at %>)</td>
+        <td><%= (Time.now - post_lock.updated_at).to_i %> sec old</td>
+        <td><%= link_to 'Release Lock', post_lock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,128 @@
+<% cache ['opening-statement', 'show', 'v1', @newsletter] do %>
+
+<div class="os-v2">
+
+	<div class="header">
+		<div class="container">
+			<div class="logo">
+				<svg width="50px" height="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 223.2 223.2" style="enable-background:new 0 0 223.2 223.2" xml:space="preserve"><g><polygon style="fill:#FFF" points="61.2,61.2 61.2,219.6 75.6,219.6 75.6,75.6 	"></polygon><polygon style="fill:#FFF" points="3.6,3.6 3.6,219.6 18,219.6 18,18 	"></polygon><polygon style="fill:#FFF" points="32.4,32.4 32.4,219.6 46.8,219.6 46.8,46.8 	"></polygon><polygon style="fill:#FFF" points="90,90 90,219.6 104.4,219.6 104.4,104.4 	"></polygon><polygon style="fill:#FFF" points="147.6,75.6 147.6,219.6 162,219.6 162,61.2 	"></polygon><polygon style="fill:#FFF" points="205.2,18 205.2,219.6 219.6,219.6 219.6,3.6 	"></polygon><polygon style="fill:#FFF" points="176.4,46.8 176.4,219.6 190.8,219.6 190.8,32.4 	"></polygon><polygon style="fill:#FFF" points="118.8,104.4 118.8,219.6 133.2,219.6 133.2,90 	"></polygon></g></svg>
+			</div>
+			<div class="meta">
+				<a href="/opening-statement">Opening Statement</a>
+			</div>
+			<div class="date">
+				<%= @newsletter.published_at.strftime("%B %e, %Y") %>
+			</div>
+			<div class="headline">
+				<%= @newsletter.email_subject %>
+			</div>
+			<div class="byline">
+				<% if @newsletter.byline.present? %>
+					<%= raw @newsletter.byline %>
+				<% else %>
+					Edited by <a href="https://www.themarshallproject.org/staff/andrew-cohen">Andrew Cohen</a>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="col4 side">
+        <div class="share-tools">
+          <div class="share-button" data-action="facebook">
+              <a href="#">
+              </a>
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M8.3,15.5c0-1.2,0-2.3,0-3.5c0-0.8-0.1-1.5-1.1-1.5c-1.4,0.1-1.4-0.8-1.4-1.8c0-0.9,0.1-1.7,1.3-1.6
+            c1.7,0.1,1.2-1.3,1.2-2.1c0.3-3.5,1.4-4.5,4.9-4.4c1,0,2-0.2,2,1.4c0,1.2,0,2.1-1.6,2c-1.2-0.1-1.5,0.7-1.5,1.8
+            c0,1.2,0.6,1.4,1.6,1.4c0.7,0,1.7-0.1,1.4,1.1c-0.2,0.9,0.3,2.3-1.3,2.2c-1.6,0-1.7,0.8-1.7,2c0.1,2.2,0,4.3,0,6.5
+            c0.1,1.5-0.8,1.5-1.9,1.5c-1.1,0-2,0-1.9-1.5C8.4,17.8,8.3,16.7,8.3,15.5z"/></g></svg>
+          </div>
+          <div class="share-button" data-action="twitter">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M1.2,16.9c1.9-0.2,3.4-0.4,5.1-1.8c-3.2-0.2-3.3-3.2-3.9-4.9C1.7,8.4,0.7,5.8,2,3.3
+            c1.9,1.8,3.9,3.2,6.2,3.8c1.3,0.3,2,0.4,2.3-1.4c0.4-2.7,3-3.9,5.5-2.9c0.7,0.3,1.3,0.7,2.3,0.7c1.1,0,1.8,1.2,1,2.1
+            c-0.8,0.9-0.9,1.9-1,2.9C17.4,16.6,8.5,21.2,1.2,16.9z"/></g></svg>
+              <a href="" class="share-button-link"></a>
+          </div>
+          <div class="share-button" data-action="mailto">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><g><path fill="#111111" d="M0.9,7.2c0,3.6,0,7.2,0,10.7c6.4,0,12.7,0,19.1,0c0-3.6,0-7.1,0-10.7c-0.2,0.1-0.3,0.1-0.5,0.2
+              c-2.9,1.4-5.7,2.7-8.6,4.1c-0.3,0.1-0.6,0.2-0.9,0c-1.5-0.7-3-1.4-4.4-2.1C4.1,8.7,2.6,8,0.9,7.2z M0.9,3.4c0,0.6,0,1.1,0,1.7
+              c0,0.1,0.2,0.3,0.3,0.4c3,1.4,5.9,2.9,8.9,4.3c0.2,0.1,0.5,0.1,0.7,0c3-1.4,6-2.9,8.9-4.3c0.1-0.1,0.3-0.2,0.3-0.3
+              c0-0.6,0-1.1,0-1.7C13.7,3.4,7.3,3.4,0.9,3.4z"/><path fill="#111111" d="M0.9,7.2C2.6,8,4.1,8.7,5.6,9.5c1.5,0.7,3,1.4,4.4,2.1c0.3,0.2,0.6,0.1,0.9,0c2.9-1.4,5.7-2.7,8.6-4.1
+              c0.1-0.1,0.3-0.1,0.5-0.2c0,3.6,0,7.1,0,10.7c-6.4,0-12.7,0-19.1,0C0.9,14.4,0.9,10.9,0.9,7.2z"/><path fill="#111111" d="M0.9,3.4c6.4,0,12.7,0,19.1,0c0,0.6,0,1.1,0,1.7c0,0.1-0.2,0.3-0.3,0.3c-3,1.4-5.9,2.9-8.9,4.3
+              c-0.2,0.1-0.5,0.1-0.7,0c-3-1.4-5.9-2.8-8.9-4.3C1.1,5.3,1,5.2,0.9,5C0.9,4.5,0.9,3.9,0.9,3.4z"/></g></g></svg>
+              <a class="share-button-link" href="mailto:?subject="></a>
+          </div>
+          <div class="clear"></div>
+           <div class="os-desc">
+              <p><b>Opening Statement</b> is our pick of the day’s criminal justice news. Not a subscriber?</p>
+              <div class="email-onboard email-sidebar-onboard" data-placement="opening-statement-inline" data-checkboxes="false">
+              </div>
+           </diV>
+           <!--
+  	        <div class="related-tags">
+  	        	<p>For more on the topics in this issue, browse the Records below.</p>
+  	          <div class="tag-group">
+  	              <div class="tag-button">
+  	                <a href="#" class="tag-button-link">Tag</a>
+  	              </div>
+  	            <div class="clear"></div>
+  	          </div>
+  	        </div>
+            -->
+        </div>
+
+		</div>
+		<div class="col8 content">
+			<% @newsletter.sections.each_with_index do |section, index| %>
+
+        <% if index == 3 %>
+
+              <div class="container" style="padding-top: 20px; padding-bottom: 40px;">
+                <div class="email-onboard email-onboard-inline email-onboard-post-footer" data-placement="opening-statement-inline" data-checkboxes="false">
+                </div>
+              </div>
+
+        <% end %>
+
+  			<div class="section-name">
+  				<%= section.name %>
+  			</div>
+  			<% @newsletter.items_in_bucket(section.slug).each do |item| %>
+  					<%= markdown(item.taggable.email_content) rescue "ERROR RENDERING CONTENT" %>
+  			<% end %>
+
+			<% end %>
+		</div>
+
+	</div>
+
+</div>
+
+<% end %>
+
+<style>
+.opening-statement-fullbleed-container {
+  border-top: 1px solid #cececc;
+  margin-bottom: 28px;
+}
+</style>
+<script>
+(function() {
+  var resize = function() {
+    var $col8 = $('.col8');
+    var left = $col8.position().left;
+    var windowWidth = $(window).width();
+    $('.opening-statement-fullbleed-container').each(function() {
+      $(this).css({
+        marginLeft: (-1*left)+'px',
+        width: windowWidth+'px'
+      })
+    });
+  };
+  $(document).ready(resize)
+  $(window).resize(resize)
+})();
+</script>

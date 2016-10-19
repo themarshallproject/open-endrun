@@ -1,0 +1,23 @@
+<h1>Today's Traffic</h1>
+<% total = @response["totalsForAllResults"]["ga:pageviews"].to_i %>
+<p>Total PV: <%= total %> (Google Analytics)</p>
+<% today_path = DateTime.now.strftime("%Y/%m/%d")%>
+<style>
+.ga-pv-today, .ga-pv-today td {
+	color: #fff;
+	background-color: #ff0b3a !important;
+}
+</style>
+<table class="table table-striped">
+<thead>
+	<th>Path</th>
+	<th>Pageviews</th>
+</thead>
+<% @response['rows'].each do |page| %>
+<tr class="<%= page[0].include?(today_path) ? 'ga-pv-today' : '' %>">
+	<td><%= page[0] %></td>
+	<td><b><%= page[1].to_i %></b> (<%= (100.0 * page[1].to_i / total).to_i %>%)</td>
+	<td><%= link_to 'engaged_time', '/admin/analytics/google/engaged_time?path='+page[0] %></td>
+</tr>
+<% end %>
+</table>

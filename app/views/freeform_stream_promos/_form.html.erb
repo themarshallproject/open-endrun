@@ -1,0 +1,65 @@
+<%= form_for(@freeform_stream_promo) do |f| %>
+  <% if @freeform_stream_promo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@freeform_stream_promo.errors.count, "error") %> prohibited this freeform_stream_promo from being saved:</h2>
+
+      <ul>
+      <% @freeform_stream_promo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :slug %><br>
+    <%= f.text_area :slug, rows: 1, cols: 60 %>
+  </div>
+  <div class="field">
+    <%= f.label :html %><br>
+    <%= f.text_area :html, rows: 40, cols: 110, style: 'font-family: Courier;' %>
+  </div>
+  <div class="field">
+    <%= f.label :revised_at %><br>
+    <%= f.datetime_select :revised_at %>
+  </div>
+  <div class="field">
+    <label>Published?</label><br>
+    <%= f.check_box :published, class: "checkbox" %> 
+  </div>
+  <br><br>
+<!--   <div class="field">
+    <%= f.label :deploy_token %><br>
+    <%= f.text_field :deploy_token %>
+  </div> -->
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<script>
+$(document).ready(function() {
+  $("textarea").keydown(function(e) {
+      if(e.keyCode === 9) { // tab was pressed
+          // get caret position/selection
+          var start = this.selectionStart;
+          var end = this.selectionEnd;
+
+          var $this = $(this);
+          var value = $this.val();
+
+          // set textarea value to: text before caret + tab + text after caret
+          $this.val(value.substring(0, start)
+                      + "\t"
+                      + value.substring(end));
+
+          // put caret at right position again (add one for the tab)
+          this.selectionStart = this.selectionEnd = start + 1;
+
+          // prevent the focus lose
+          e.preventDefault();
+      }
+  });
+});
+</script>

@@ -1,0 +1,27 @@
+<h1>Photo Information</h1>
+<p id="notice"><%= notice %></p>
+
+<br>
+<div style="margin-bottom: 50px;">
+  <%= image_tag(@photo.url_for(size: '740x')) %>
+</div>
+  <div class="field">
+    <h4>Caption</h4><br>
+    <%= @photo.caption %>
+  </div><br>
+  <div class="field">
+    <h4>Byline</h4><br>
+    <%= @photo.byline %>
+  </div><br>
+  <!--
+    <div class="field">
+    <h4>Original URL</h4><br>
+    <%= @photo.original_url %>
+  </div><br>
+
+<pre style="margin: 50px 0;">
+<%= @photo.sizes %>
+</pre>
+-->
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>

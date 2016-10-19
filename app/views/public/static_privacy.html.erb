@@ -1,0 +1,58 @@
+<% content_for(:title) {
+	["Privacy Policy", "The Marshall Project"].join(" | ")
+} %>
+
+<% content_for(:body_classes) { " light-on-dark " } %>
+
+<style>
+article ul {
+	font-size: 23px;
+}
+article li {
+	margin-bottom: 23px;
+}
+</style>
+
+<div class="container page-margin static-page">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="static-logo">
+					<%= image_tag "static-m.svg" %>
+				</div>
+				<div class="static-title">
+					Privacy Policy
+				</div>
+				<div class="static-desc"></div>
+			</div>
+		</aside>
+		<div class="static-content">
+
+<%= markdown %Q{
+
+We have developed our site so that you can visit it without identifying yourself or revealing any personal information to us. We do not track visitors to our site as they access other sites. We collect personally identifying data about you, such as your name, address and e-mail address, only when you provide it to us voluntarily. We use cookies and web beacons to improve our site.
+
+We do not share your personal data with any third parties other than some common service providers who use the information only to help us improve our site. Some of these services provide social media conveniences for our readers, while others help us serve banner ads and measure traffic. These services may place cookies on your computer.
+
+Here are the services you can find on The Marshall Project:
+
+ - Sharing buttons for Facebook, Twitter, and others.
+ - Google Analytics and Chartbeat, which we use to measure site traffic.
+ - Typekit, which we use to provide fonts.
+ - NewRelic, which we use to help us track site errors and slowdowns.
+ - Mailchimp, which we use to send email
+ - Stripe, which we use to process donations and store donor information
+
+We are proud to use HTTPS on our site exclusively and communicate with internal and external services using HTTPS exclusively.
+
+Remember that no data transmitted over the Internet can be guaranteed to be completely secure. You provide us with this data at your own risk. Our servers are located in the United States. If you are located outside of the U.S., by sending us your data you consent to its transfer to and storage within the United States.
+
+By accessing this site, you agree to be legally bound by and comply with this User Agreement. If you do not agree to comply with this User Agreement, you are not authorized to use this site. This site is not directed to children under 13, and will not knowingly collect or maintain personal information from children under 13.
+
+*Last update: June 2015*
+
+} %>
+
+	</div>
+	</article>
+</div>

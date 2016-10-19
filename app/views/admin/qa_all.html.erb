@@ -1,0 +1,58 @@
+<style>
+.share-tools { display: none; }
+
+html, body, p {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+}
+.post-card {
+	width: 5%;
+	float: left;
+	height: 60px;
+	background-color: red;
+	color: white;
+}
+.app {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+</style>
+<div class="app"></div>
+	<script>
+	(function(post_ids) {
+		var urlForPost = function(post_id) {
+			return "/api/v1/post_html/" + post_id;
+		}
+		var appDiv = document.querySelector('.app');
+
+		var query = function(html, selector) {
+			var el = document.createElement('div');
+			el.innerHTML = html;
+			return el.querySelector(selector).innerHTML;
+		}
+
+		var template = function(div, html) {
+			div.innerHTML = [		
+				"<p>id:", div.getAttribute('data-post-id'), "</p>",
+				"<p>charCount:", html.length, "</p>",
+				// "<p>title:", query(html, '.post-headline'), "</p>"
+			].join("\n");
+			div.style['background-color'] = 'green'
+		}
+
+		post_ids.forEach(function(post_id) {
+			var div = document.createElement('div');
+			div.className = "post-card";
+			div.setAttribute('data-post-id', post_id);
+			appDiv.appendChild(div);
+			$.get(urlForPost(post_id)).success(function(html) {
+				template(div, html);
+			}).failure(function() {
+				throw "urlForPost failure"
+			});
+		});
+
+	})(<%= @post_ids.to_json %>);
+	</script>

@@ -1,0 +1,3 @@
+<% @taggings.each do |tagging| %>
+	<%= render partial: "taggings/activity_#{tagging.taggable_type.downcase}", locals: { tagging: tagging } %>
+<% end %>

@@ -1,0 +1,114 @@
+<div class="featured-container">
+	<div class="featured-well" data-background-image="<%= photo_for_slot(@featured_block, 1) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 1), rubric_path(@featured_block, 1) %>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(1).featured_block_path(slot: '1', config: '112') %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(1).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="featured-well" data-background-image="<%= photo_for_slot(@featured_block, 2) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 2), rubric_path(@featured_block, 2) %>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(2).featured_block_path(slot: '2', config: '112') %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(2).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="featured-well featured-clear-right">
+
+		<div class="featured-short fb-unbelievable-bg">
+				<a href="/unbelievable?ref=hp" class="featured-link fb-featured-link">
+				<div class="featured-short-headline fb-unbelievable-headline">
+					<span class="fb-unbelievable-kicker">Coming This Week</span>
+					<span class="fb-unbelievable-hed">An Unbelievable Story of Rape</span>
+				</div>
+				</a>
+		</div>
+
+		<div class="featured-short" data-background-image="<%= photo_for_slot(@featured_block, 3) %>">
+			<div class="overlay">
+				<div class="featured-short-kicker">
+					<%= link_to rubric_name(@featured_block, 3), rubric_path(@featured_block, 3) %>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(3).featured_block_path(slot: '3', config: '112') %>" class="featured-link">
+					<div class="featured-short-headline">
+						<%= @featured_block.post_for_slot(3).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<style>
+	.fb-unbelievable-headline { color: #111 !important; font-family: MillerItalic;
+	  webkit-transition: all 0.25s ease-in-out;
+	    -moz-transition: all 0.25s ease-in-out;
+	    -o-transition: all 0.25s ease-in-out;
+	    -webkit-transition: all 0.25s ease-in-out;
+	    transition: all 0.25s ease-in-out;
+	    padding: 40px 40px !important;
+	}
+	.fb-unbelievable-kicker {
+		text-transform: uppercase;
+		padding-bottom: 0px;
+		border-bottom: 1px solid black;
+		letter-spacing: 4px;
+		cellspacing: 0;
+		font-size: 12px;
+		padding-bottom: 2px;
+		line-height: 1.5em;
+		font-family: Miller;
+	  webkit-transition: all 0.25s ease-in-out;
+	    -moz-transition: all 0.25s ease-in-out;
+	    -o-transition: all 0.25s ease-in-out;
+	    -webkit-transition: all 0.25s ease-in-out;
+	    transition: all 0.25s ease-in-out;
+	}
+
+	.fb-unbelievable-hed { display: block; margin-top: 15px; }
+
+	.fb-unbelievable-bg { background-color:#FFFFFF; background-image: url(https://d1n0c1ufntxbvh.cloudfront.net/photo/b2963de1/14101/360x/); background-size: 25% !important; background-repeat: no-repeat; background-position: 98% 50% !important; }
+	.fb-featured-link .fb-unbelievable-headline {
+	  webkit-transition: all 0.25s ease-in-out;
+	    -moz-transition: all 0.25s ease-in-out;
+	    -o-transition: all 0.25s ease-in-out;
+	    -webkit-transition: all 0.25s ease-in-out;
+	    transition: all 0.25s ease-in-out;
+	}
+	.fb-featured-link:hover .fb-unbelievable-headline {
+		color: #7a8a88 !important;
+	  webkit-transition: all 0.25s ease-in-out;
+	    -moz-transition: all 0.25s ease-in-out;
+	    -o-transition: all 0.25s ease-in-out;
+	    -webkit-transition: all 0.25s ease-in-out;
+	    transition: all 0.25s ease-in-out;
+	}
+	.fb-featured-link:hover .fb-unbelievable-kicker {
+		border-bottom: 1px solid #7a8a88;
+	  webkit-transition: all 0.25s ease-in-out;
+	    -moz-transition: all 0.25s ease-in-out;
+	    -o-transition: all 0.25s ease-in-out;
+	    -webkit-transition: all 0.25s ease-in-out;
+	    transition: all 0.25s ease-in-out;
+	}
+
+	@media (max-width: 740px) {
+		.fb-unbelievable-headline { padding: 40px 40px !important; }
+		.fb-unbelievable-bg { background-size: 20% !important;  background-position: 95% 85% !important; }
+	}
+</style>

@@ -1,0 +1,118 @@
+@import "app/fonts";
+
+body {
+	background-color: #111 !important;
+}
+
+.login {
+	max-width: 400px;
+	margin: 0 auto;
+	margin-top: 350px;
+	margin-bottom: 350px;
+	color: #ffffff;
+	font-family: "PressuraLight", Courier;
+}
+
+input {
+    -webkit-appearance: none;
+    -webkit-border-radius:0; 
+    border-radius:0;
+}
+
+.login p {
+	margin-bottom: 30px;
+	font-size: 16px;
+	line-height: 1.3em;
+}
+
+.login a {
+	color: #ff0b3a;
+	text-decoration: none;
+}
+
+.login a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.logo {
+	float: left;
+	img {
+		width: 30px; 
+		padding: 0px !important; 
+		margin-bottom: 30px;
+	}
+}
+
+.the-name {
+	float: left;
+	font-family: "PressuraLight", Courier;
+	text-transform: uppercase;
+	margin-left: 14px;
+	margin-top: 7px;
+	font-size: 12px;
+}
+
+.clear {
+	clear: both;
+}
+
+.input {
+	color: #888888;
+	background-color: #ececea;
+	margin-bottom: 2px;
+	border: none;
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	letter-spacing: -.2px; 
+	font-size: 16px;
+	color: #111111;
+	height: 69px;
+	width: 100%;
+	padding: 24px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.input:focus {
+	outline: 0;
+}
+
+.button {
+	font-family: "PressuraLight", Courier;
+	font-weight: normal;
+	letter-spacing: -.2px;
+	background-color: #888888;
+	border: none;
+	text-align: left;
+	width: 100%;
+	padding: 24px;
+	color: #ffffff;
+	font-size: 16px;
+		webkit-transition: all 0.25s ease-in-out;
+		-moz-transition: all 0.25s ease-in-out;
+		-o-transition: all 0.25s ease-in-out;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: #ff0b3a;
+}
+
+.button:focus {
+	outline: 0;
+}
+
+@media (max-width: 400px) {
+
+	.login {
+		margin-top: 100px;
+		margin-bottom: 100px;
+		padding-left:20px;
+		padding-right: 20px;
+	}
+
+}

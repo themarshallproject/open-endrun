@@ -1,0 +1,443 @@
+.featured-container {
+	background-color: $black; /* safari-fix */
+}
+
+.featured-well {
+	width: 33.3333333333333%;
+	float: left;
+	background: $black;
+	color: $white;
+	border-bottom:1px solid $rules;
+	border-right:1px solid $rules;
+  	@include font-light-head; 
+  	overflow: hidden;
+	background-size: cover; 
+	background-position: 50% 50%;
+	a {
+		color: $white;
+	}
+	a.featured-link {
+	    width: 100%;
+	    height: 100%;
+		display: block;
+	}
+	a.featured-link:hover{
+		text-decoration: none;
+	}
+	.featured-tall {
+		height: 450px;
+	}
+	.featured-tall-headline {
+		padding: 180px 40px;
+		font-size: 40px;
+		line-height: 1.15em;
+		word-spacing: -1px;
+		letter-spacing: -.4px;
+		max-width: 500px;
+		a:hover {
+			text-decoration: none;
+		}
+	}
+	.featured-tall-kicker {
+		margin: 150px 40px;
+		position: absolute;
+		@include font-detail-bold;
+		text-transform: uppercase;
+		color: $timestamps;
+		font-size: 14px;
+		line-height: 14px;
+		a {
+			color: $link;
+		}
+		span {
+			@include font-detail;
+			position: relative;
+			font-size: 12px;
+			color: $timestamps;
+			text-transform: none;
+		}
+	}
+	.featured-short {
+		overflow: hidden;
+	  	background-size: cover; 
+		background-position: 50% 50%;
+		height: 225px;
+		float: none;
+		border-bottom:1px solid $rules;
+	}
+	.featured-short:last-child {
+		border-bottom:none;
+	}
+	.featured-short-headline {
+		padding: 70px 40px;
+		font-size: 24px;
+		line-height: 1.15em;
+		word-spacing: -1px;
+		letter-spacing: -.4px;
+		max-width: 500px;
+	}
+	.featured-short-kicker {
+		margin: 40px 40px;
+		position: absolute;
+		@include font-detail-bold;
+		text-transform: uppercase;
+		color: $timestamps;
+		font-size: 14px;
+		line-height: 14px;
+		a {
+		 color: $link;
+		}
+	}
+	.overlay {	
+		width: 100%;
+		height: 100%;
+		background: rgba(11,11,11,0.6);
+		@include animate;
+	}
+	.overlay:hover {
+	    cursor: hand;
+	    cursor: pointer;
+		background: rgba(11,11,11,0.8);
+		@include animate;
+	}
+	.overlay:hover a {
+		color: $link;
+		@include animate;
+	}
+
+}
+
+.featured-clear-right {
+	border-right:none;
+}
+
+.featured-one {
+	width: 100%;
+	float: none;
+	border-right: none;
+}
+
+.featured-one-headline {
+	padding: 206px 0 0 0;
+	max-width: 1000px;
+	font-size: 40px;
+	line-height: 1.15em;
+	word-spacing: -1px;
+	letter-spacing: -.4px;
+}
+
+.featured-one-kicker {
+	margin: 171px 0 0 0;
+	position: absolute;
+	@include font-detail-bold;
+	text-transform: uppercase;
+	color: $timestamps;
+	font-size: 14px;
+	line-height: 14px;
+	a {
+		color: $link;
+	}
+	span {
+		@include font-detail;
+		position: relative;
+		font-size: 12px;
+		color: $timestamps;
+		text-transform: none;
+	}
+}
+
+.featured-one-byline {
+	margin-top: 15px;
+	@include font-detail;
+	font-size: 12px;
+	margin-bottom: 15px;
+	color: $white;
+	span {
+		@include font-detail-bold;
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+	a {
+		color: $link;
+	}
+}
+
+.featured-kicker {
+	font-family: "Pressura";
+	text-transform: uppercase;
+	font-size: 14px;
+	position: relative;
+	span {
+		@include font-detail;
+		position: relative;
+		font-size: 12px;
+		color: $timestamps;
+		text-transform: none;
+	}
+	a {
+		color: $link;
+	}
+}
+
+@media (max-width: 1140px) {
+	.featured-tall-headline {
+		font-size: 30px !important;
+	}
+}
+
+
+@media (max-width: 740px) {
+	.featured-one-byline {
+		display: none;
+	}
+	.featured-well {
+		width: 100%;
+		border-right: none;
+	}
+	.featured-one-headline {
+		padding: 213px 10px;
+	}
+	.featured-one-byline {
+		margin: 0px;
+	}
+	.featured-one-kicker {
+		margin: 180px 10px;
+	}
+	.featured-tall {
+		height: 225px !important;
+	}
+	.featured-tall-headline, .featured-one-headline {
+		padding: 70px 40px !important;
+		font-size: 24px !important;
+	}
+	.featured-tall-kicker, .featured-one-kicker {
+		margin: 40px 40px !important;
+	}
+	.featured-container .container {
+		padding: 0;
+	}
+}
+
+/* opening statement sign up */ 
+
+
+.opening-statement-banner {
+
+	.clear {
+		clear: both;
+	}
+
+	.copy {
+		font-family: "Pressura";
+		text-transform: uppercase;
+		font-size: 14px;
+		margin-right: 7px;
+		position: relative;	
+		color: $black;
+		padding-top: 13px;
+		span {	
+			text-transform: none;
+			font-family: "Utopia-Std", Georgia, serif;
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 1.5em;
+		}
+	}
+
+			a {
+				text-decoration: none;
+				color: $link;
+			}
+			a:hover {
+				text-decoration: underline;
+				color: $link;
+			}
+
+	.email-signup {
+		background-color: #cececc;
+		padding: 15px;
+	}
+
+	.success-copy {
+		padding-top: 22px;
+		line-height: 1.2em;
+	}
+
+	.success-copy a {
+		text-decoration: none;
+		font-weight: bold;
+	}
+
+	.success-copy a:hover {
+		color: #ffffff;
+		border-bottom: 1px solid #ffffff;
+	}
+
+	input {
+		float: left;
+		background-color: #ececea;
+		margin-bottom: 30px;
+		border: none;
+		height: 45px;
+		font-family: "PressuraLight", Courier;
+		font-weight: normal;
+		letter-spacing: -.2px; 
+		font-size: 16px;
+		color: #111111;
+		padding: 9px 10px 12px 20px;
+		width: 60%;
+		margin-bottom: 0px;
+		border-left: 1px solid #ececea;
+	}
+
+	input:focus {
+		outline: 0;
+		border-left: 1px solid #353535;
+	}
+
+	input {
+	    -webkit-appearance: none;
+	    -webkit-border-radius:0; 
+	    border-radius:0;
+	}
+
+	::-webkit-input-placeholder {
+	    color: #999;
+	}
+
+	:-moz-placeholder {
+	   color: #999;
+	   opacity: 1;
+	}
+
+	::-moz-placeholder {
+	   color: #999;
+	   opacity: 1;
+	}
+
+	:-ms-input-placeholder { 
+	   color: #999;
+	}
+
+	.button {
+		font-family: "PressuraLight", Courier;
+		font-weight: normal;
+		letter-spacing: -.2px;
+		float: left;
+		background-color: $link;
+		border: none;
+		padding: 0;
+		height: 45px;
+		width: 40%;
+		color: #ffffff;
+		font-size: 16px;
+			webkit-transition: all 0.25s ease-in-out;
+			-moz-transition: all 0.25s ease-in-out;
+			-o-transition: all 0.25s ease-in-out;
+			-webkit-transition: all 0.25s ease-in-out;
+			transition: all 0.25s ease-in-out;
+	}
+
+	.button:hover {
+		cursor: pointer;
+		background-color: $black;
+	}
+
+	.button:focus {
+		outline: 0;
+	}
+
+}
+
+@media (max-width: 1170px) {
+	.opening-statement-banner {	
+		.copy {
+			margin-right: 40px;
+			padding-top: 0px;
+		}
+	}
+}
+
+
+@media (max-width: 900px) {
+	.opening-statement-banner {
+		.full-bleed {
+			padding: 5px;
+		}
+		.success-copy {
+			padding: 4px;
+			line-height: 1.5em;
+		}
+	}
+}
+
+@media (max-width: 740px) {
+	.opening-statement-banner {
+		.email-signup {
+			padding: 15px 20px;
+		}
+		.os-banner-link-archive {
+			display: none;
+		}
+		.success-copy {
+			padding-top: 5px;
+		}
+		.email-signup-copy {
+			padding-top: 0;
+			padding-bottom: 10px;
+		}
+		.section-margin {
+			margin-bottom: 20px;
+		}
+		.copy {
+			padding-right: 0px;
+			width: 100%;
+		}
+		.email-signup-form {
+			input {
+				// width: 100%;
+			}
+			button {
+				// width: 100%;
+			}
+		}
+	}
+}
+
+.fb-obama-center {
+	max-width: 900px;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.fb-obama-icon {
+	width: 50px; 
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.fb-obama-kicker {
+	position: absolute;
+	left: calc(50% - 116px);
+	top: 165px;
+	@include font-detail-bold;
+	text-transform: uppercase;
+	color: $timestamps;
+	font-size: 14px;
+	line-height: 14px;
+	a {
+		color: $link;
+	}
+	span {
+		@include font-detail;
+		position: relative;
+		font-size: 12px;
+		color: $timestamps;
+		text-transform: none;
+	}
+}
+
+@media (max-width: 740px) {
+	.fb-obama-kicker { display: none; }
+}

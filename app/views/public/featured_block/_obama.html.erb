@@ -1,0 +1,25 @@
+<div class="featured-container">
+	<div class="featured-well featured-one" data-background-image="<%= photo_for_slot(@featured_block, 1) %>" >
+		<div class="featured-tall">
+			<div class="overlay" >
+				<div class="container">
+				<div class="fb-obama-kicker">
+					<div class="fb-obama-icon">
+					<a href="/tag/prison-policy-and-the-president">
+						<img style="width: 100%;" src="https://d63kb4t2ifcex.cloudfront.net/201510obama/flag-01.png">
+					</div>
+					Prison Policy and the President</a> <span></span>
+				</div>
+				<a href="<%= @featured_block.post_for_slot(1).featured_block_path(slot: '1', config: '100') %>" class="featured-link">
+					<div class="featured-one-headline fb-obama-center">
+						<%= @featured_block.post_for_slot(1).metadata_provider.display_headline %>
+					</div>
+				</a>
+					<div class="featured-one-byline fb-obama-center">
+						By <span>Bill Keller</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

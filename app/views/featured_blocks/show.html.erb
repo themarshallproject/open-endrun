@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Template:</strong>
+  <%= @featured_block.template %>
+</p>
+
+<p>
+  <strong>Slots:</strong>
+  <%= @featured_block.slots %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @featured_block.published %>
+</p>
+
+<%= link_to 'Edit', edit_featured_block_path(@featured_block) %> |
+<%= link_to 'Back', featured_blocks_path %>

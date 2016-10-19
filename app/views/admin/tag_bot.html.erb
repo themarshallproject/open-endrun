@@ -1,0 +1,20 @@
+<% html = @post.rendered_content %>
+<style>
+.potential-tag {
+	font-weight: bold;
+	color: red;
+}
+</style>
+
+<% html = @tags.reduce(html) do |html, tag|
+	if tag.name.length > 2 and !['content_type', 'bucket', 'rubric'].include?(tag.tag_type)
+		html.gsub(
+			Regexp.new("\\b(#{tag.name})", "i"), 
+			"<span class='potential-tag' data-tag-id='#{tag.id}'>#{tag.name}</span>"
+		)
+	else
+		html
+	end
+end %>
+
+<%= raw html %>

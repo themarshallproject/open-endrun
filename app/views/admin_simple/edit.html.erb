@@ -1,0 +1,152 @@
+<% if @post.persisted? %>
+    <% if @post_lock == false %>
+
+          <div class="post-is-readonly alert alert-danger" style="margin-top: 150px; margin-bottom: 150px; padding: 20px; padding-top: 5px;">
+          <h1>This post is locked and is read-only. It's being edited by <b><%= @post.locked_by.name %></b>.</h1>
+          <p>If you believe this shouldn't be so, contact Gabriel or Ivar.</p>
+          </div>
+          <script>
+            window.disable_editing = true;
+            $(document).ready(function() {
+              $('button, input, textarea').each(function() {
+                $(this).attr('disabled', true);
+              });
+            });
+          </script>
+
+    <% else %>
+
+        <script>
+          $(document).ready(function() {
+            setInterval(function() {
+              $.post("<%= touch_post_lock_path(@post_lock, post_id: @post.id) %>").done(function(e) {
+                console.log('postlock', e);
+              });
+            }, 5000);
+          });
+        </script>
+
+    <% end %>
+<% end %>
+
+<% if @post.persisted? %>
+  <% if @post.stream_promo == 'base' and @post.featured_photo.present? %>
+    <div class="post-has-base-promo-with-promo-image alert alert-danger" style="margin: 20px 0; padding: 20px;">
+          <p>You have a featured photo set, but the stream promo is 'base' -- set promo to 'base w/ art'? <span class="set-promo-to-base-with-art" style="text-decoration:underline;cursor:pointer;">Yes, do it</span> (you'll have to save!)</p>
+          </div>  
+  <% end %>
+<% end %>
+
+<div class="markdown-tools" style="top:320px;">
+  <span class="markdown-link-tool"><span class="glyphicon glyphicon-link"></span></span>
+  <span class="markdown-bold-tool"><span class="glyphicon glyphicon-bold"></span></span>
+  <span class="markdown-italic-tool"><span class="glyphicon glyphicon-italic"></span></span>
+</div>
+<script>
+  $('.markdown-link-tool').on('mousedown', function(e){
+    e.preventDefault(); 
+    $this = $(':focus');
+    var url = prompt("URL:"); 
+    console.log(url)
+    $this.surroundSelectedText("[", "]("+url+")");
+    make_dirty($this);
+  });
+  $('.markdown-bold-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();   
+    $this.surroundSelectedText("**", "**");
+    make_dirty($this);
+  });
+  $('.markdown-italic-tool').on('mousedown', function(e){
+    $this = $(':focus');
+    e.preventDefault();   
+    $this.surroundSelectedText("*", "*");
+    make_dirty($this);
+  });
+</script>
+
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+
+  <div class="row" style="margin-bottom: 20px;" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Headline</label></div>
+    <div class="col-md-11"><%= f.text_field :title, size: 40, class: 'form-control post-ed-head', placeholder: 'Headline'  %></div>
+  </div>
+
+
+
+
+
+  
+  <div class="row" style="margin-bottom: 20px;">
+    
+    <div class="col-md-1"><label>Published</label></div>
+    <div class="col-md-5">
+      <%= f.datetime_select :published_at %>
+      <a href="#" class="set-to-now label label-success" data-target="#post_published_at">NOW</a>
+    </div>
+  </div>
+
+
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Deck</label></div>
+    <div class="col-md-11"><%= f.text_area :deck, cols: 80, rows: 3, class: 'form-control post-ed-deck', placeholder: 'Deck' %></div>
+  </div> 
+  <hr>
+
+    
+    <div class="col-md-1"><label>Rubric</label></div>
+    <div class="col-md-2">
+        <%= select_tag "post[rubric]",
+          options_for_select(
+            (@post.available_rubrics.map{|k, v| [v, k] }.insert(0, ['(none)', nil])),
+            @post.rubric.try(:id)
+          )
+        %>
+    </div> 
+  </div>
+  <hr>
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-1"><label>Byline</label></div>
+    <div class="col-md-2">
+      <%= select_tag 'post[authors][]',
+          options_for_select(
+            @post.available_authors.map{|user| [user.name, user.id] }.insert(0, ['(none)', nil]), 
+            []
+          ), multiple: true, style: "width: 100%;"
+      %>
+    </div>  
+  </div>
+  <hr>
+
+<div class="col-md-2">
+          <% if @post.persisted? %>
+          <%= link_to "Edit All Inlined Photos", admin_inlined_photos_path(@post), class: 'btn btn-info' %>
+        <% end %>
+  </div>
+
+
+
+
+  <div class="row" style="margin-bottom: 20px;">    
+    <div class="col-md-12"><%= f.text_area :content, cols: 80, rows: 150, class: 'markdown-editor post-ed-copy', style: "padding: 30px; font-family: Georgia !important;" %></div>
+  </div>
+
+<% end %>
+
+</div>
+

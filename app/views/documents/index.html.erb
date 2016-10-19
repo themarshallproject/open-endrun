@@ -1,0 +1,35 @@
+<h1>Documents <%= link_to "DocumentCloud Documents", potential_documents_path, class: 'btn btn-primary pull-right' %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Published?</th>
+      <th>Deck</th>
+      <th>Bytes</th>
+      <th>URL</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @documents.each do |document| %>
+      <tr>
+        <td><%= link_to document.title, public_document_path(document.dc_id) %></td>
+        <td><%= document.published? %></td>
+       <td><%= document.deck %></td>
+        <td><%= (document.dc_data || '').to_json.length %></td>
+        <td><%= link_to(document.dc_published_url, document.dc_published_url) if document.dc_published_url.present? %></td>
+        <td>
+          <%= link_to 'Delete', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger pull-right btn-padded" %>
+          <%= link_to 'Update URL', async_update_published_url_document_path(document), method: :post, class: "btn btn-success pull-right btn-padded" %>
+        
+        <%= link_to 'Edit', edit_document_path(document), class: "btn btn-primary pull-right btn-padded" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

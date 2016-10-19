@@ -1,0 +1,5 @@
+<% cache ['stream', 'v1', item] do %>
+<section class="stream-post" data-freeform-stream-promo-id="<%= item.id %>" data-stream-key="<%= Stream.key(item) %>" data-stream-dateslug="<%= item.revised_at.strftime('%Y%m%d') %>">
+<%= raw item.html %>
+</section>
+<% end %>

@@ -1,0 +1,59 @@
+<% content_for(:title) {
+	[@user.name, "The Marshall Project"].join(" | ")
+} %>
+
+<% content_for(:head) do %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:title" content="<%= @user.name %>’s posts">
+<meta property="og:description" content="Articles from The Marshall Project.">
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<% end %>
+
+<div class="container page-margin">
+	<aside class="col4">
+		<div class="inner">
+		<div class="tag-description">
+			<%= @user.name %>
+		</div>
+		<div class="tag-name">
+			<%= @user.title %>
+		</div>
+		</div>
+	</aside>
+	<div class="col8">
+		<div class="author-header">
+			<% if @user.bio.present? %>
+			<div class="author-desc">
+				<%= @user.bio.html_safe %>
+			</div>
+			<% end %>
+			<% if @user.phone.present? %>
+			<div class="author-info">
+				Phone <span><%= @user.phone %></span>
+			</div>
+			<% end %>
+			<div class="author-info">
+				Email <span><%= link_to @user.email, "mailto:#{@user.email}" %></span>
+			</div>
+			<% if @user.twitter.present? %>
+			<div class="author-info">
+				Twitter <span><%= link_to "@#{@user.twitter}", "https://twitter.com/#{@user.twitter}" %></span>
+			</div>
+			<% end %>
+			<% if @user.public_key.present? %>
+				<div class="author-info">
+					Public Key <span><%= link_to "Download", user_public_key_path(@user.slug) %></span>
+				</div>
+			<% end %>
+			<div class="clear">
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="stream">
+	<%= render 'public/stream', items: @items %>
+</div>

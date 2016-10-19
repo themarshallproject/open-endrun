@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Weekly Newsletters <%= link_to 'New Newsletter', new_weekly_newsletter_path, class: "btn btn-info pull-right" %></h1><br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Slug</th>
+      <th>Subject</th>
+      <th>Archive</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @weekly_newsletters.each do |weekly_newsletter| %>
+      <tr>
+        <td><%= weekly_newsletter.name %></td>
+        <td><%= weekly_newsletter.email_subject %></td>
+        <td><%= link_to weekly_newsletter.archive_url || 'unknown', weekly_newsletter.archive_url %></td>
+        <td><%= link_to 'Edit', edit_weekly_newsletter_path(weekly_newsletter), class: 'btn btn-primary pull-right', style: 'margin-left: 5px;' %><%= link_to 'Preview', weekly_newsletter_build_path(weekly_newsletter), class: 'btn btn-success pull-right' %></td>
+        <!-- <td><%= link_to 'Destroy', weekly_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

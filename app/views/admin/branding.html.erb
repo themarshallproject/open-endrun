@@ -1,0 +1,99 @@
+<!-- <item data-desc="" data-name="" data-url="" /> -->
+
+<!-- edit here -->
+
+<item data-desc="Logos for our partners and other external uses." data-name="082814MarshallLogo.Handout.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/082814MarshallLogo.Handout.zip" />
+
+<item data-desc="Official letterhead in Microsoft Word format." data-name="041216MarshallLetterhead.docx" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/041216MarshallLetterhead.docx" />
+
+<item data-desc="Official letterhead in .pdf format." data-name="041216MarshallLetterhead.pdf" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/041216MarshallLetterhead.pdf" />
+
+<item data-desc="Brochure in a compressed file, for a quick emailing, etc." data-name="031416MarshallBrochure.Web.pdf" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/031416MarshallBrochure.Web.pdf" />
+
+<item data-desc="Fonts for internal and desktop usage only." data-name="121114MarshallFonts.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/121114MarshallFonts.zip" />
+
+<item data-desc="Logo source files, containing many versions. Not for distribution." data-name="082814MarshallLogo.Master.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/082814MarshallLogo.Master.zip" />
+
+<item data-desc="Brochure source files for print shops. Contains instructions." data-name="031416MarshallBrochure.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/031416MarshallBrochure.zip" />
+
+<item data-desc="1080p video bumpers created for The Obama Interview." data-name="102615MarshallBumpers.1080p.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/102615MarshallBumpers.1080p.zip" />
+<item data-desc="4k video bumpers." data-name="102615MarshallBumpers.4k.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/102615MarshallBumpers.4k.zip" />
+
+<item data-desc="Our design style guide by Morel." data-name="092214MarshallDesign.pdf" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/092214MarshallDesign.pdf" />
+
+<item data-desc="The original Morel design deliverable with Illustrator files." data-name="092514MarshallMorel.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/092514MarshallMorel.zip" />
+
+<item data-desc="Early website comps from Morel." data-name="092016MarshallComps.zip" data-url="https://tmp-tools-production.s3.amazonaws.com/branding/092016MarshallComps.zip" />
+
+<!-- do not edit below -->
+
+<style>
+
+.container {
+  margin-top: 150px;
+}
+
+h1 {
+  font-family: MillerBold;
+}
+
+table {
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.6em;
+  font-family: PressuraLight;
+  letter-spacing: -0.2px !important;
+  border-spacing: 0px;
+}
+
+thead th {
+  border-bottom: 3px solid #ccc;
+  text-align: left;
+  color: #111111;
+  padding-left: 7px;
+  padding-bottom: 6px;
+  font-size: 16px;
+  line-height: 1.2em;
+  font-weight: normal;
+  font-family: Pressura;
+}
+
+td {
+  padding: 7px;
+  border-bottom: 1px solid #ccc;
+}
+
+.item {
+  display: none;
+}
+
+</style>
+
+
+<div class="container">
+  <table>
+    <thead>
+      <th>
+        Description
+      </th>
+      <th>
+        File
+      </th>
+      <th>
+        Download
+      </th>
+    </thead>
+    <tbody class="insert">
+    </tbody>
+  </table>
+</div>
+
+<script>
+$('item').each(function(){
+  var desc = $(this).attr("data-desc");
+  var name = $(this).attr("data-name");
+  var url = $(this).attr("data-url");
+  var template = '<tr><td>'+desc+'</td><td>'+name+'</td><td><a href="'+ url +'" style="font-size: 40px;">↓</a></td></tr>';
+  $(".insert").append(template);
+});
+</script>

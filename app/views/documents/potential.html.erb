@@ -1,0 +1,11 @@
+<h1>DocumentCloud Documents</h1>
+<table class="table table-striped">
+<% @potential_documents.each do |document| %>
+<tr>
+	<td><h4><%= document['title'] %></h4></td>
+	<td><%= document['id'] %></td>
+	<td><img src="<%= document['thumbnail'] %>"></td>
+	<td><%= link_to 'Ingest', ingest_document_path(document['id']), method: :post, class: "btn btn-success pull-right btn-padded" %></td>
+</tr>
+<% end %>
+</table>

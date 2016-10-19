@@ -1,0 +1,27 @@
+<% @photos.each do |photo| %>
+	<%= image_tag photo.url_for(size: '360x'), style: 'width:23%;margin:0;padding:0;', 'data-photo-id' => photo.id %>
+<% end %>
+
+<script>
+var event_source;
+var event_origin;
+window.addEventListener("message", function(event) {
+	event_source = event.source;
+	event_origin = event.origin;
+	event.source.postMessage("pong", event.origin);
+}, false);
+
+$(document).ready(function() {
+	$('img').click(function() {
+		var id = $(this).attr('data-photo-id');
+		event_source.postMessage({
+			'event': 'select_photo',
+			'id': id,
+			'target_el_id': "<%= params['target_el_id'] %>"
+		}, event_origin);
+		setTimeout(function() {
+			window.close();
+		}, 100);
+	});
+});
+</script>

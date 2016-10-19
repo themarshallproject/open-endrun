@@ -1,0 +1,108 @@
+<div class="container">
+	<div class="upload-wrapper" style="margin-top: 20px;">	
+	
+		<input class="file-input" id="files" type="file" name="files[]" multiple />
+		
+		<table class="table table-striped upload-progress">
+			<!-- jquery puts stuff here -->
+		</table>
+
+		<div class="status"></div>
+	</div>
+</div>
+
+<script>
+
+	window.data = {};
+	window.file_id_counter = 0;
+
+	var img_if_present = function(url) {
+		if (url === undefined) {
+			return "";
+		} else {
+			return "<img src=\"" + url + "\" width=\"300px\">";
+		}
+	}
+
+	var template_row = function(file) {
+		$row = $(".file-"+file.file_id);
+		html = [ "<td>" + file.name + "</td>",
+				 "<td>" + file.percent + "</td>",
+				 "<td>" + img_if_present(file.url) + "</td>",				
+			   ].join("\n")
+	    $row.html(html);
+	}
+
+	function handleFileSelect(evt) {		
+		var files = evt.target.files;
+		for(var i=0; i<files.length; i++) {
+			files[i].file_id = file_id_counter++;
+			uploadFile(files[i]);
+		}
+	}
+	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+	function uploadFile(file) {
+
+		$('.upload-progress').append("<tr class='file-"+file.file_id+"'></tr>");
+		template_row(file);
+
+		var fd = new FormData();
+		
+		file.s3_key = "<%= @s3_key %>" + file.name.replace(/[^A-Za-z0-9\.]/g, '-');
+
+		fd.append('key', file.s3_key);
+		fd.append('AWSAccessKeyId', "<%= @s3_access_key %>");
+		fd.append('acl', "public-read"); 	   
+		fd.append('policy', "<%= @policy %>");
+		fd.append('signature',"<%= @signature %>");
+
+        fd.append('file', file);
+        
+        var xhr = new XMLHttpRequest();
+		xhr.upload.addEventListener("progress", function(evt) { uploadProgress(evt, file) }, false);
+		xhr.addEventListener("load", function(evt)  { uploadComplete(evt, file) }, false);
+		xhr.addEventListener("error", function(evt) { uploadFailed(evt, file) }, false);
+		xhr.addEventListener("abort", function(evt) { uploadCanceled(evt, file) }, false);	
+		xhr.open('POST', "https://<%= @s3_bucket %>.s3.amazonaws.com/", true); 
+		xhr.send(fd);
+	}
+
+	function uploadProgress(evt, file) {
+		if (evt.lengthComputable) {
+			var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+			var percentStr = percentComplete.toString() + '%';
+			file.percent = percentStr;
+			template_row(file);
+		}
+	}
+
+	function uploadComplete(evt, file) {
+		var url = "https://<%= @s3_bucket %>.s3.amazonaws.com/" + file.s3_key;
+		file.url = url;
+
+		template_row(file);
+
+		console.log(evt);
+		if (evt.target.status < 310) {
+			$.post('/admin/photo-upload/complete', {url: file.url})
+			 .success(function(data){
+			 	file.upload_complete = true;
+			 	template_row(file); 	
+			 }).error(function(data){
+			 	$('.upload-wrapper .status').html("There was a problem on the last step :(. Please try again.<br><br>"+data);
+			 });
+		} else {
+			alert("S3 status said '"+evt.target.status+"' -- You need to try again!");
+		}
+	}
+
+	function uploadFailed(evt, file) {
+		$('.upload-wrapper .status').html("FAIL " + evt.target.responseText);
+	}
+
+	function uploadCanceled(evt, file) {
+		$('.upload-wrapper .status').html("Cancelled? Why?! " + evt.target.responseText);
+	}
+
+</script>

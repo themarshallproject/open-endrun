@@ -1,0 +1,35 @@
+<% content_for(:title) {
+	[@page.page_title.to_s, "The Marshall Project"].join(" | ")
+} %>
+
+<% content_for(:head) do %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:title" content="<%= @page.title.to_s.html_safe %>">
+<meta property="og:description" content="The Marshall Project is a nonprofit news organization covering the U.S. criminal justice system.">
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<% end %>
+
+<% content_for(:body_classes) { " light-on-dark " } %>
+
+<div class="container page-margin static-page">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="static-logo">
+					<%= image_tag "static-m.svg" %>
+				</div>
+				<div class="static-title">
+					<%= @page.title %>
+				</div>
+				<div class="static-desc">
+					<%= raw @page.description %>
+				</div>
+			</div>
+		</aside>
+		<div class="static-content">
+			<%= raw @page.content %>
+		</div>
+	</article>
+</div>

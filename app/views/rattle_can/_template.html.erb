@@ -1,0 +1,40 @@
+
+	<div class="row">
+		<div class="col-xs-5">
+	<div data-class-name="<%= item.class.name %>" data-id="<%= item.id %>" class="rattlecan-template">
+		<select class="new-tag-select form-control" value='{{selected_new_tag}}'>
+			<option selected disabled>
+				Select a tag
+			</option>
+			{{#each all_tags}}
+			<option value='{{id}}' disabled="{{isActiveTag(id)}}">
+				{{name}}
+			</option>	
+			{{/each}}
+		</select>
+	</div></div>
+				<div class="col-xs-3">
+		<a href="#" class="btn btn-info" onclick="window.open('<%= new_tag_url %>', 'kj2438vh', 'left=400,top=200,width=350,height=400,toolbar=1,resizable=0'); return false;">New Tag</a>
+	</div>
+			<div class="col-xs-4">
+			<label class="control-label">
+				<span class="label label-success label-shim {{isActiveTagType('topic')}}">Topic</span>
+				<span class="label label-warning label-shim {{isActiveTagType('person')}}">Person</span>
+				<span class="label label-danger  label-shim {{isActiveTagType('location')}}">Location</span>
+				<span class="label label-primary label-shim {{isActiveTagType('content_type')}}">Content Type</span>
+			</label>
+		</div>
+		<div class="col-xs-11">
+			<br>
+			{{#each model_tags}}
+				<span class="tag-type-{{tag_type}} active-model-tag" data-tag-id="{{id}}">
+					{{name}} 
+				<span class="glyphicon glyphicon-remove" on-click='destroy_tag' data-tag-id="{{id}}"></span>
+				</span>
+				{{/each}}	
+
+				<%= image_tag 'spinner.gif', class: 'ajax-spinner', style: 'width: 20px; height: 20px; margin-left:5px;' %><br>
+		</div>
+	</div>
+
+</div>

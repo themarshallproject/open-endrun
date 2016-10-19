@@ -1,0 +1,121 @@
+<div class="light-on-dark">
+<div class="container page-margin static-page">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="static-logo">
+					<%= image_tag "static-m.svg" %>
+				</div>
+				<div class="static-title">
+					Letter
+				</div>
+				<div class="static-desc">
+					Letters to the editor are for comments on our coverage or criminal justice issues. Audience Editor Blair Hickman reads all submissions.
+					<br><br>
+					<span>If you’d prefer, you can send us a letter by mail:</span> 
+					<br><br>
+					The Marshall Project<br>
+					156 West 56th Street<br>
+					Suite 701<br>
+					New York, NY 10019
+					<div class="static-anchor">
+						<a href="#submit">Tell Us What You Think</a>
+						<a href="#guidelines">Guidelines</a>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="static-content">
+			<div class="static-anchor-shim">
+			<a name="submit" class="static-anchor-land"></a>
+			</div>
+			<h1>Tell Us What You Think</h1>
+			<p>Join the national discussion on criminal justice by submitting a letter to the editor below.</p>
+			<div class="letter-field">
+						<span>*</span> = Required Field<br><br>
+					</div>
+			<div class="letter-submit-form">
+					<%= form_for(@letter, url: process_new_letter_path) do |f| %>
+					<% if @post.present? %>		
+						<div class="letter-field">
+							In response to
+						</div>
+					
+						<input disabled placeholder="<%= @post.title %>" class="form-input">
+					<% end %>
+					<div class="letter-field">
+						Name <span>*</span>
+					</div>
+				
+					<%= f.text_field :name, class: "form-input" %> <!-- pls wire up first/last db columns -->
+					
+					<div class="letter-field">
+						Email <span>*</span>
+					</div>
+					
+					<%= f.text_field :email, class: "form-input" %>
+					
+					<div class="letter-field">Twitter</div>
+					
+					<%= f.text_field :twitter, class: "form-input" %>
+					
+					<div class="letter-field">City & State</div>
+					
+					<%= f.text_field :street_address, class: "form-input" %>
+					
+					<div class="letter-float">
+					<div class="letter-field letter-float">May we publish your letter? <span>*</span></div>
+					
+					<div class="letter-checkbox">
+						<%= check_box_tag 'letter[is_public]', 'public', true, class: 'checkbox' %>
+					</div> 	
+
+					
+					<div class="letter-checkbox-subtext">
+						Yes 
+					</div>
+					<div class="clear"></div>
+					</div>
+					<!--<div class="letter-checkbox-container">
+									<div class="letter-field letter-float">
+						Sign up for our newsletter?
+					</div>
+					<div class="letter-checkbox">
+						<%= f.check_box :is_anonymous, class: 'checkbox' %>
+					</div>
+					<div class="letter-checkbox-subtext">
+						Yes
+					</div>-->
+					<div class="clear"></div>
+					<div class="letter-field">
+						Letter <span>*</span>
+					</div>
+					<div class="letter-field-subtext">
+						<!-- Characters remaining: <span>3,000</span> -->
+					</div> 
+					<%= f.text_area :content, rows: 15, cols: 40, class: "form-textarea" %>
+
+					<%= f.hidden_field :post_id, value: @post.try(:id) %>
+					<div class="letter-submit-button">
+						<%= f.submit 'Send', class: "form-button donate-submit-button" %>
+					</div>
+				<% end %>
+			</div>
+				<h1>&nbsp;</h1>
+			<div class="static-anchor-shim">
+				<a name="guidelines" class="static-anchor-land"></a>
+				</div>
+					<h1>Guidelines</h1>
+					<h3> When selecting submissions to publish, we look for letters that:</h3>
+					<p>» Add a unique perspective to our coverage or criminal justice issues<br>
+					» Are concise and thoughtful<br>
+					» Represent a balance of opinions<br>
+					» Respect others’ views<br></p>
+					<br> 
+						<h3>Please note:</h3> 
+					<p>
+					» We reserve the right to edit for clarity and length. <br>
+					» We will not publish anonymous letters.<br></p>
+		</div>
+	</article>
+</div>

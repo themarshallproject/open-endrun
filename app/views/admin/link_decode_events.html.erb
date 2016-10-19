@@ -1,0 +1,20 @@
+<table class="table table-striped">
+<thead>
+	<th>Time Ago</th>
+	<th>URL</th>
+	<th>Placement (0 indexed)</th>
+	<th>referer</th>
+</thead>
+<tbody>
+<% @events.each do |event| %>
+	<% link = Link.find(event.link_id) rescue event.link_id %>
+	<tr>
+		<td><%= time_ago_in_words event.created_at %></td>
+		<td><%= link.try(:url) || link %></td>
+		<td><%= event.placement %></td>
+		<td><%= event.referer %></td>
+		<td><%= event.cookies %></td>
+	</tr>
+<% end %>
+</tbody>
+</table>

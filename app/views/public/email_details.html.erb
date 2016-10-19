@@ -1,0 +1,85 @@
+<div class="light-on-dark">
+<div class="container page-margin static-page">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="static-logo">
+					<%= image_tag "static-m.svg" %>
+				</div>
+				<div class="static-title">
+					Subscribe
+				</div>
+				<div class="static-desc">
+				</div>
+			</div>
+		</aside>
+		<div class="static-content">
+			<h1>Tell Us More</h1>
+			<div class="letter-submit-form">
+
+				<%= form_tag process_email_details_path do %>
+
+				<%= hidden_field :email, :email, value: params[:email] %>
+				<%= hidden_field :email, :confirm, value: params[:confirm] %>
+			<div class="letter-field">
+						<span>*</span> = Required Field<br><br>
+					</div>
+
+				<div class="letter-field">
+					Email <span>*</span>
+				</div>
+				<%= text_field :email, :email, value: @email_signup.email, disabled: true, class: "form-input" %>
+
+				<div class="letter-field">
+					First Name <span>*</span>
+				</div>
+				<%= text_field :email, :first_name, class: "form-input" %>
+
+				<div class="letter-field">
+					Last Name <span>*</span>
+				</div>
+				<%= text_field :email, :last_name, class: "form-input" %>
+
+				<div class="letter-field">
+					Do you work in criminal justice?
+				</div>
+			
+				<%= radio_button :email, :q_work_in_criminal_justice, "Yes", class: "subscribe-radio-button" %>
+				<div class="subscribe-radio-subtext">Yes</div>
+				<%= radio_button :email, :q_work_in_criminal_justice, "No", class: "subscribe-radio-button" %>
+				<div class="subscribe-radio-subtext">No</div>
+				<div class="clear"></div>
+
+				<div class="letter-field">
+					Are you a journalist?
+				</div>
+				<%= radio_button :email, :q_is_journalist, "Yes", class: "subscribe-radio-button" %>
+				<div class="subscribe-radio-subtext">Yes</div>
+				<%= radio_button :email, :q_is_journalist, "No", class: "subscribe-radio-button" %>
+				<div class="subscribe-radio-subtext">No</div>
+				<div class="clear"></div>
+
+				
+				<div class="letter-field">
+					Have you or a loved one been incarcerated?
+				</div>
+				<%= radio_button :email, :q_incarcerated, "Yes", class: "subscribe-radio-button" %>
+				<div class="subscribe-radio-subtext">Yes</div>
+				<%= radio_button :email, :q_incarcerated, "No", class: "subscribe-radio-button" %>
+				<div class="subscribe-radio-subtext">No</div>
+				<div class="clear"></div>
+
+				<div class="letter-submit-button">
+					<%= submit_tag "Update", class: "form-button donate-submit-button" %>
+				</div>
+				<% end %>	
+
+			</div>
+		</div>
+	</article>
+
+<% content_for(:google_analytics_pageload) do %>
+ga('send', 'event', 'web-email-signup', 'subscribe', '<%= params[:ref] || "unknown" %>', {'nonInteraction': 1});
+<% end %>
+
+</div>

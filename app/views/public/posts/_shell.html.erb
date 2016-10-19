@@ -1,0 +1,56 @@
+<!-- open _shell (based on _base) -->
+<div class="container shell-margin">
+
+<span data-post-id="<%= @post.id %>"
+	data-url="<%= @post.path %>"
+	data-published-at="<%= @post.published_at.utc.to_i %>"
+	data-revised-at="<%= @post.revised_at.utc.to_i %>">
+<div class="post-header col12">
+	<div class="shell-shares">
+		<div class="shell-shares-shim">
+			<%= render partial: 'public/post_share_tools', locals: { post: @post } %>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="post-timestamp">
+		<%= @post.revised_at > @post.published_at ? 'Updated' : 'Filed' %>
+		<span><%= @post.revised_at.strftime("%l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.')%></span>
+	</div>
+	<div class="post-date">
+		<%= @post.revised_at.strftime("%m.%d.%Y") %>
+	</div>
+	<div class="post-kicker">
+		<% if @post.rubric.present? and @post.rubric.name.present? and @post.rubric.slug.present? %>
+			<%= link_to @post.rubric.name, public_tag_path(@post.rubric.slug) %>
+		<% end %>
+	</div>
+	<h1 class="post-headline" data-remote="post:<%= @post.id %>:title">
+		<%= @post.title %>
+	</h1>
+	<h4 class="post-deck" data-remote="post:<%= @post.id %>:deck">
+		<%= @post.deck %>
+	</h4>
+	<div class="shell-deck-shim"></div>
+
+	<div class="shell-byline">
+		<%= render partial: 'public/post_byline', locals: { post: @post } %>
+	</div>
+
+	<% if @post.metadata_provider.produced_by.present? %>
+		<div class="post-short-rule"></div>
+		<div class="post-producers">
+			<%= @post.metadata_provider.produced_by %>
+		</div>
+	<% end %>
+
+	<div class="shell-shares-mobile">
+		<%= render partial: 'public/post_share_tools', locals: { post: @post } %>
+	</div>
+</div><!-- .post-header -->
+
+<%= raw PostRenderer.new(@post).render() %>
+
+<%= raw @post.inject_html if @post.inject_html.present? %>
+
+</div>
+<!-- close _shell -->

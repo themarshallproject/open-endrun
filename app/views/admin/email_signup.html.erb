@@ -1,0 +1,57 @@
+<script>
+(function() {
+	window.EmailSignup = window.EmailSignup || {};
+
+	var div = function(html, className) {
+		var el = document.createElement('div');		
+		el.innerHTML = html || '';
+		el.className = className || '';
+
+		var children = [];
+		var self = {
+			el: el,
+			children: function(_children) { 
+				children = _children; 
+				return self;
+			},
+			getChildren: function() {
+				return children;
+			}
+		}
+		return self;
+	}
+
+	var tree = function() {
+		return div(null, 'container').children([
+			div('1', null),
+			div('2', null).children([
+				div('2.1', null),
+				div('2.2', null)
+			])
+		]);
+	}
+	EmailSignup.tree = tree;
+
+
+
+	var render = function(root) {
+		var el = root.el;
+
+		root.getChildren().forEach(function(child) {
+			var renderedChildren = render(child.getChildren());
+
+			console.log(root, child, child.getChildren(), renderedChildren)			
+			
+		});
+		return el;
+	}
+	EmailSignup.render = render;
+
+})();
+</script>
+
+<script>
+tree = EmailSignup.tree()
+console.log(tree);
+console.log(EmailSignup.render(tree));
+</script>

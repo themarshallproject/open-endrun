@@ -1,0 +1,122 @@
+<script>
+tags = <%= raw Tag.all.map{|tag| {id: tag.to_param, name: tag.name} }.to_json %>;
+</script>
+
+<%= render partial: 'tags/modal' %>
+
+<script>
+
+$(document).on('ready page:load', function() {
+  $(".markdown-editor").markdown({
+    additionalButtons: [
+      [{
+            name: "groupCustom",
+            data: [{
+              name: "cmdTag",
+              toggle: false, // this param only take effect if you load bootstrap.js
+              title: "Tag",
+              icon: "glyphicon glyphicon-glass",
+              callback: function(e){
+                var chunk, 
+                    cursor,
+                    selected = e.getSelection(), 
+                    content = e.getContent()
+
+                $('.tag-modal').modal('show');    
+                $('.tag-modal li').on('click', function() {
+                  console.log('modal li', this)
+                  var new_chunk = "[tag id=" + $(this).attr('data-tag-id') + "]" + selected.text.toString() + "[/tag]";
+                  e.replaceSelection(new_chunk);
+                  cursor = selected.start;
+                  e.setSelection(cursor-1, cursor+new_chunk.length);
+                  $('.tag-modal').modal('hide');
+                })
+
+              }
+            }]
+      }]
+    ]
+  })
+})
+</script>
+
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :title, size: 40, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="field">
+
+    <%= f.text_area :content, cols: 80, rows: 30, class: 'markdown-editor' %>
+  </div>
+  <div class="md-col-6">
+  <div class="field">
+    <%= f.label :post_format %><br>
+    <%= f.select :post_format, @post.post_formats.map{|k, v| [v.name, k]}, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :published_at %><br>
+    <%= f.datetime_select :published_at %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.select :status, @post.states.map{|k, v| [v, k] } %>
+  </div>
+  </div>
+  <div class="md-col-6">
+  <% if @post.persisted? and @post.post_threads.empty? %>
+  <div class="attach-to-thread well">
+    <h3>Create new thread with a post</h3>
+    <ul>
+    <% Post.all.each do |related_post| %>
+      <% if related_post != @post and related_post.in_zero_threads? and @post.in_zero_threads? %>
+        <li>
+          <%= link_to related_post.title, create_thread_with_posts_path(posts: [@post, related_post]), method: :post %>
+          (<%= related_post.human_published_at %>) <%= link_to 'edit', edit_post_path(related_post) %>
+        </li>
+      <% end %>
+    <% end %> 
+    </ul>
+
+    <h3>Add to existing thread</h3>
+    <ul>
+    <% PostThread.all.each do |post_thread| %>
+      <li>
+        <%= post_thread.posts.map{ |post| post.title }.join(" | ") %>        
+        <%= link_to 'attach', attach_post_to_thread_path({thread_id: post_thread, post_id: @post}), method: :post %>
+      </li>      
+    <% end %>
+    </ul> 
+  </div>
+  <% end %>
+
+  <div class="remove-from-thread well">
+    <h3>Remove from thread</h3>
+    <% if @post.persisted? and @post.post_threads.any? %>
+      <% @post.post_threads.each do |post_thread| %>
+        <%= link_to remove_post_from_thread_path({thread_id: post_thread, post_id: @post}), method: :post do %>
+          &bull; <%= post_thread.posts.map{|post| post.title }.join(", ") %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %><br><br>
+    <%= link_to 'Delete Forever', @post, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+  </div>
+
+<% end %>

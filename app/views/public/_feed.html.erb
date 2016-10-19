@@ -1,0 +1,5 @@
+
+
+<% @posts.each do |post| %>
+<%= render partial: 'public/post_partial', locals: { post: post } %>
+<% end %>

@@ -1,0 +1,309 @@
+<div class="admin-newsletter-show">
+
+<script>
+var items = <%= raw @newsletter_items.to_json %>;
+</script>
+
+<h1>Newsletter Editor <small><%= @newsletter.name %></small> 
+
+<%= link_to "Edit", edit_newsletter_path(@newsletter), class: "btn btn-info pull-right", style: "margin-left: 6px;" %>
+
+<%= link_to "Switch to Newsletter Sorter", sort_newsletter_path(@newsletter), class: "btn btn-info pull-right", style: "margin-left: 6px;" %>
+
+<%= link_to "Open in MailChimp", @newsletter.mailchimp_web_url , disabled: @newsletter.mailchimp_web_id.nil?, class: "btn btn-info pull-right", style: "margin-left: 6px;" %>
+<%= link_to "Sync to MailChimp", sync_newsletter_to_mailchimp_path(@newsletter), method: :post, disabled: @newsletter.mailchimp_id.nil?, class: "btn btn-info pull-right", style: "margin-left: 6px;" %>
+
+</h1>
+
+<% if @newsletter.email_subject.empty? or @newsletter.email_subject == Newsletter.default_subject_line %>
+<div class="newsletter-problem-links" style="border:5px solid red; margin: 20px 0; padding: 20px;">
+	Warning: You still have the default email subject set. Please update it. Attempts to sync newsletter will fail until this is resolved.
+</div>
+<% end %>
+
+<% if @problem_links.length > 0 %>
+	<div class="newsletter-problem-links" style="border:5px solid red; margin: 20px 0; padding: 20px;">
+		<h2>LINKS WITH PROBLEMS</h2>
+		<ul>
+		<% @problem_links.each do |problem_link| %>
+			<li><%= problem_link %></li>
+		<% end %>
+		</ul>
+	</div>
+<% end %>
+
+<% if @newsletter.published_date_is_today? == false %>
+<div class="newsletter-problem-links" style="border:5px solid red; margin: 20px 0; padding: 20px;">
+	<h2>DATE WARNING</h2>
+	It's not set to today -- is this what you mean to do?
+</div>
+<% end %>
+
+<div class="col-lg-8" style="margin-top: 50px; padding-left: 0px; padding-right: 0px;">	
+	<div id="newsletter-app"></div>
+</div>
+<div class="col-lg-4" style="margin-top: 50px; padding-right: 0px;">
+	<label style="margin: 0px 0 5px 40px;">Live Preview</label>
+	<div class="newsletter-preview">
+	<%= image_tag "flat-browser.png" %>
+	<div class="newsletter-inner">
+		<iframe class="live-preview-iframe" frameborder="0"></iframe>
+	</div>
+	</div>
+</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	var make_dirty = function(el) {
+		el.attr('data-dirty', 'true');
+		setTimeout(function() {
+			sync_textareas();
+			update_positions();	
+		}, 100);	
+	}
+
+	$('.markdown-link-tool').on('mousedown', function(e){
+		e.preventDefault();	
+		$this = $(':focus');
+		var url = prompt("URL:");	
+		console.log(url)
+		$this.surroundSelectedText("[", "]("+url+")");
+		make_dirty($this);
+	});
+	$('.markdown-bold-tool').on('mousedown', function(e){
+		$this = $(':focus');
+		e.preventDefault();		
+		$this.surroundSelectedText("**", "**");
+		make_dirty($this);
+	});
+	$('.markdown-italic-tool').on('mousedown', function(e){
+		$this = $(':focus');
+		e.preventDefault();		
+		$this.surroundSelectedText("*", "*");
+		make_dirty($this);
+	});
+
+});
+</script>
+
+<div class="markdown-tools">
+	<span class="markdown-link-tool"><span class="glyphicon glyphicon-link"></span></span>
+	<span class="markdown-bold-tool"><span class="glyphicon glyphicon-bold"></span></span>
+	<span class="markdown-italic-tool"><span class="glyphicon glyphicon-italic"></span></span>
+</div>
+
+<script id="assignment_homepage_position" type="text/ractive">
+	<select class="homepage-select" value='{{homepage_position}}'>
+		<option value='undefined'>NONE</option>
+		<option value='1' selected>1</option>
+		<option value='2'>2</option>
+		<option value='3'>3</option>
+	</select>
+</script>
+
+<script id="newsletter-tpl" type="text/ractive">
+
+		<label>Email Subject</label>
+		<input class="form-control email-subject" value="{{subject}}">
+		
+		<br>
+		<% @newsletter.sections.each do |section| %>
+
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<%= section.name %>
+			</div>
+			<div class="panel-body">
+			<ul class="sortable" data-slug="<%= section.slug %>">
+				{{#each filterItems('<%= section.slug %>')}}
+					<li data-tagging-assignment-id="{{assignment.id}}" data-last-position="{{assignment.position}}">												
+						<span class="edit-nub glyphicon glyphicon-play"></span>
+						<span class="newsletter-item-preview">{{taggable.email_content || taggable.title || taggable.name}}</span> 
+						<textarea rows="2" class="taggable-edit-textarea form-control" 							
+							value="{{taggable.email_content}}" 
+							data-model-name="{{taggable.model_name}}" 
+							data-model-id="{{taggable.id}}">
+						</textarea>
+					</li>
+				{{/each}}
+			</ul>
+			</div>
+		</div>		
+
+		<% end %>
+
+		<hr>
+
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				Unattached Items
+			</div>
+			<div class="panel-body">
+		<ul class="sortable">
+		{{#each nullItems()}}
+			<li data-tagging-assignment-id="{{assignment.id}}" data-last-position="{{assignment.position}}">												
+				<span class="edit-nub glyphicon glyphicon-play"></span>
+				<span class="newsletter-item-preview">{{taggable.email_content || taggable.title || taggable.name}}</span> 
+				<textarea rows="2" class="taggable-edit-textarea form-control" 							
+					value="{{taggable.email_content}}" 
+					data-model-name="{{taggable.model_name}}" 
+					data-model-id="{{taggable.id}}">
+				</textarea>
+			</li>
+		{{/each}}
+		</ul>
+		</div>
+</script>
+
+<script>
+
+$(document).on('ready page:load', function() {
+	
+	var ractive = new Ractive({
+	    el: '#newsletter-app',
+	    template: '#newsletter-tpl',
+	    data: {
+	    	filterItems: function(section_slug) {
+	    		return this.get('items').filter(function(item) {
+	    			return item.assignment.bucket === section_slug;
+	    		});
+	    	},
+	    	nullItems: function() {
+	    		return this.get('items').filter(function(item) {
+	    			return item.assignment.bucket === null;
+	    		});
+	    	},
+	    	available_homepage_positions: function() {
+	    		return this.get('possible_homepage_positions')
+	    	},
+	    	'possible_homepage_positions': [
+	    		{ value: '1' },
+	    		{ value: '2' },
+	    		{ value: '3' },
+	    		{ value: '4' },
+	    		{ value: '5' }
+	    	],
+	    	'subject': <%= raw @newsletter.email_subject.to_json %>,
+	    	'blurb': <%= raw @newsletter.blurb.to_json %>
+	    	  	
+	    }
+	});
+	
+	ractive.set('items', items);
+	console.log(ractive.get('items'))
+
+	ractive.observe('items.*.assignment.homepage_position', function(newValue, oldValue, keypath) {
+		console.log(keypath, newValue);
+	});
+
+	$('body').on('click', '.edit-nub', function() {
+
+		$(this).toggleClass('edit-nub-rotate');
+		var $textarea = $(this).parent().find('textarea');
+
+		if ($(this).hasClass('edit-nub-rotate')) {
+
+			$textarea.animate({ 'height' :'130px', 'padding':'6px 12px', 'margin': '10px 20px' }, 100);
+			$textarea.css('border', '1px solid #66afe9');
+			$textarea.focus();	
+
+		} else {
+
+			$textarea.blur();	
+			$textarea.css('border', '0px');
+			$textarea.animate({ 'height' :'0px', 'padding': '0', 'margin': '0px'  }, 100);
+		}
+		
+	});
+
+	var sync_textareas = _.debounce(function() {
+		console.log('sync start')
+		var email_updates = $(".taggable-edit-textarea[data-dirty='true']").map(function() {
+			var $textarea = $(this);
+			var model = $textarea.attr('data-model-name');
+			var id = parseInt($textarea.attr('data-model-id'));
+			var value = $textarea.val()
+			console.log($textarea, model, id, value)
+			return {
+				'model': model,
+				'id': id,
+				'email_content': value				
+			}
+		}).toArray();
+
+		
+
+		console.log("syncing textarea email_updates:", email_updates);
+
+		$.ajax({
+			type : "POST",
+			url :  "<%= update_newsletter_email_contents_path() %>",
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify({'email_updates': email_updates})
+		}).done(function(data) {
+			console.log(data);
+			update_preview();
+		}).fail(function(error){
+			console.error(error);
+			update_preview();
+		});
+
+		update_positions();
+
+	}, 1000);
+
+	$('body').on('keydown', 'input,textarea', function() {
+		$(this).attr('data-dirty', 'true');
+		sync_textareas();		
+	});
+
+	$(".sortable").sortable({
+		connectWith: ".sortable",
+		stop: function(evt, ui) {
+        	update_positions();
+    	}
+	});
+	var update_preview = function() {		
+		$('.live-preview-iframe').attr('src', "<%= build_newsletter_path(@newsletter) %><%=  params[:rbe] == 'design' ? '?rbe=design' : '' %>")		
+	}
+	update_preview();
+
+	var update_positions = function() {
+		var updated_assignments = $('.sortable').map(function() {
+			var $sortable = $(this);
+			return $sortable.find('li').map(function() {					
+				return { 
+					'slug': $sortable.attr('data-slug') || null, 
+					'tagging_assignment_id': parseInt($(this).attr('data-tagging-assignment-id')),
+					'position': $("li").index($(this))					
+				};
+			}).toArray();	
+		}).toArray();
+
+		var config = {
+			'email_subject': ractive.get('subject'),
+			'blurb': ractive.get('blurb')
+		}
+		console.log('config', config)
+
+		$.ajax({
+			type : "POST",
+			url :  "<%= update_newsletter_assignments_path(@newsletter) %>",
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify({'assignments': updated_assignments, 'config': config})
+		}).done(function(data) {
+				console.log(data)
+				update_preview();
+		}).fail(function(error){
+			console.error(error)
+			update_preview();
+		})				
+	}
+	//$(".sortable").disableSelection();
+
+});
+</script>
+</div>

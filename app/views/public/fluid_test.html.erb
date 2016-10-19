@@ -1,0 +1,9 @@
+<div class="fluid-test">
+	<article>
+		<section>
+			<%= render partial: 'public/post_header', locals: { post: @post } %>
+			<div class="byline">Dana G.</div>
+			<%= raw PostRenderer.new(@post).render() %>
+		</section>
+	</article>
+</div>

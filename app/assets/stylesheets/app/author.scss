@@ -1,0 +1,109 @@
+/* styles for author and tag pages */
+
+.tag-description {
+	@include font-detail-bold;
+	color: $timestamps;
+	font-size: 24px;
+	text-transform: capitalize;
+	margin-bottom: 5px;
+	span {
+		@include font-detail;
+		text-transform: none;
+		margin-left: 8px;
+	}
+}
+
+.tag-name {
+	@include font-detail-bold;
+	font-size: 14px;
+	margin-bottom: 64px;
+}
+
+.tag-desc {
+	@include font-detail;
+	font-size: 20px;
+	line-height: 1.66em;
+	a {
+	text-decoration: underline;
+	}
+}
+
+.tag-freeform {
+	margin-bottom: 100px;
+	min-height: 50px;
+}
+
+.tag-photo {
+	margin: 0 0 40px 0;
+	img {
+		width: 100%;
+	}
+	.meta {
+		margin-top: 10px;
+		@include font-detail-bold; // TODO: refactor!
+		font-size: 14px;
+		line-height: 18px;		
+		.byline {
+			@include font-detail;
+			font-size: 12px;
+			line-height: 18px;
+		text-transform: uppercase;
+		}
+	}
+}
+
+.author-header {
+	margin-bottom: 90px;
+	min-height: 50px;
+}
+
+.author-desc {
+	@include font-detail;
+	font-size: 20px;
+	line-height: 1.66em;
+	margin-bottom: 50px;
+	a {
+	text-decoration: underline;
+	}
+}
+
+.author-info {
+	padding-right: 40px;
+	float: left;
+	margin-bottom: 20px;
+	@include font-detail-bold;
+	text-transform: uppercase;
+	font-size: 14px;
+	margin-right: 8px;
+	span {
+		padding-left: 8px;
+		@include font-detail;
+		text-transform: none;
+	}
+}
+
+.author-obsessions {
+	margin: 60px 0 0 0;
+}
+
+@media (max-width: 740px) {
+	.tag-name { 
+		margin-bottom: 30px;
+	}
+	.tag-desc, .author-desc {
+		font-size: 14px;
+		line-height: 1.5em;
+	}
+	.tag-freeform {
+		margin-bottom: 50px; 
+	}
+	.author-info {
+		float: none;
+		margin-bottom: 25px;
+		span {
+		padding-left: 0px;
+		margin-top: 5px;
+		display: block;
+		}
+	}
+}

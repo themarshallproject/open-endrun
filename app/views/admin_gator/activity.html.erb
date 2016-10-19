@@ -1,0 +1,14 @@
+<table class="table table-striped">
+<tbody>
+<% @items.each do |item| %>
+<tr>
+	<td><%= time_ago_in_words item.created_at %></td>
+	<td><%= item.class %></td>
+	<td><%= item.id %></td>
+	<td><%= item.try(:creator).try(:email) %></td>
+	<td><%= link_to item.try(:tag).try(:name), "/c/#{item.try(:tag).try(:slug)}" %></td>
+	<td><%= item.try(:taggable).try(:title) || item.try(:title) %></td>
+</tr>
+<% end %>
+</tbody>
+</table>

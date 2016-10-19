@@ -1,0 +1,67 @@
+<h1 style="display:inline;">
+	Posts
+	<%= link_to "New Post", new_post_path, class: 'btn btn-info pull-right' %>
+
+	<%= link_to "All Posts", admin_posts_index_path(all: 't'), class: 'btn btn-primary btn-xs', style: 'margin-left: 40px;' %>
+	<%= link_to "Previous Page", admin_posts_index_path(page: @page-1), class: "btn btn-primary btn-xs", disabled: @page == 0 %>
+	<%= link_to "Next Page",     admin_posts_index_path(page: @page+1), class: 'btn btn-primary btn-xs' %>
+</h1>
+
+<script>window.is_post_index_admin = true;</script>
+
+<% cache ['admin', 'post_index', 'post_locks', 'v1', @post_locks] do %>
+<script id="post_locks" type="text/json">
+<%= @post_locks.to_json.html_safe %>
+</script>
+<% end %>
+
+<br>
+<br>
+
+<table class="table table-striped">
+	<thead>
+		<th>Locked?</th>
+		<th>Status</th>
+		<th>Rubric</th>
+		<th>Promo</th>
+		<th>Title</th>
+		<th>Words</th>
+		<th>Published</th>
+		<th>
+	<tbody>
+	<% @posts.each do |post| %>
+		<%= render partial: 'admin/post_index_row', locals: { post: post } %>
+	<% end %>
+	</tbody>
+</table>
+
+<div class="page-nav">
+	<%= link_to "Previous Page", admin_posts_index_path(page: @page-1), class: "btn btn-primary btn-xs", disabled: @page == 0 %>
+	<%= link_to "Next Page",     admin_posts_index_path(page: @page+1), class: "btn btn-primary btn-xs" %>
+</div>
+
+<script>
+$(document).ready(function() {
+	var locks = JSON.parse($('#post_locks').html());
+
+	var findLock = function(post_id) {
+		var matching = locks.filter(function(candidate) {
+			return candidate.post_id === post_id;
+		});
+		if (matching.length > 0) {
+			return matching[0];
+		}
+		return null;
+	}
+
+	$('.post-admin-row').each(function(_index, row) {
+		var $row = $(row);
+		var $lock = $row.find('.post-lock');
+		var post_id = parseInt($row.attr('data-post-id'), 10);
+		var lock = findLock(post_id);
+		if (lock) {
+			$lock.text(lock.user_name);
+		}
+	});
+});
+</script>

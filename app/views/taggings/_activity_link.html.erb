@@ -1,0 +1,7 @@
+<p>
+	<%= tagging.created_at.to_s(:full_date) %> | 
+	<%= link_to(tagging.user.email_slug, '#') rescue '(unknown user)' %>
+	added the tag <%= link_to tagging.tag.name, tagging.tag %>
+	to the link
+	<%= link_to (tagging.taggable.try(:title) || tagging.taggable.id) , tagging.taggable %>
+</p>

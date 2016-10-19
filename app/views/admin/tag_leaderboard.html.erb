@@ -1,0 +1,4 @@
+<% @data.each do |user_id, count| %>
+
+	<%= count %> tags -- <%= User.find(user_id).email rescue 'unknown' %><br>
+<% end %>

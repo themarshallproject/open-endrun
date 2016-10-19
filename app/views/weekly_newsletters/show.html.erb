@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @weekly_newsletter.name %>
+</p>
+
+<p>
+  <strong>Email subject:</strong>
+  <%= @weekly_newsletter.email_subject %>
+</p>
+
+<p>
+  <strong>Mailchimp:</strong>
+  <%= @weekly_newsletter.mailchimp_id %>
+</p>
+
+<p>
+  <strong>Mailchimp web:</strong>
+  <%= @weekly_newsletter.mailchimp_web_id %>
+</p>
+
+<p>
+  <strong>Byline:</strong>
+  <%= @weekly_newsletter.byline %>
+</p>
+
+<p>
+  <strong>Published at:</strong>
+  <%= @weekly_newsletter.published_at %>
+</p>
+
+<p>
+  <strong>Public:</strong>
+  <%= @weekly_newsletter.public %>
+</p>
+
+<p>
+  <strong>Archive url:</strong>
+  <%= @weekly_newsletter.archive_url %>
+</p>
+
+<p>
+  <strong>Opening graf:</strong>
+  <%= @weekly_newsletter.opening_graf %>
+</p>
+
+<p>
+  <strong>Quote graf:</strong>
+  <%= @weekly_newsletter.quote_graf %>
+</p>
+
+<%= link_to 'Edit', edit_weekly_newsletter_path(@weekly_newsletter) %> |
+<%= link_to 'Back', weekly_newsletters_path %>

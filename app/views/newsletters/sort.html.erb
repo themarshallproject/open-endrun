@@ -1,0 +1,35 @@
+<h1>Newsletter Sorter <small><%= @newsletter.name %></small>
+<%= link_to "Switch to Newsletter Editor", newsletter_path(@newsletter), class: "btn btn-info pull-right" %>
+</h1>
+<br>
+
+<table class="table table-condensed table-striped">
+<thead>
+    <tr>
+    <th></th>
+    <th>Source</th>
+    <th>Creation</th>
+    <th>Title</th>
+    <th> </th>
+    <th> </th>
+  </tr>
+</thead>
+<% @potential_items.each do |item| %>
+<%= render partial: 'newsletters/sorter_potential_item', locals: { 
+	newsletter: @newsletter, 
+	item: item, 
+	is_already_present: (@current_assignments[item.id] == true)
+} %>
+<% end %>
+</table>
+
+<script>
+$(document).ready(function() {
+	$('body').on('ajax:success', function(e, response) {
+		var inner_html = $(response).html();
+		var id = $(response).attr('data-item-key');
+		var target = $($('tr[data-item-key="'+id+'"]'))[0];
+		$(target).html(inner_html);
+	});
+});
+</script>

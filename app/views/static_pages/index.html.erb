@@ -1,0 +1,28 @@
+<h1>Static Pages<%= link_to 'New Static Page', new_static_page_path, class: "btn btn-info pull-right" %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Slug</th>
+      <th>Content</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @static_pages.each do |static_page| %>
+      <tr>
+        <td><%= static_page.slug %></td>
+        <td><%= static_page.content.first(50) %></td>
+        <!--<td><%= link_to 'Show', static_page %></td>-->
+        <td>
+          <%= link_to 'Delete', static_page, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger pull-right", style: "margin-left: 5px;" %>
+          <%= link_to 'Edit', edit_static_page_path(static_page), class: "btn btn-success pull-right" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

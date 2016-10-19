@@ -1,0 +1,33 @@
+
+<!-- stream/_newsletter -->
+<% cache ['stream', 'v2', item, item.stream_promo_key] do %>
+<!-- generated at <%= Time.now.utc.to_f %> -->
+<section class="stream-newsletter os-v2-stream" data-path="<%= opening_statement_path(item) %>">
+
+<div class="promo-full-bleed">
+  <div class="container">
+    <div class="col8-shift4 promo-shim-special promo-rule">
+      <div class="promo-content-special">
+        <div class="tease-kicker">
+          <%= link_to "OPENING STATEMENT", opening_statement_path(item) %>
+          <span><%= item.published_at.strftime("%B %e").gsub('am', 'a.m.').gsub('pm', 'p.m.') %></span>
+        </div>
+        <!-- <div class="tease-headline-large promo-headline-brighten">
+          <a href="#" class="post-link stream-expandable"><%= item.email_subject %></a>
+        </div> -->
+        <div class="issue-preview">
+          <% newsletter = item %>
+          <% section = item.sections.first %>
+          <% newsletter.items_in_bucket(section.slug).first(2).each do |item| %>
+            <%= markdown(item.taggable.email_content) %>
+          <% end %>
+
+          <div class="gradient-filter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+<% end %>

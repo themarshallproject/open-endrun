@@ -1,0 +1,63 @@
+<% content_for(:title) {
+	"Search | The Marshall Project"
+} %>
+
+
+<% content_for(:head) do %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:title" content="Search The Marshall Project’s archives">
+<meta property="og:description" content="The Marshall Project is a nonprofit news organization covering the U.S. criminal justice system.">
+<meta property="og:image" content="https://s3.amazonaws.com/tmp-uploads-1/social/mp-fb-og.png">
+<% end %>
+
+<div class="container page-margin">
+	<article>
+		<aside class="col4">
+			<div class="inner">
+				<div class="tag-description">
+					Search
+				</div>
+				<div class="tag-name">
+				<% if params[:q].present? %>
+					<%= @sorted_results.count %> results for “<%= params[:q] %>”
+				<% end %>
+				</div>
+			</div>
+		</aside>
+		<div class="tag-freeform">
+			<div class="tag-desc">
+				<form method="GET" action="/search">
+					<input name="q" value="<%= params[:q] %>" class="form-input search-input" placeholder="Enter Your Search" style="border-left: 1px solid #353535">
+					<input type="submit" value="Search" class="form-button">
+				</form>
+			</div>
+		</div>
+	</article>
+</div>
+
+<% if @posts.present? %>
+	<% @sorted_results.each do |result| %>
+		<% post = @posts.select{|post| post.id == result[:id] }.first %>
+		<%= render partial: "public/stream/post", locals: { item: post } %>
+	<% end %>
+<% else %>
+	<div class="container">
+		<h2></h2>
+	</div>
+<% end %>
+
+<script>
+(function() {
+	$(document).ready(function() {
+		$('input.search-input').focus();
+	});
+	$(window).load(function() {
+		$('input.search-input').focus();
+		setTimeout(function() {
+			$('input.search-input').focus();
+		}, 500);
+	});
+})();
+</script>

@@ -1,0 +1,19 @@
+Opening Statement
+<%= @newsletter.published_at.strftime("%B %e, %Y") %>
+
+<% @newsletter.sections.each do |section| %>
+
+<%= section.name %>
+
+<% @newsletter.items_in_bucket(section.slug).each do |item| %>
+<% doc = Nokogiri::HTML.fragment(markdown(item.taggable.email_content) || "")
+   doc.css('a').each{ |link| link.content = '' } %>
+<%= doc.text %>
+<%= Nokogiri::HTML.fragment(markdown(item.taggable.email_content) || "").css('a').map{ |link|
+ link['href'] }.join("\n") 
+%>
+
+
+<% end %>
+
+<% end %>

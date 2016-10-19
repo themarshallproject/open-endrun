@@ -1,0 +1,1 @@
+alias preview='BUNDLE_GEMFILE=~/endrun/Gemfile bundle exec ruby ~/endrun/utils/preview.rb'

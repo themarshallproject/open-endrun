@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= link_to @link.title, @link.url %></h2>
+Added by <%= @link.creator.email %>
+</p>
+
+<br>
+<b>Summary:</b><br>
+<p><%= @link.content %></p>
+
+<br>
+<b>FB Description:</b><br>
+<p><%= @link.og_description %></p>
+<br>
+
+FB image:<br>
+<%= image_tag @link.og_image_url %>
+
+<%= render 'tags/inline', item: @link %>
+
+<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Back', links_path %>

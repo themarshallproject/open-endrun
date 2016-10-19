@@ -1,0 +1,110 @@
+(function(){
+	var bookmarklet = function($) {
+		var iframe_id = "tmp_<%= SecureRandom.hex %>";
+
+		var description = $("meta[property='og:description']").attr('content')
+		if (description === undefined) {
+			description = '';
+		}
+
+		var url;
+		var canonical_url = $("link[rel='canonical']").attr('href');
+		if (canonical_url !== undefined && canonical_url.length > 5) {
+			url = canonical_url;
+			console.log('using canonical_url', url);
+		} else {
+			url = window.location.href;
+			console.log('using location.href', url);
+		}
+
+		var query = ['title='       + encodeURIComponent(document.title),
+			         'domain='      + encodeURIComponent(window.location.host),
+			         'url='         + encodeURIComponent(url),
+			         'description=' + encodeURIComponent(description) ]
+		var query_string = query.join('&');
+		
+		window.addEventListener('message', function(evt) {
+			if (evt.origin === '<%= request.scheme %>://<%= request.host_with_port %>') {
+				var data = JSON.parse(evt.data);
+				console.log('got some dataz', data);
+				if (data.event === 'load' && data.message.indexOf('successfully') >= 0) {
+					$("#"+iframe_id).remove();
+					$("#dim_"+iframe_id).remove();
+				}
+			}
+		}, false);
+
+		if (<%= current_user.present?.to_json %> === false) {
+			var login_window = window.open("<%= request.scheme %>://<%= request.host_with_port %>/login/with_token");
+			return false;
+		}
+
+		$('body').append('<iframe id="' + iframe_id + '" src="<%= edit_link_in_iframe_url %>?' + query_string + '" frameborder=0>');		
+		$('body').append('<div id="dim_' + iframe_id + '"></div>');
+		
+		var $iframe = $('#'+iframe_id);
+		var $dim_iframe = $('#dim_'+iframe_id);
+
+		$iframe.css({
+			'position': 'fixed',
+			'position': 'fixed',
+			'top': '10px',
+			'width': '750px',
+			'height': '550px',
+			'left': '50%',
+			'margin-left': '-300px',
+			'z-index': '2147480000',
+			'opacity': '0.95',
+			'border-radius': '5px'
+		});
+
+		if ($(window).width() < 800) {
+			$iframe.css({
+				'width': '90%',
+				'height': '90%',
+				'left': '5%',
+				'right': '5%',
+				'top': '5%',
+				'margin': '0',
+			});
+		}
+
+		$dim_iframe.css({
+			'position': 'fixed',
+			'top': '0',
+			'left': '0',
+			'right': '0',
+			'bottom': '0',
+			'z-index': '2047483647',
+			'background-color': '#000',
+			'opacity': 0.5
+		});
+		
+		$dim_iframe.click(function (e) {			
+			if (!$iframe.is(e.target)) {
+				$iframe.hide();
+				$dim_iframe.hide();
+			} else {
+				console.log('clicked on the iframe, ignore dismiss')
+			}
+		});
+	
+	}
+
+	var v = "1.3.2";
+	if (window.jQuery === undefined || window.jQuery.fn.jquery < v) {
+		var done = false;
+		var script = document.createElement("script");
+		script.src = "//ajax.googleapis.com/ajax/libs/jquery/" + v + "/jquery.min.js";
+		script.onload = script.onreadystatechange = function(){
+			if (!done && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete")) {
+				done = true;
+				bookmarklet(jQuery);
+			}
+		};
+		document.getElementsByTagName("head")[0].appendChild(script);
+	} else {
+		bookmarklet(jQuery);
+	}
+	
+})();

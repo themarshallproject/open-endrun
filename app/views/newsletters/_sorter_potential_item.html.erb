@@ -1,0 +1,29 @@
+<% cache ['newsletter_potential_item', 'v2', newsletter, item.class.name.to_s, item, is_already_present] do %>
+<% invalid_url = (item.class.name.to_s == 'Link' and item.valid_url? == false) %>
+<tr data-item-key="<%= polymorphic_path(item) %>">	
+	
+	<td><%= invalid_url ? 'INVALID URL, PLEASE UPDATE' : '' %></td>
+		
+	<td><%= item.class.name.to_s %></td>
+	<td><%= item.created_at.strftime("%b %e at %l:%M %P") %></td>
+	<td><%= link_to item.title, item %></td>
+	<td>
+		<%= 
+		item.taggings
+			.where('tag_id IN (?)', Tag.where(tag_type: 'content_type').pluck(:id))
+			.map{|tagging|
+				tagging.tag.name
+			}.join(" ")
+		%>	
+	</td>
+
+	<td><%= link_to "Edit", edit_polymorphic_path(item), class: 'btn btn-block btn-default btn-sm' %></small></td>
+	<td>
+		<% if is_already_present == true %>
+		<%= link_to "Remove", remove_taggable_from_path(newsletter.id, item.class.name.downcase, item.id),       method: :post, class: 'btn btn-block btn-sm btn-danger', remote: true %>
+		<% else %>
+		<%= link_to "Add", attach_newsletter_to_taggable_path(newsletter.id, item.class.name.downcase, item.id), method: :post, class: 'btn btn-block btn-sm btn-primary', remote: true, disabled: invalid_url %>
+		<% end %>
+	</td>
+</tr>
+<% end %>

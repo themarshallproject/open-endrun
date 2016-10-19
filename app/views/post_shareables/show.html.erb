@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @post_shareable.post_id %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @post_shareable.slug %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @post_shareable.photo_id %>
+</p>
+
+<p>
+  <strong>Facebook headline:</strong>
+  <%= @post_shareable.facebook_headline %>
+</p>
+
+<p>
+  <strong>Facebook description:</strong>
+  <%= @post_shareable.facebook_description %>
+</p>
+
+<p>
+  <strong>Twitter headline:</strong>
+  <%= @post_shareable.twitter_headline %>
+</p>
+
+<%= link_to 'Edit', edit_post_shareable_path(@post_shareable) %> |
+<%= link_to 'Back', post_shareables_path %>

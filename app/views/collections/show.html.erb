@@ -1,0 +1,429 @@
+<% content_for(:title) { [@tag.name, "The Marshall Project"].join(" | ") } %>
+<% content_for(:canonical_url) { collections_show_url(@tag) } %>
+
+<% twitter_suffix  = "?utm_medium=social&utm_campaign=records&utm_source=twitter&utm_content=share-top" %>
+<% facebook_suffix = "?utm_medium=social&utm_campaign=records&utm_source=facebook&utm_content=share-top" %>
+
+<% facebook_url = collections_show_url(@tag)+facebook_suffix %>
+<% twitter_url  = escape_url(collections_show_url(@tag)+facebook_suffix) %>
+
+<% og_title = "#{@tag.name} | The Record" %>
+<% og_description = "Since 2014, The Marshall Project has been curating some of the best criminal justice reporting from around the web." %>
+<%  %>
+
+<%
+if @tag.featured_photo_id.present?
+  og_image = @tag.featured_photo.url_for(size: '1200x')
+else
+  og_image = asset_url('default_records_social.png')
+end
+%>
+
+<% content_for(:head) { %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:url" content="<%= collections_show_url(@tag) %>">
+<meta property="og:title" content="<%= og_title %>">
+<meta property="og:description" content="<%= og_description %>">
+<meta property="og:image" content="<%= og_image %>">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@MarshallProj">
+<meta name="twitter:title" content="<%= og_title %>">
+<meta name="twitter:description" content="<%= og_description %>">
+<meta name="twitter:image:src"   content="<%= og_image %>">
+<% } %>
+
+<script>
+window.collectionsShowTagID = <%= @tag.id %>;
+</script>
+
+<script type="text/mustache" id="mustache_post_partial">
+<%= Collections::PostPartial.new.template.html_safe %>
+</script>
+
+<script type="text/mustache" id="mustache_link_partial">
+<%= Collections::LinkPartial.new.template.html_safe %>
+</script>
+
+<div class="collections">
+  <div class="header" style="<%= @header_inline_styles %>">
+    <div class="overlay" style="<%= @overlay_inline_styles %>">
+      <div class="container tag">
+        <div class="updated">
+          <div class="timestamp">
+                Updated
+                <span><%= @tag.updated_at.strftime("%l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.') %></span>
+              </div>
+          <div class="date">
+              <%= @tag.updated_at.strftime("%m.%d.%Y") %>
+          </div>
+        </div>
+        <div class="name">
+          <%= @tag.name %>
+        </div>
+        <div class="tagline">
+          A curated collection of links
+        </div>
+        <div class="home">
+          <a href="/records">
+          <div class="logo">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="180px" height="250px" viewBox="0 0 180 250" enable-background="new 0 0 180 250" xml:space="preserve"><g><g><path id="logo-background" fill="#FF0A39" d="M157.3,43.2c-11.5,0-20.9-9.4-20.9-20.9v-22L136.1,0H20.9C9.4,0,0,9.4,0,20.9v208.1C0,240.6,9.4,250,20.9,250h137.8c11.5,0,20.9-9.4,20.9-20.9V43.5l-0.3-0.3H157.3z"/><path fill="#ECECEA" d="M136.4,22.3c0,11.5,9.4,20.9,20.9,20.9h22l-43-43V22.3z"/><polygon fill="#FF0A39" points="136.4,0 136.1,0 136.4,0.2 "/><polygon fill="#FF0A39" points="179.3,43.2 179.6,43.5 179.6,43.2 "/></g><g><g><polygon fill="#FFFFFF" points="60.2,95.4 60.2,154.6 68.6,154.6 68.6,103.8 "/><polygon fill="#FFFFFF" points="77.1,112.3 77.1,154.6 85.6,154.6 85.6,120.8 "/><polygon fill="#FFFFFF" points="111,103.8 111,154.6 119.4,154.6 119.4,95.4 "/><polygon fill="#FFFFFF" points="94,120.8 94,154.6 102.5,154.6 102.5,112.3 "/></g></g></g></svg>
+          </div>
+          <div class="brand">
+            The Record
+          </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="container tag col2">
+      <div class="sidebar">
+        <div class="share-tools">
+          <div class="share-button" data-action="facebook">
+              <a href="#"
+                data-fb-link="<%= facebook_url %>"
+                data-fb-picture="<%= og_image %>"
+                data-fb-name="<%= og_title %>"
+                data-fb-description="<%= og_description %>"
+                class="fb-inline-share share-button-link">
+              </a>
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M8.3,15.5c0-1.2,0-2.3,0-3.5c0-0.8-0.1-1.5-1.1-1.5c-1.4,0.1-1.4-0.8-1.4-1.8c0-0.9,0.1-1.7,1.3-1.6
+            c1.7,0.1,1.2-1.3,1.2-2.1c0.3-3.5,1.4-4.5,4.9-4.4c1,0,2-0.2,2,1.4c0,1.2,0,2.1-1.6,2c-1.2-0.1-1.5,0.7-1.5,1.8
+            c0,1.2,0.6,1.4,1.6,1.4c0.7,0,1.7-0.1,1.4,1.1c-0.2,0.9,0.3,2.3-1.3,2.2c-1.6,0-1.7,0.8-1.7,2c0.1,2.2,0,4.3,0,6.5
+            c0.1,1.5-0.8,1.5-1.9,1.5c-1.1,0-2,0-1.9-1.5C8.4,17.8,8.3,16.7,8.3,15.5z"/></g></svg>
+
+          </div>
+          <div class="share-button" data-action="twitter">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M1.2,16.9c1.9-0.2,3.4-0.4,5.1-1.8c-3.2-0.2-3.3-3.2-3.9-4.9C1.7,8.4,0.7,5.8,2,3.3
+            c1.9,1.8,3.9,3.2,6.2,3.8c1.3,0.3,2,0.4,2.3-1.4c0.4-2.7,3-3.9,5.5-2.9c0.7,0.3,1.3,0.7,2.3,0.7c1.1,0,1.8,1.2,1,2.1
+            c-0.8,0.9-0.9,1.9-1,2.9C17.4,16.6,8.5,21.2,1.2,16.9z"/></g></svg>
+              <a href="https://twitter.com/intent/tweet?text=<%= "Some of the best #{@tag.name} articles from around the web, via The Record at @MarshallProj" %>&url=<%= twitter_url %>" class="share-button-link"></a>
+          </div>
+
+          <div class="share-button" data-action="mailto">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><g><path fill="#111111" d="M0.9,7.2c0,3.6,0,7.2,0,10.7c6.4,0,12.7,0,19.1,0c0-3.6,0-7.1,0-10.7c-0.2,0.1-0.3,0.1-0.5,0.2
+              c-2.9,1.4-5.7,2.7-8.6,4.1c-0.3,0.1-0.6,0.2-0.9,0c-1.5-0.7-3-1.4-4.4-2.1C4.1,8.7,2.6,8,0.9,7.2z M0.9,3.4c0,0.6,0,1.1,0,1.7
+              c0,0.1,0.2,0.3,0.3,0.4c3,1.4,5.9,2.9,8.9,4.3c0.2,0.1,0.5,0.1,0.7,0c3-1.4,6-2.9,8.9-4.3c0.1-0.1,0.3-0.2,0.3-0.3
+              c0-0.6,0-1.1,0-1.7C13.7,3.4,7.3,3.4,0.9,3.4z"/><path fill="#111111" d="M0.9,7.2C2.6,8,4.1,8.7,5.6,9.5c1.5,0.7,3,1.4,4.4,2.1c0.3,0.2,0.6,0.1,0.9,0c2.9-1.4,5.7-2.7,8.6-4.1
+              c0.1-0.1,0.3-0.1,0.5-0.2c0,3.6,0,7.1,0,10.7c-6.4,0-12.7,0-19.1,0C0.9,14.4,0.9,10.9,0.9,7.2z"/><path fill="#111111" d="M0.9,3.4c6.4,0,12.7,0,19.1,0c0,0.6,0,1.1,0,1.7c0,0.1-0.2,0.3-0.3,0.3c-3,1.4-5.9,2.9-8.9,4.3
+              c-0.2,0.1-0.5,0.1-0.7,0c-3-1.4-5.9-2.8-8.9-4.3C1.1,5.3,1,5.2,0.9,5C0.9,4.5,0.9,3.9,0.9,3.4z"/></g></g></svg>
+              <% email_subject = "#{@tag.name} | The Marshall Project" %>
+              <% email_body = "Some of the best #{@tag.name} articles from around the web via The Record: #{collections_show_url(@tag)}" %>
+              <a class="share-button-link" href="mailto:?subject=<%= escape_url(email_subject) %>&body=<%= escape_url(email_body) %>"></a>
+          </div>
+
+        </div>
+        <% if @tag.collection_summary.present? %>
+          <div class="introduction">
+            <span class="kicker">An Introduction</span>
+            <%= markdown(@tag.collection_summary) %>
+          </div>
+        <% end %>
+
+        <div class="introduction">
+          <span class="kicker">What are records?</span>
+          Since 2014, The Marshall Project has been curating some of the best criminal justice reporting from around the web. In these records you will find the most recent and the most authoritative articles on the topics, people and events that are shaping the criminal justice conversation. The Marshall Project does not endorse the viewpoints or vouch for the accuracy of reports other than its own.
+        </div>
+
+        <div class="back">
+          <a class="collections-button" href="/records">← Popular Records</a>
+        </div>
+        <div class="related-tags">
+          <div class="kicker">Related Records</div>
+          <div class="tag-group">
+            <% tags = @tag.similar_tags.first(5) %>
+            <% tags.each do |tag| %>
+              <div class="tag-button">
+                <%= link_to tag.name.squeeze(" ").gsub(" ", "&nbsp;").strip.html_safe, collections_show_path(tag), class: 'tag-button-link' %>
+              </div>
+            <% end %>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <div class="tell-us">
+         Are we missing a record? <a href="mailto:records+<%= @tag.name.downcase.gsub(/[^a-z]/, '') %>@themarshallproject.org">Tell us.</a>
+        </div>
+      </div>
+      <div class="main">
+
+        <% cache ['v1', 'collection_show', @tag, @posts.map(&:id)] do %>
+        <% # start cache %>
+          <!-- generated <%= Time.now.utc.to_f %> -->
+          <% if @posts.count > 0 %>
+            <span class="kicker">Marshall Project Originals</span>
+
+            <div class="posts-container">
+              <% @posts.first(3).each_with_index do |post, index| %>
+                <%= Collections::PostPartial.new(post: post).render.html_safe %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if @posts.count > 3 %>
+            <div class="posts-push-down">
+              <a class="collections-button collections-js-expand-button">↓ Show More</a>
+            </div>
+            <div class="posts-container-more" style="display: none;">
+              <% @posts.drop(3).each_with_index do |post, index| %>
+                <%= Collections::PostPartial.new(post: post).render.html_safe %>
+              <% end %>
+            </div>
+          <% end %>
+          <% # end count > 3 %>
+
+        <% # end cache %>
+        <% end %>
+
+        <div class="kicker links-kicker">Around the web</div>
+
+        <div class="toggle links-toggle">
+
+          <div class="collections-checkbox collections-js-checkbox <%= @sort_order == 'popular' ? 'collections-checked' : '' %>" data-value="popular"></div>
+            <span>Popular</span>
+                    <div class="collections-checkbox-second"></div>
+
+          <div class="collections-checkbox collections-js-checkbox <%= @sort_order == 'recent' ? 'collections-checked' : '' %>" data-value="recent"></div>
+            <span>Recently Added</span>
+        </div>
+        <div class="links-container">
+          <ul class="popular">
+          </ul>
+
+          <ul class="recent">
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+  $('ul').hide();
+
+  var currentState = "<%= @sort_order %>";
+  $('ul.'+currentState).show();
+
+  $(".collections-js-checkbox").click(function(){
+    currentState = $(this).attr('data-value');
+    $('.collections-js-checkbox').removeClass('collections-checked');
+    $(this).addClass('collections-checked');
+
+    $('.links-container ul').hide();
+    $('.links-container ul.'+currentState).show();
+  });
+
+  $(".posts-push-down .collections-js-expand-button").click(function(){
+    $(this).parent().hide();
+    $('.posts-container-more').show();
+  });
+
+  $(".links-push-down .collections-js-expand-button").click(function(){
+    $(this).parent().hide();
+    $('.links-container-more').show();
+  });
+
+  var templateHtml = $("#mustache_link_partial").html();
+  var $linkContainer = $('.links-container');
+
+  var linkIdsOnPage = []; // integer link ids
+  linkIdsOnPage = $("[data-link-id]").map(function(_i, el) {
+    return parseInt($(el).attr('data-link-id'), 10);
+  }).get();
+
+  var contains = function(arr, id) {
+    return arr.indexOf(id) >= 0;
+  }
+
+  var sortLinks = function(state, links) {
+    if (state === 'popular') {
+      links.sort(function(a, b) {
+        return parseInt(b.facebook_count, 10) - parseInt(a.facebook_count, 10);
+      });
+    } else {
+      links.sort(function(a, b) {
+        return parseInt(b.utc_created_at, 10) - parseInt(a.utc_created_at, 10);
+      });
+    }
+    return links;
+  }
+
+  var renderLinks = function(state, links) { // array of prepped link objs, needs vars above
+
+    var sortedLinks = sortLinks(state, links);
+    var html = sortedLinks.map(function(link) {
+      if (link.url.indexOf(".pdf") > 0) {
+        return "<!-- pdf, skipping -->";
+      }
+      if (link.title.length < 5) {
+        return "<!-- short title, skipping -->";
+      }
+
+      return Mustache.render(templateHtml, link).replace(/(\n)/g, '');
+    }).join("\n\n");
+
+    $linkContainer.find('ul.'+state).html(html);
+  }
+
+  var endpoints = {
+    "popular": "/records/api/v1?slice=facebook_count&models=link&tag_id="+<%= @tag.id %>,
+    "recent":  "/records/api/v1?slice=date&models=link&tag_id="+<%= @tag.id %>
+  }
+  var endpoint = function(state, page) {
+    if (!page) {
+      page = 0;
+    }
+    return endpoints[state] + "&page=" + page;
+  }
+
+  var reportBrokenLink = function(linkID) {
+    var endpoint = "/records/api/v1/report-link";
+    var obj = {
+      link_id: linkID,
+      tag_id: window.collectionsShowTagID,
+      url: window.location.href
+    };
+
+    $.post(endpoint, obj).done(function(data)  {
+      console.log('done', data)
+    }).error(function(data) {
+      console.log('error', data)
+    });
+  }
+
+  var retries = 0;
+  var linkStore = {
+    popular: [],
+    recent: []
+  };
+  var expectedLinkCount = 25;
+  var recentPage = 0;
+  var popularPage = 0;
+
+  var findItem = function(items, newItem) {
+    // check if newItem is in items based on .id
+    // null if not in items, returns object if in items
+    var arr = items.filter(function(item) {
+      return parseInt(item.id, 10) === parseInt(newItem.id, 10);
+    });
+    if (arr.length === 0) {
+      return null;
+    }
+    return arr[0];
+  }
+
+  var renderIncremental = function(state, newItems) {
+    var html = newItems.map(function(item) {
+      return Mustache.render(templateHtml, item).replace(/(\n)/g, '');
+    });
+    $('ul.'+state).append(html);
+  }
+
+  var updateStore = function(state, newItems) {
+    newItems.forEach(function(newItem) {
+      var existing = findItem(linkStore[state], newItem);
+      if (existing === null) {
+        linkStore[state].push(newItem);
+      } else {
+      }
+    });
+    //renderLinks(state, linkStore[state]);
+    renderIncremental(state, newItems);
+  }
+
+  var tagHasZeroLinks = function() {
+    $('.links-toggle, .links-kicker').hide();
+    $('.posts-push-down').find('a').click();
+  }
+
+  var tagHasLinks = function() {
+    $('.links-toggle, .links-kicker').show();
+    $('.posts-container-more').hide();
+  }
+
+  var fetchLinks = function(state, page) {
+    $.get(endpoint(state, page)).done(function(data) {
+      updateStore(state, data.items);
+
+      if (data.has_zero_links === true) {
+        tagHasZeroLinks();
+        return;
+      }
+
+      if (page === 0 && data.items.length !== 0 && data.items.length == data.total_count) {
+        return;
+      }
+
+      if (data.items.length === expectedLinkCount) {
+        if (page > 0) {
+          setTimeout(function() {
+            fetchLinks(state, page+1);
+          }, 500);
+        }
+      } else {
+        // we got fewer items than expected for this page
+        if (page > 0) {
+          return;
+        }
+        setTimeout(function() {
+          fetchLinks(state, page);
+        }, 1000);
+      }
+
+    });
+  }
+  fetchLinks('recent',  0);
+  fetchLinks('popular', 0);
+
+  var hasScrolled = false;
+  $(window).scroll(function() {
+    if (hasScrolled) {
+      return false;
+    }
+    hasScrolled = true;
+
+    fetchLinks('recent',  1);
+    fetchLinks('popular', 1);
+  });
+
+  $('body').on('click', '.report-this-link', function(e) {
+    var linkID = $(this).closest('.item-container').attr('data-link-id');
+    reportBrokenLink(linkID);
+    $(this).text(" • Thank you");
+    $(this).fadeOut(1500);
+  });
+
+  $('body').on('click', 'a', function() {
+    var data = {
+      href: $(this).attr('href'),
+      referrer: window.location.href,
+      link_id: parseInt($(this).attr('data-link-id')),
+      post_id: parseInt($(this).attr('data-post-id')),
+    }
+  });
+
+  $('.links-push-down').click(function() {
+    $(this).hide();
+    renderLinks('popular', linkStore.popular);
+  });
+
+  $('body').on('mouseenter, mouseout', '.item', function() {
+    var isHovered = $(this).is(":hover");
+    if (isHovered) {
+      $(this).addClass('hover');
+    } else {
+      $(this).removeClass('hover');
+    }
+  });
+
+});
+</script>

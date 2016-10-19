@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @partner_pageview.post_id %>
+</p>
+
+<p>
+  <strong>Partner:</strong>
+  <%= @partner_pageview.partner_id %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @partner_pageview.url %>
+</p>
+
+<p>
+  <strong>Pageviews:</strong>
+  <%= @partner_pageview.pageviews %>
+</p>
+
+<%= link_to 'Edit', edit_partner_pageview_path(@partner_pageview) %> |
+<%= link_to 'Back', partner_pageviews_path %>

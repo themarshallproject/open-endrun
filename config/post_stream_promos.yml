@@ -1,0 +1,14 @@
+base: # do not change this. it's the default one.
+  name: 'Base' # you can rename this...
+
+base_w_art:
+  name: 'Base w/ art'
+
+stub:
+  name: 'Stub'
+
+feature:
+  name: 'Feature'
+
+photo_essay:
+  name: 'Photo Essay'

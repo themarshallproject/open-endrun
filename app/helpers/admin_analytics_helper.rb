@@ -1,0 +1,2 @@
+module AdminAnalyticsHelper
+end

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Post Deploy Tokens</h1>
+<%= link_to 'New Deploy Token', new_post_deploy_token_path, class: 'btn btn-primary' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>Label</th>
+      <th>Token</th>
+      <th>Active</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @post_deploy_tokens.each do |post_deploy_token| %>
+      <tr>
+        <td><%= post_deploy_token.try(:post).try(:title) || post_deploy_token.post_id %></td>
+        <td><%= post_deploy_token.label %></td>
+        <td><%= post_deploy_token.token %></td>
+        <td><%= post_deploy_token.active %></td>
+        <td><%= link_to 'Edit', edit_post_deploy_token_path(post_deploy_token) %></td>
+        <td><%= link_to 'Destroy', post_deploy_token, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

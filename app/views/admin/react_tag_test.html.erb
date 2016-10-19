@@ -1,0 +1,234 @@
+<style>
+table {
+	width: 60%;
+	border: 0;
+}
+tr, td {
+	border: 0;
+}
+input {
+	width: 100%;
+}
+
+.existing-tagging {
+	display: inline-block;
+	padding:3px;
+	margin:3px;
+}
+.delete {
+	color: red;
+	margin-left: 3px;
+}
+</style>
+
+<div id="app"></div>
+<div id="json"></div>
+
+<script type="text/jsx">
+
+var modelTagsEndpoint = null;
+var itemId = null;
+<% if @item.present? %>
+	var modelClassName = <%= @item.class.name.to_json.html_safe %>;
+	var modelClassId = <%= @item.id.to_json %>;
+	var modelTagsEndpoint = "<%= rattlecan_model_tags_path(@item.class.name, @item.id) %>";
+<% end %>
+var allTagsEndpoint = "/admin/rattlecan/tags.json";
+
+var SearchBox = React.createClass({
+	onChange: function(e) {
+		this.props.updateFilterText(e.target.value);		
+	},
+	render: function() {
+		return <div className='search-box'>
+			<input value={this.props.filterText} onChange={this.onChange} placeholder="Find Tag (at least two characters)" /><br />
+		</div>
+	}
+})
+
+var Cell = React.createClass({
+	render: function() {
+		return <td>
+			<span>{this.props.data}</span>			
+		</td>
+	}
+})
+
+var ToggleButton = React.createClass({
+	onClick: function(e) {		
+		if (this.props.isTagged === true) {
+			this.props.setTaggingState(this.props.tag_id, false);
+		} else {
+			this.props.setTaggingState(this.props.tag_id, true);
+		}
+	},
+	render: function() {
+		if (this.props.isTagged === true) {
+			return <td><button onClick={this.onClick}>Remove</button></td>;			
+		} else {
+			return <td><button onClick={this.onClick}>Add</button></td>;
+		}
+	}
+})
+
+var Row = React.createClass({
+	render: function() {
+		return <tr>
+			<Cell data={this.props.tag.name} />
+			<Cell data={this.props.tag.tag_type} />
+			<ToggleButton tag_id={this.props.tag.id} isTagged={this.props.isTagged} setTaggingState={this.props.setTaggingState} />
+		</tr>
+	}
+})
+
+var AllTags = React.createClass({
+	render: function() {
+
+		var isTagged = function(candidate_tag) {
+			return this.props.modelTags.map(function(modelTag) { 
+				return modelTag.id;
+			}).indexOf(candidate_tag.id) >= 0;
+		}.bind(this);
+
+		if (this.props.allTags.length === 0) {
+			return <div />;
+		}
+
+		if (this.props.filterText.length < 2) {
+			return <div />;
+		}
+
+		var lowerCaseFilterText = this.props.filterText.toLowerCase();
+
+		var rows = this.props.allTags.filter(function(tag, index) {
+			if (this.props.filterText.length >= 2) {		
+				if (tag.name.toLowerCase().indexOf(lowerCaseFilterText) >= 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}.bind(this)).map(function(tag, index) { 
+			return <Row key={index} tag={tag} isTagged={isTagged(tag)} setTaggingState={this.props.setTaggingState} />
+		}.bind(this));		
+
+		return <div>
+			<table>
+			<tbody>
+				{rows}
+			</tbody>
+		</table>
+		</div>;		
+	}
+});
+
+var ModelTagCell = React.createClass({
+	handleClick: function() {
+		this.props.setTaggingState(this.props.tag.id, false);
+	},
+	render: function() {
+		return <div className="existing-tagging">
+			<span>{this.props.tag.name}</span>
+			<span className="delete" onClick={this.handleClick}>X</span>
+		</div>;
+		// this.props.modelTags.map(function(tag) {
+		// 	return <Row tag={tag} isTagged={true} setTaggingState={this.props.setTaggingState} />	
+		// }.bind(this));
+	}
+})
+
+var ModelTags = React.createClass({
+	render: function() {
+		var cells = this.props.modelTags.map(function(tag) {
+			return <ModelTagCell tag={tag} isTagged={true} setTaggingState={this.props.setTaggingState} />	
+		}.bind(this));
+
+		return <div>
+			{cells}
+		</div>;
+	}
+});
+
+var Page = React.createClass({
+	getInitialState: function() {
+		return {
+			title: '',
+			filterText: '',
+			modelTags: [],
+			allTags: []
+		}
+	},
+	updateFilterText: function(filterText) {
+		this.setState({ filterText: filterText });
+	},
+	componentDidMount: function() {
+		$.getJSON(allTagsEndpoint).fail(function() {
+			console.error('Error getting all tags');
+		}).done(function(allTags) {
+			console.log('loaded allTags', allTags.length);
+			this.setState({ allTags: allTags });
+		}.bind(this));	
+
+		$.getJSON(modelTagsEndpoint).fail(function() {
+			console.error('Error getting model tags');
+		}).done(function(modelTags) {
+			console.log('modelTags', modelTags);
+			this.setState({ modelTags: modelTags });
+		}.bind(this));
+
+		this.setState({ title: "<%= @item.title %>" });
+	},
+	serialize: function() {
+		var data = {
+			tag_ids: this.state.modelTags.map(function(t) { return t.id } ),
+			title: this.state.title
+		}
+		document.getElementById('json').innerHTML = JSON.stringify(data);
+	},
+	setTaggingState: function(tagId, newState) {
+		console.log('toggleTagging for', tagId, 'to state:', newState);
+
+		var modelTags = this.state.modelTags;
+		
+		if (newState === true) {
+			var tag = this.state.allTags.filter(function(candidate) { 
+				return candidate.id === tagId;
+			}.bind(this))[0];			
+
+			modelTags.push(tag);
+			this.setState({ modelTags: modelTags });
+		}
+
+		if (newState === false) {
+			var _modelTags = modelTags.filter(function(candidate) {
+				return candidate.id != tagId;
+			});
+			this.setState({ modelTags: _modelTags });
+		}
+		this.serialize();
+	},
+	render: function() {
+		return (
+			<div>
+				<h3>{this.state.title}</h3>
+
+				<SearchBox filterText={this.state.filterText} 
+						   updateFilterText={this.updateFilterText} />
+
+				<ModelTags modelTags={this.state.modelTags} 
+				           setTaggingState={this.setTaggingState} />
+
+				<AllTags   modelTags={this.state.modelTags} 
+						   setTaggingState={this.setTaggingState} 
+						   allTags={this.state.allTags} 
+						   filterText={this.state.filterText} />
+
+			</div>
+		)
+	}
+})
+
+React.render(<Page />, document.getElementById('app'));
+</script>

@@ -1,0 +1,57 @@
+.sidebar-series {
+	position: relative;
+	margin: 0;
+	.inner {
+		position: absolute;
+		width: 40%;
+		max-width: 250px;
+		font-size: 12px;
+		line-height: 1.7em;
+		@include font-detail;
+	}
+	.freeform {
+		margin-bottom: 25px;
+	}
+	.rule {
+		height: 0px;
+		width: 60px;
+		border-bottom: 1px solid $black;
+		margin-bottom: 25px;
+	}
+	.related {
+		list-style-type: none;
+	    -webkit-padding-start: 0px;
+	    font-size: 12px;
+	}
+	.label {
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin-bottom: 20px;
+	}
+	.item {
+		margin-bottom: 20px;
+		.date {
+			color: $timestamps;
+			margin-bottom: 10px;
+		}
+		.headline {
+			@include font-head;
+			font-size: 16px;
+		}
+		.headline a {
+			text-decoration: underline;
+		}
+	}
+}
+
+@media (max-width: 739px) {
+	.sidebar-series {
+		.inner {
+			max-width: 100%;
+			position: initial;
+			width: 100%;
+			margin-bottom: 40px;
+		}
+	}
+}
+

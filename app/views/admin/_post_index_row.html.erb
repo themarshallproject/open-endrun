@@ -1,0 +1,24 @@
+<% cache ['admin', 'post_index', 'v3', post] do %>
+<tr class="post-admin-row" data-post-id="<%= post.id %>">	
+	<td class="post-lock"></td>
+	<td class="status-<%= post.status %>">
+		<%= "QUEUED" if post.queued? %>
+		<%= post.human_status %>
+	</td>
+	<td><%= post.rubric.try(:name) %></td>
+	<td><%= post.stream_promo_options[post.stream_promo].name %></td>
+	
+	<td>
+		<strong><%= link_to post.title, edit_post_path(post) %></strong>
+		<% if post.published? %>
+			<strong class="link-source"><%= link_to 'VIEW', post.path %></strong>
+		<% else %>
+			<strong class="link-source"><%= link_to 'PREVIEW', admin_preview_post_path(post.id) %></strong>
+		<% end %>
+		&bull; <strong class="link-source"><%= link_to 'promo', admin_preview_promo_path(post.id) %></strong>
+	</td>
+	<td><%= post.word_count %>
+	<td><%= post.published_at.to_s(:full_date) %></td>
+
+</tr>
+<% end %>

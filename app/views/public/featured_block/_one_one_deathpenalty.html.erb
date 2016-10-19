@@ -1,0 +1,49 @@
+<div class="featured-container">
+	<div class="featured-well" data-background-image="<%= photo_for_slot(@featured_block, 1) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 1), rubric_path(@featured_block, 1) %>
+				</div>
+				<% tracked_url = @featured_block.post_for_slot(1).tracked_featured_block_path(slot: '1', config: '111') %>
+				<% normal_url  = @featured_block.post_for_slot(1).featured_block_path(slot: '1', config: '111') %>
+				<a href="<%= normal_url %>" data-track-url="<%= tracked_url %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(1).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="featured-well" data-background-image="<%= photo_for_slot(@featured_block, 2) %>">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<%= link_to rubric_name(@featured_block, 2), rubric_path(@featured_block, 2) %>
+				</div>
+				<% tracked_url = @featured_block.post_for_slot(2).tracked_featured_block_path(slot: '2', config: '111') %>
+				<% normal_url  = @featured_block.post_for_slot(2).featured_block_path(slot: '2', config: '111') %>
+				<a href="<%= normal_url %>" data-track-url="<%= tracked_url %>" class="featured-link">
+					<div class="featured-tall-headline">
+						<%= @featured_block.post_for_slot(2).metadata_provider.display_headline %>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="featured-well featured-clear-right" style="background-image: url('<%= asset_path('dp_featured_block.jpg') %>'); background-position: 90% 50%;">
+		<div class="featured-tall">
+			<div class="overlay">
+				<div class="featured-tall-kicker">
+					<a href="/feature">Feature</a>
+				</div>
+				<a href="/next-to-die?ref=hp" class="featured-link">
+					<div class="featured-tall-headline">
+						The Next to Die
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

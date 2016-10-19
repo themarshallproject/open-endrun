@@ -1,0 +1,86 @@
+@media print {
+
+	.stream, .inner, header, .post-kicker, .letter-tools, .post-footer, .post-timestamp, 
+	.post-date, .photo-sidebar, .post-lead-photo, .promo-full-bleed, .letter-deck,
+	.email-onboard {
+		display: none;
+	 	img, .meta {
+	 		display: none;
+	 	}
+	}
+
+	.footer-logo {
+		display: normal;
+		margin: 0;
+		width: 50px !important;
+		position: absolute;
+		top: 20px;
+		left: 30px;
+		svg {
+			g {
+			polygon {
+				fill: #111 !important;
+			}
+		}
+		}
+	}
+.footer {
+	.footer-item {
+		display: none !important;
+	}
+}
+	article p {
+		font-size: 14px;
+		margin-bottom: 16px;
+		line-height: 20px;
+	}
+
+		a {
+
+			font-size: 14px !important;
+		}	
+
+  a[href]:after {
+    content: none !important;
+  }
+
+	.post-header {
+		margin-top: 0;
+		margin-bottom: 20px;
+	}
+
+	.post-subhead {
+		font-size: 20px;
+	}
+
+	.post-deck {
+		font-size: 14px;
+	}
+
+	.post-headline {
+		font-size: 36px;
+	}
+
+	blockquote {
+		font-family: "MillerBold";
+		font-weight: 500;
+		border-left: 0px black solid !important;
+		padding-left: 0px !important;
+		margin-bottom: 0px !important;
+	}
+
+	.post-quote-sidebar-shim {
+		font-size: .5em !important;
+		margin-bottom: 0px;
+	}
+
+	.DC-note-container {
+		display: none;
+	}
+
+	.meta { 
+		font-size: .6em !important;
+	}
+
+
+}

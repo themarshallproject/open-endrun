@@ -1,0 +1,30 @@
+    <tr>
+      <td style="font-size:40px; color:#ff0b3a; padding:0; padding-left:10px;"><%= featured_block.is_active? ? "&#10042;".html_safe : "" %></td>
+      <td><%= time_ago_in_words featured_block.updated_at %></td>
+      <td><%= featured_block.template %></td>
+      <td>
+        <% begin %>
+
+          <% featured_block.posts.each do |post| %>
+            <%= post.title %> &bull;
+          <% end %>
+
+        <% rescue 
+             "error parsing posts"
+           end
+        %>
+      </td>
+      <td><%= link_to 'Edit', edit_featured_block_path(featured_block), class: 'btn btn-success' %></td>
+      
+      <td>
+        <% if featured_block.all_posts_published? and (featured_block.is_active? == false) %>
+          <%= link_to 'Activate', activate_featured_block_path(featured_block), method: :post, class: 'btn btn-info' %>
+        <% end %>
+      </td>
+
+      <td><%= link_to 'Dupe', dupe_featured_block_path(featured_block), method: :post, class: 'btn btn-warning' %></td>
+
+      <td><% if featured_block.is_active? == false %>
+        <%= link_to 'Delete', featured_block, method: :delete, data: { confirm: 'Are you sure?' },class: 'btn btn-danger' %>
+      <% end %></td>
+    </tr>

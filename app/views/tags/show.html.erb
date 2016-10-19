@@ -1,0 +1,28 @@
+<h1><%= @tag.name %></h1>
+<p><%= @tag.type.name.upcase %></p>
+
+<small><%= link_to 'Edit', edit_tag_path(@tag) %></small>
+
+<% if @tag.type.name == "Location" %>
+<% # refactor to polymorphic partial %>
+<% zoom_level = @tag.name.include?(",") ? '12' : '6' %>
+<img src="//maps.googleapis.com/maps/api/staticmap?center=<%= @tag.name %>&zoom=<%= zoom_level %>&size=600x300"></img>
+<% end %>
+
+
+<hr>
+
+
+<% if @tag.related.count == 0 %>
+<p>Nothing tagged with this yet.</p>
+<% end %>
+
+<div class="row">
+<% @tag.related.each do |item| %>
+	<% if item.taggable.present? %>
+		<%= render "tags/poly_#{item.taggable_type.downcase}", item: item.taggable %>
+	<% else %>
+		<script>window._messages.push({"event": "app_error", "data": <%= raw item.to_json %>});</script>
+	<% end %>
+<% end %>
+</div>

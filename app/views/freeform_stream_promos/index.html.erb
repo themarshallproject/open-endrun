@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Freeform Stream Promos</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Slug</th>
+      <th>Revised at</th>      
+      <th>HTML</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @freeform_stream_promos.each do |freeform_stream_promo| %>
+      <tr>
+        <td><%= freeform_stream_promo.slug %></td>
+        <td><%= freeform_stream_promo.revised_at %></td>
+        <td><%= freeform_stream_promo.html %></td>
+        <td><%= link_to 'Show', freeform_stream_promo %></td>
+        <td><%= link_to 'Edit', edit_freeform_stream_promo_path(freeform_stream_promo) %></td>
+        <td><%= link_to 'Destroy', freeform_stream_promo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Freeform stream promo', new_freeform_stream_promo_path %>

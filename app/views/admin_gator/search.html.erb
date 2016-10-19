@@ -1,0 +1,22 @@
+<style type="text/css">
+.gator-search div {
+	width: 50%;
+	float: left;
+}
+.gator-search img {
+	max-width: 100%;
+}
+</style>
+
+<form action="/admin/gator/search" method="GET">
+<input name="q" value="<%= params[:q] %>" />
+</form>
+
+<div class="gator-search">
+<% @records.each do |record| %>
+	<div>
+		<img src="<%= record['fb_image_url'] %>">
+		<h3><%= link_to record['title'], record['url'] %></h3>
+	</div>
+<% end %>
+</div>

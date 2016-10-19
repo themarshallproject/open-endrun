@@ -1,0 +1,27 @@
+  <div class="post-footer">
+    <% if @post.letters_count > 0 %>
+      <div class="letter-tools">
+        <div class="letter-desc">
+          This article has <%= pluralize(@post.letters_count, 'letter') %> to the editor.
+          <%= link_to "Read the #{pluralize(@post.letters_count, 'letter').split(' ').last}.", view_letter_path(@post.featured_letter) %>
+        </div>
+      </div>
+    <% end %>
+    <div class="post-footer-item">
+      Originally Filed
+      <span><%= @post.published_at.strftime("%A, %B %e, %Y at %l:%M %P").gsub('am', 'a.m.').gsub('pm', 'p.m.') %> ET</span>
+    </div>
+
+    <% if @post.footer_tags.present? %>
+      <div class="tag-group">
+        <% @post.footer_tags.each do |tag| %>
+          <div class="tag-button">
+            <a class="tag-button-link" href="<%= public_tag_path(tag.slug) %>"><%= tag.name %></a>
+          </div>
+        <% end %>
+        <div class="clear"></div>
+      </div>
+    <% end %>
+
+    <div class="email-onboard email-onboard-inline email-onboard-post-footer" data-placement="post-bottom" data-checkboxes="false"></div>
+  </div>

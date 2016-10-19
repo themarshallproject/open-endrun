@@ -1,0 +1,14 @@
+<table class="table table-striped">
+<thead>
+<th>Slug</th>
+<th>Pageviews</th>
+</thead>
+<% (@response['aggregations']['group_by_slug']['buckets'] rescue []).each do |slug| %>
+<tr>
+	<td><%= slug['key'] %></td>
+	<td><%= slug['doc_count'] %></td>
+</tr>
+<% end %>
+</table>
+
+<pre><%= JSON.pretty_generate @response %></pre>

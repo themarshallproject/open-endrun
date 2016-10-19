@@ -1,0 +1,35 @@
+<h1>Yesterday's Traffic</h1>
+<% total = @pageviews["totalsForAllResults"]["ga:pageviews"].to_i %>
+<p>Total PV: <%= total %> (Google Analytics)</p>
+<% yesterday_path = (DateTime.now - 1.day).strftime("%Y/%m/%d")%>
+<style>
+.ga-pv-today, .ga-pv-today td {
+	color: #fff;
+	background-color: #ff0b3a !important;
+}
+</style>
+<table class="table table-striped">
+<thead>
+	<th>Path</th>
+	<th>Pageviews</th>
+</thead>
+<% @pageviews['rows'].each do |page| %>
+<tr class="<%= page[0].include?(yesterday_path) ? 'ga-pv-today' : '' %>">
+	<td><%= page[0] %></td>
+	<td><b><%= page[1].to_i %></b> (<%= (100.0 * page[1].to_i / total).to_i %>%)</td>
+</tr>
+<% end %>
+</table>
+
+<table class="table table-striped">
+<thead>
+	<th>Source</th>
+	<th>Pageviews</th>
+</thead>
+<% @source['rows'].each do |page| %>
+<tr class="<%= page[0].include?(today_path) ? 'ga-pv-today' : '' %>">
+	<td><%= page[0] %></td>
+	<td><b><%= page[1].to_i %></b> (<%= (100.0 * page[1].to_i / total).to_i %>%)</td>
+</tr>
+<% end %>
+</table>

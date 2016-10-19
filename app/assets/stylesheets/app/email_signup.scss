@@ -1,0 +1,455 @@
+.email-onboard-container-wrapper {
+    &.rendered {
+        border-bottom: 1px solid #cececc;
+    }
+}
+
+body.mobile, body.tablet {
+    .archive-link {
+        display: none;
+    }
+}
+
+.email-onboard {
+    color: #111111;
+    border: none;
+    font-family: "Pressura", Courier;
+    font-weight: normal;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+    line-height: 1.5em;
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    margin: 0 auto;
+    .copy {
+        display: inline-block;
+        padding-top: 9px;
+        padding-bottom: 5px;
+    }
+    .title {
+        color: #ff0b3a;
+        padding-right: 10px;
+
+    }
+    .body {
+        padding-right: 10px;
+        font-family: "PressuraLight", Courier;
+    }
+    .archive-link {
+        color: #ff0b3a;
+        margin-right: 15px; 
+        text-transform: uppercase;
+        font-family: "PressuraLight", Courier;
+        font-size: 10px;
+        text-decoration: underline;       
+    }
+    .checkbox-outer {
+        cursor: pointer;
+    }
+    .fakebox { 
+        font-family: "PressuraLight", Courier;
+        background-color: none;
+        border: 2px solid $link;
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+        margin-top: -10px;
+        margin-right: 0px;
+        margin-left: 30px;
+        display: inline-block;
+        text-align: center;
+        line-height: 12.5px;
+        color: $link;
+        cursor: pointer;
+    }
+
+    .archive-link:hover {
+        color: $black;
+    }
+
+    .form {
+        display: inline-block;
+        &.float-right {
+            float: right;                
+        }
+
+        .email-address {
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            font-family: "PressuraLight", Courier;
+            display: inline-block;
+            height: 35px;
+            background-color: #ececea;
+            margin-bottom: 30px;
+            margin-bottom: 0px;
+            padding: 4px 8px 4px 10px;     
+            border-left: 1px solid #ececea;
+            border: 1px solid #ff0b3a;
+            margin-right: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            width: calc(100% - 80px);
+        }
+        .email-address:focus, .submit:focus {
+            outline: -webkit-focus-ring-color auto 0px;
+        }
+        .submit {
+            font-family: "Pressura", Courier;
+            display: inline-block;
+            height: 35px;
+            background-color: #ff0b3a;
+            margin-left: 0;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            color: #ffffff;
+            border: 0;
+            padding: 4px 10px 5px 10px;
+            cursor: pointer;
+            @include animate;
+            border-radius:0;
+            width: 80px;
+        }
+        .submit:hover {
+            background-color: $black;
+            @include animate;
+        }
+        @media (max-width: 400px) {
+            .submit {
+                width: 100%;
+            }
+        }
+        .response {
+            position: absolute;
+            margin-top: 40px;
+            color: $link;
+            font-family: PressuraLight;
+        }
+    }
+    .checkboxes {
+        display: inline-block;
+        padding-left: 15px;
+    }
+
+    &.marketing-signup-standalone {
+        margin-bottom: 40px;
+        width: 100%;
+        .title, .body {
+            display: none;
+        }
+        .form {
+            width: 100%;
+            input {
+                font-size: 35px;
+                height: 80px;
+                letter-spacing: -1px;
+                padding: 0px 0 0 20px;
+                -webkit-border-radius: 0; 
+                border-radius:0; 
+            }
+            position: relative;
+            .response {
+                top: -50px;
+                margin-top: 0;
+            }
+            .email-address {
+                width: 70%;
+            }
+            .submit {
+                -webkit-border-radius:0; 
+                border-radius:0;
+                height: 80px;
+                font-size: 35px;
+                width: 30%;
+                padding: 0;
+                font-family: PressuraLight;
+                border: 1px solid $link;
+                border-left: 0;
+            }
+        }
+        .checkbox-outer {
+            float: left;
+            .fakebox {  
+                color: $white;
+            }
+        }
+        .checkboxes {
+            text-transform: uppercase;
+            color: #FFF;
+            padding: 0;
+            font-family: PressuraLight;
+            font-size: 18px;
+            margin-top: 50px;
+            input {
+                margin-left: 30px;
+            }
+            input:first {
+                margin-left: 0;
+            }
+        }
+    }
+
+    &.email-onboard-fullbleed {
+        .form {
+            width: 330px;
+        }
+        @media (max-width: 768px) {
+            .form {
+                width: 100%;
+                margin-top: 15px;
+                display: block;
+            }
+            .copy {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .email-address {
+                width: calc(100% - 80px);
+            }
+            .submit {
+                width: 80px;
+            }
+        }
+    }
+
+    &.email-onboard-inline {
+        // at the bottom of posts, col8
+        .copy {
+            margin: 0;
+            padding: 0;
+            width: 49%;
+            margin-right: 3%;
+            float: left;
+        }
+        .form {
+            width: 48%;
+            float: left;
+            .submit {
+                width: 80px;
+            }
+            .email-address {
+                width: calc(100% - 80px);
+            }
+        }
+        .checkboxes {
+            width: 19%;
+            padding-left:0;
+            float: left;
+            .checkbox-outer {
+                float: left;
+                font-size: 12px;
+                font-family: PressuraLight;
+                text-transform: uppercase;
+                margin-right: 15px;
+            }
+            .fakebox {
+                margin-left: 0;
+                font-size: 12px;
+                width: 12px;
+                height: 12px;
+                line-height: 9px;
+                border-color: $black;
+                color: $black;
+                border-width: 2px;
+            }
+        }
+         @media (max-width: 768px) {
+            .copy, .form, .checkboxes {
+                width: 100%;
+                clear: left;
+            }
+            .email-address {
+                margin: 15px 0;
+                width: calc(100% - 80px);
+            }
+            .submit {
+                width: 80px;
+            }
+         }
+    }
+
+
+}
+
+body .photo-essay .email-onboard, body .light-on-dark .email-onboard {
+    color: $white;
+    .checkboxes .fakebox {
+        color: $white;
+        border-color: $white;
+    }
+}
+
+.email-onboard-fullbleed {
+    // clone of .col12 in app.css.scss
+    @include span-columns(12);
+    @include media($mobile) { 
+        @include span-columns(1);                   
+    }
+    padding: 20px 0 20px 0;
+}
+
+.email-onboard-inline {
+    // clone of .col8-shift4 in app.css.scss
+    @include media($mobile) { 
+        @include span-columns(1);
+        @include shift(0);
+    }
+}
+
+.email-subscribe-page {
+    .container {
+        max-width: 1000px;
+    }
+    color: $white;
+    text-align: center;
+    .header {
+        padding: 80px 0;
+        position: relative;
+        .background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            left: 0;
+        }
+        .headline {
+            font-family: PressuraLightItalic;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            line-height: 3em;
+            font-size: 30px;
+            text-shadow: 1px 1px $black;
+        }
+        .colorize {
+            color: $link;
+        }
+        h1 {
+            margin: 0;
+        }
+        .logo {
+            margin-top: 80px;
+        }
+    }
+    .content {
+        background-color: $black;
+        padding: 80px 0;
+        .copy {
+            font-size: 20px;
+            @include font-body;
+            line-height: 1.8em;
+            .lead {
+                @include font-head;
+                text-transform: uppercase;
+                font-size: 0.9em;
+            }
+        }
+    }
+    .testimonial {
+        padding: 80px 0;
+        background-color: $rules;
+        h2 { 
+            margin: 0;
+            font-family: MillerItalic;
+        }
+        .attribution {
+            margin-top: 20px;
+            display: block;
+            @include font-detail;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 3px;
+        }
+        .attribution a {
+            color: $white;
+            text-decoration: none;
+        }
+        .attribution a:hover {
+            color: $link;
+            text-decoration: underline;
+        }
+    }
+
+
+}
+
+@media (max-width: 920px) {
+    .email-subscribe-page {
+        .header {
+            .headline {
+                font-size: 14px;
+                line-height: 3em; 
+            }
+        } 
+    }
+}
+
+.mobile {
+    .email-subscribe-page {
+        .header {
+            padding: 50px 0;
+            .logo {
+                margin-top: 50px;
+            }
+        }
+        .content {
+            padding: 50px 0;
+            .copy {
+                font-size: 16px;
+            }
+        }
+        .testimonial {
+            padding: 50px 0;
+        }
+    }
+}
+
+.mobile {
+    .marketing-signup-standalone {
+        .title, .body {
+            display: none;
+        }
+        .form {
+            width: 100%;
+            input {
+                height: 35px;
+                font-size: 12px;
+                width: calc(100% - 80px);
+                letter-spacing: 0;
+                padding: 0px 0 0 10px;
+            }
+            .submit {
+                width: 80px;
+                height: 35px;
+                font-size: 12px;
+                padding: 0;
+                font-family: PressuraLight;
+            }
+        }
+        .checkboxes {
+            font-size: 14px;
+            .checkbox-outer {
+                float: none;
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

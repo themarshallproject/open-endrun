@@ -1,0 +1,290 @@
+ /* header */
+
+header {
+	z-index: 9000;
+	background: $black;
+	border-bottom: 1px solid $rules;
+	position: fixed;
+	height: 64px;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	img {
+		float: left;
+		height: 51px;
+		padding: 20px 0px 4px 25px;
+		display: block;
+	}
+}
+
+.header-items {
+	color: $white;
+	float: right;
+	margin-top: 23px;
+	margin-right: 15px;
+	@include font-detail-bold;
+	text-transform: uppercase;
+	font-size: 14px;
+	a {
+		margin-right: 14px;
+		color: $white;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	svg {
+		height: 12px;
+		path {
+			fill: $white;
+			@include animate;
+		}
+	}
+	svg:hover {
+		path {
+			fill: $link !important;
+			@include animate;
+		}
+	}
+}
+	
+
+/* menu */
+
+.menu-hidden {
+	left: -321px !important;
+}
+
+.menu-topper {
+	span {
+		margin-bottom: 25px;
+	}
+}
+
+.menu-social-margin {
+	margin-top: 60px !important;
+}
+
+.header-menu-trigger {
+	position: relative;
+	font-size: 33px;
+	color: $white; 
+	float: left;
+	border-right:1px solid $rules;
+	width: 64px;
+	height: 64px;
+	cursor: pointer;
+	@include animate;
+}
+
+.header-menu-trigger:hover {
+	background-color: $link;
+	@include animate;
+}
+
+.header-menu-button { 
+	position: absolute; 
+	left: 25%; 
+	top: 48%; 
+}
+
+.header-menu-button { 
+	cursor: pointer; 
+	padding: 0px 35px 16px 0px;; 
+}
+
+.header-menu-button span, .header-menu-button span:before, .header-menu-button span:after {
+	cursor: pointer;
+	border-radius: 1px;
+	height: 2px;
+	width: 30.5px;
+	background: $white;
+	position: absolute;
+	display: block;
+	content: '';
+}
+
+.header-menu-button span:before {
+	top: -10.5px;
+	left:.5px;
+}
+
+.header-menu-button span:after {
+	bottom: -10.5px;
+	left:.5px;
+}
+
+.header-menu-button span, .header-menu-button span:before, .header-menu-button span:after {
+	transition: all 500ms ease-in-out;
+}
+
+.header-menu-button.active span {
+	background-color: transparent;
+}
+
+.header-menu-button.active span:before{
+	/*top: 0;*/
+	left:4.5px;
+	-webkit-transform-origin: 0% 50%;
+	transform-origin: 0% 0%;
+}
+
+.header-menu-button.active span:after {
+	/*bottom: 0;*/
+	-webkit-transform-origin: 0% 50%;
+	transform-origin: 0% 100%;
+	left:4.5px;	
+}
+
+.header-menu-button.active span:before {
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.header-menu-button.active span:after {
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+
+/* menu */
+
+.menu-wrapper {
+	@include font-detail;
+	position: fixed;
+	overflow: scroll;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 320px;
+	background-color: $black;
+	z-index: 8999;
+	padding-top: 64px;
+	text-transform: uppercase;
+	font-size: 16px;
+	line-height: 16px;
+	color: $white;
+	@include animate;
+	.menu-item {
+		width: 100%;
+		height: 64px;
+		border-bottom: 1px solid $rules;
+		@include animate;
+		a {
+			color: $white;
+		}
+		a:hover {
+			color: $black;
+			text-decoration: none;
+		}
+	}
+	.menu-item-link {
+		padding: 24px 10px 24px 24px;
+		display: block;
+		height: 100%;
+		width: 100%;
+	}
+	.menu-item-link:hover {
+		color: $black !important;
+	}
+	.menu-item:hover {
+		background-color: $link;
+		border-bottom: 1px solid $link;
+		@include animate;
+	}
+
+	.menu-section-top {
+		margin-top: 0px !important;
+	}
+
+	.menu-section {
+		margin-top: 60px;
+		span {
+			padding: 0px 25px 0 25px;
+			color: $timestamps;
+			display: block;
+		}
+		p {
+			@include font-body;
+			font-size: 16px;
+			line-height: 24px;
+			text-transform: none;
+			color: $timestamps;
+			padding: 22px 25px 0px 25px;
+			a {
+				text-decoration: underline;
+				color: $white;
+			}
+			a:hover {
+				color: $link;
+				text-decoration: none;
+			}
+		}
+	}
+
+	.menu-social {
+		border-top: 1px solid $rules;
+		float: left;
+		width: 50%;
+		@include animate;
+		svg {
+			margin-left: 45px;
+			height: 18px;
+			width: 18px;
+			path{
+				fill: $white;
+			}
+		}
+	}
+
+	.menu-social:hover {
+		svg {
+			path{
+			fill: $black;
+			@include animate;	
+			}
+		}
+	}
+
+	.menu-social:last-child {
+		border-left: 1px solid $rules;	
+	}
+
+	.menu-newsletter {
+		margin-top: 30px;
+		.newsletter-input {
+			width: 70%;
+			margin-bottom: 0px;
+		}
+	}
+
+	.menu-links {
+		border-top: 1px solid $rules;
+	}
+
+	.menu-copyright {
+		margin-top: 5px;
+		color: $timestamps;
+		p {
+			font-size: 14px;
+			line-height: 21px;
+			padding-bottom: 30px;
+		}
+		a {
+			color: $timestamps !important;
+		}
+		a:hover {
+			color: $link !important; 
+		}
+	}
+	.menu-footer {
+		display: block;
+		margin-bottom: 80px;
+	}
+}
+
+@media (max-width: 739px) { 
+	.header-items { 
+		display: none;
+	}
+}

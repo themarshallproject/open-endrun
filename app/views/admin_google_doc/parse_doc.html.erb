@@ -1,0 +1,33 @@
+<h1>Markdownified Google Doc <%= link_to "New Post", new_post_path, class: 'btn btn-info pull-right' %></h1>
+<hr>
+
+<!--
+<%= link_to "New Post With This Markdown", new_post_path(seed_v1_google_doc_id: params[:id]) %><br>
+-->
+
+<style>
+
+.preview {
+	font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.admin-gdoc-markdown-highlight {
+	background: #ff0b3a;
+	color: white;
+	padding-bottom: 2px;
+	font-weight: 100;
+}
+
+</style>
+
+<div class="preview">
+<%= raw MarkdownGoogleDoc.highlight @doc.to_html %>
+</div>
+
+
+<!--
+<pre>
+<%= @html %>
+</pre>
+-->

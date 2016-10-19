@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+      __       ________   ___      ___   __    _____  ___   
+     /""\     |"      "\ |"  \    /"  | |" \  (\"   \|"  \  
+    /    \    (.  ___  :) \   \  //   | ||  | |.\\   \    | 
+   /' /\  \   |: \   ) || /\\  \/.    | |:  | |: \.   \\  | 
+  //  __'  \  (| (___\ |||: \.        | |.  | |.  \    \. | 
+ /   /  \\  \ |:       :)|.  \    /:  | /\  |\|    \    \ | 
+(___/    \___)(________/ |___|\__/|___|(__\_|_)\___|\____\) 
+                                                            
+-->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title><%= content_for(:title) ? "#{yield(:title)}" : "EndRun" %></title>
+<%= stylesheet_link_tag    'admin/admin', media: 'all', 'data-turbolinks-track' => false %>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<%= javascript_include_tag 'admin/admin', 'data-turbolinks-track' => false %>
+<%= csrf_meta_tags %>
+<script>window._messages = [];</script>
+<%= yield(:head) %>
+</head>
+<body class="<%= yield(:body_classes) %>">
+
+	<% unless @disable_nav == true %>
+		<%= render 'layouts/nav' if (current_user rescue nil).present? %>
+	<% end %>
+
+	<div class="container">
+		<%= render 'layouts/flashes' %>
+		<%= yield %>
+	</div>
+
+	<%= render 'layouts/admin_analytics' %>
+
+	<div class="posts-being-edited"></div>
+	<script>
+		var get_active_post_locks = function() {
+			$.getJSON("<%= actives_widget_post_locks_path %>").done(function(response) {
+				$('.posts-being-edited').html( response.html ).css('bottom', '0px');
+			});
+		}
+		$(document).ready(function() {
+			get_active_post_locks();
+			setInterval(get_active_post_locks, 30000);
+		});
+	</script>
+
+<% if Rails.env.development? %>
+<script src="//localhost:35729/livereload.js"></script>
+<% end %>
+
+</body>
+</html>

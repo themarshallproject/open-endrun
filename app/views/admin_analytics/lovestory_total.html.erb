@@ -1,0 +1,25 @@
+<% begin %>
+
+<% @response['aggregations'].each do |agg_name, agg| %>
+	<h2><%= agg_name %></h2>
+	<table class="table table-striped">
+		<thead>
+			<td>Post</td>
+			<td>Pageviews (total, lifetime)</td>
+		</thead>
+		<tbody>
+		<% agg['buckets'].each do |row| %>
+			<% if row['doc_count'].to_i > 20 %>
+				<tr>
+					<td><%= link_to row['key'], row['key'], style: 'white-space:pre-wrap;' %></td>
+					<td><%= row['doc_count'] %></td>
+				</tr>
+			<% end %>
+		<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<% rescue %>
+<h2>ERROR ERROR ERROR!</h2>
+<% end %>

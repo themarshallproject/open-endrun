@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @post_deploy_token.post_id %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @post_deploy_token.label %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @post_deploy_token.token %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @post_deploy_token.active %>
+</p>
+
+<%= link_to 'Edit', edit_post_deploy_token_path(@post_deploy_token) %> |
+<%= link_to 'Back', post_deploy_tokens_path %>

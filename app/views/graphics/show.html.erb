@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @graphic.slug %>
+</p>
+
+<p>
+  <strong>Deploy Token:</strong>
+  <%= @graphic.deploy_token %>
+</p>
+
+<pre>
+<%= @graphic.html %>
+</pre>
+
+<%= link_to 'Edit', edit_graphic_path(@graphic) %> |
+<%= link_to 'Back', graphics_path %>

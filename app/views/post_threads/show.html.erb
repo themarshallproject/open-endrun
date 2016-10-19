@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @post_thread.name %>
+</p>
+
+<%= link_to 'Edit', edit_post_thread_path(@post_thread) %> |
+<%= link_to 'Back', post_threads_path %>

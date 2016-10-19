@@ -1,0 +1,3 @@
+class GoogleDocMarkdownConverterV2
+
+end

@@ -1,0 +1,691 @@
+<!doctype>
+<head>
+<title>Gator</title>
+<%= stylesheet_link_tag 'admin/admin', media: 'all', 'data-turbolinks-track' => false %>
+<style>
+body {
+	margin: 0;
+	background-color: #111;
+	height: 100%;
+	width: 100%;
+	font-family: PressuraLight, 'Courier New', Courier;
+	font-weight: 100;
+	text-transform: uppercase;
+	color: white;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.er-container {
+	padding:100px;
+}
+.er-container a {
+	color: white;
+}
+.er-headline {
+	font-size: 22px;
+	color: #888;
+    line-height: 1.2em;
+	margin-bottom: 35px;
+}
+.er-message {
+	margin-bottom: 30px;
+  	font-size: 16px;
+ 	line-height: 1.3em;
+ 	text-transform: none;
+}
+.er-button {
+	margin-top: 30px;
+}
+.er-button {
+	font-family: PressuraLight;
+	font-size: 14px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+	background-color: #888888;
+    padding: 10px 14px 11px 14px;
+    border-radius: 7px;
+	float: left;
+	cursor: pointer;
+}
+.er-button-left {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: 1px solid black;
+}
+.er-button-right {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.er-button-active {
+	background-color: #ff0b3a;
+	color: #ffffff;
+}
+
+.er-button-active:after {
+	content: '✔';
+	line-height: 0px;
+	color: white;
+	font-size: 12px;
+	margin-left: 7px;
+	margin-right: 2px;
+}
+
+.er-button-public {
+	min-width: 102px;
+}
+
+.er-button-edpick {
+	min-width: 156px;
+}
+
+.er-typeahead-input {
+	background-color: #ececea;
+	margin-bottom: 1px;
+	border: none;
+	font-weight: normal;
+	letter-spacing: -.2px;
+	font-size: 16px;
+	color: #111111;
+	height: 68px;
+	width: 100%;
+	padding: 24px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.er-typeahead-wrapper {
+	position: relative;
+}
+.er-typeahead {
+	background-color: #ececea;
+	color: black;
+	font-size: 13px;
+	width: 100%;
+	z-index: 100;
+}
+input {
+	border:0;
+	outline:none;
+}
+.er-typeahead .er-row {
+	padding: 8px;
+	padding-left: 10px;
+	border-bottom: 1px solid black;
+	cursor: pointer;
+	text-transform: none !important;
+}
+.er-typeahead .er-row:hover {
+	background-color: #ff0b3a;
+	color: white;
+}
+.er-typeahead .er-highlighted-row {
+	background-color: #ff0b3a;
+	color: white;
+}
+.er-typeahead .er-cell {
+	border: 0px;
+	cursor: pointer;
+}
+.er-activated-tags {
+	padding-top: 20px;
+}
+.er-tag {
+	display: inline-block;
+	padding-top: 10px;
+	text-transform: none !important;
+}
+.er-tag a {
+	color: white;
+	text-decoration: none;
+}
+.er-tag a:hover {
+	color: #ff0b3a;
+}
+.er-tag .delete:after {
+	content: '\00d7';
+	color: #ff0b3a;
+	margin-left: 8px;
+	margin-right: 15px;
+	text-transform: lowercase;
+	cursor: pointer;
+}
+.er-create-button {
+	min-width: 130px;
+	margin-left: 30px;
+	background-color: #1FBEC3;
+}
+
+.er-button-status {
+	background-color: #111;
+	cursor: initial !important;
+}
+
+.the-name {
+  float: left;
+  font-family: "PressuraLight", Courier;
+  text-transform: uppercase;
+  margin-left: 14px;
+  margin-top: 7px;
+  font-size: 12px;
+}
+
+.logo {
+	float: left;
+}
+
+.logo img {
+	width: 30px;
+	padding: 0px !important;
+	margin-bottom: 40px;
+}
+
+.clear {
+	clear: both;
+}
+</style>
+</head>
+<body>
+<script src="https://fb.me/react-0.13.2.js"></script>
+<script src="https://fb.me/JSXTransformer-0.13.2.js"></script>
+
+<% if @link.present? and @link.persisted? %>
+	<em>Added by <%= @link.creator.email rescue @link.creator_id %></em><br>
+<% end %>
+
+<div id="app"></div>
+<div id="json" style="opacity:0;"></div>
+
+<script>
+
+var lastPostRequest = 0;
+
+var get = function(url, callback) {
+	var request = new XMLHttpRequest();
+	request.open('GET', url, true);
+	request.onload = function() {
+		if (this.status >= 200 && this.status < 400) {
+			callback(null, this.response);
+		} else {
+			callback(this.response, null)
+		}
+	};
+	request.onerror = function() {
+		callback('ONERROR', null);
+	};
+	request.send();
+}
+
+var post = function(url, data, callback) {
+	var json = JSON.stringify(data);
+	var request = new XMLHttpRequest();
+	request.open("POST", url, true);
+	request.setRequestHeader("X-CSRF-Token", window.csrfToken);
+	request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	request.onload = function() {
+		if (this.status === 200) {
+			callback(null, this.response);
+		} else {
+			callback(this.response, null)
+		}
+	};
+	request.onerror = function() {
+		callback('ONERROR', null);
+	};
+
+	request.send(json);
+}
+
+</script>
+
+<script type="text/jsx">
+window.linkUrl   = <%= params[:url].to_json.html_safe %>;
+window.linkTitle = <%= params[:title].to_json.html_safe %>;
+window.csrfToken = "<%= form_authenticity_token %>";
+var allTagsEndpoint = "/admin/rattlecan/tags.json";
+
+var getDomain = function(url) {
+    var a = document.createElement('a');
+    a.href = url;
+    return a.hostname.replace("//www.", "//");
+}
+window.linkDomain = getDomain(window.linkUrl);
+
+var lastSnapshot = ''; // JSON
+
+var SearchBox = React.createClass({
+	onChange: function(e) {
+		this.props.updateFilterText(e.target.value);
+	},
+	render: function() {
+		return <div className='search-box'>
+			<input value={this.props.filterText} className="er-typeahead-input" onChange={this.onChange} placeholder="Start typing a tag" /><br />
+		</div>
+	}
+})
+
+var lookupKeycode = function(keycode) {
+	keyLookup = {}
+	keyLookup[38] = 'up'
+	keyLookup[40] = 'down'
+	keyLookup[13] = 'submit'
+	return keyLookup[keycode];
+}
+
+var Cell = React.createClass({
+	toggleTag: function() {
+		console.log('toggleTag')
+		if (this.props.isTagged === true) {
+			this.props.setTaggingState(this.props.tag_id, false);
+		} else {
+			this.props.setTaggingState(this.props.tag_id, true);
+		}
+	},
+	componentDidMount: function() {
+		var el = this.getDOMNode();
+		el.addEventListener("tmp_submit", this.toggleTag);
+	},
+	onClick: function() {
+		this.toggleTag();
+	},
+	render: function() {
+		return <div className="er-cell" onClick={this.onClick}>
+			<span>{this.props.data}</span>
+		</div>
+	}
+})
+
+var Row = React.createClass({
+	render: function() {
+		var classString = "er-row";
+		if (this.props.isHighlighted === true) {
+			classString += " er-highlighted-row";
+		}
+		return <div className={classString}>
+			<Cell data={this.props.tag.name} tag_id={this.props.tag.id} setTaggingState={this.props.setTaggingState} isHighlighted={this.props.isHighlighted} />
+		</div>
+	}
+})
+
+var ToggleButton = React.createClass({
+	render: function() {
+		var classes = this.props.baseClasses;
+		if (this.props.isActive === true) {
+			classes += (" " + this.props.activeClass);
+		}
+		return <div className={classes} onClick={this.props.handleClick} >{this.props.label}</div>
+	}
+})
+
+// var filterRows = function(allTags, filterText) {
+// 	return allTags.filter(function(tag, index) {
+// 			if (filterText.length >= 2) {
+// 				return (tag.name.toLowerCase().indexOf(lowerCaseFilterText) >= 0);
+// 			} else {
+// 				return false;
+// 			}
+// 		}).filter(function(tag, index) {
+// 			return isTagged(tag) === false;
+// 		});
+// }
+
+var AllTags = React.createClass({
+	updateHighlightedTag: function(tag) {
+		this.props.updateHighlightedTag(tag);
+	},
+	render: function() {
+
+		var isTagged = function(candidate_tag) {
+			return this.props.modelTags.indexOf(candidate_tag.id) >= 0;
+		}.bind(this);
+
+		var lowerCaseFilterText = this.props.filterText.toLowerCase();
+		var rows = this.props.allTags.filter(function(tag, index) {
+			if (this.props.filterText.length >= 2) {
+				return (tag.name.toLowerCase().indexOf(lowerCaseFilterText) >= 0);
+			} else {
+				return false;
+			}
+		}.bind(this)).filter(function(tag, index) {
+			return isTagged(tag) === false;
+		}.bind(this)).map(function(tag, index) {
+			var isHighlighted = this.props.highlightDropdownIndex === index;
+			return <Row key={index} tag={tag} isTagged={isTagged(tag)} setTaggingState={this.props.setTaggingState} isHighlighted={isHighlighted} />
+		}.bind(this));
+
+		if (this.props.filterText.length < 2) {
+			return <div className="er-typeahead"></div>;
+		} else {
+			return <div className="er-typeahead"><CreateTagButton label={this.props.filterText} />{rows}</div>;
+		}
+	}
+});
+
+var ModelTagCell = React.createClass({
+	handleClick: function() {
+		this.props.setTaggingState(this.props.tag.id, false);
+	},
+	render: function() {
+		return <div className="er-tag">
+			<span>{this.props.tag.name}</span>
+			<span className="delete" onClick={this.handleClick}></span>
+		</div>;
+	}
+})
+
+var ModelTags = React.createClass({
+	render: function() {
+		var cells = this.props.allTags.filter(function(candidateTag) {
+			return  this.props.modelTags.indexOf(candidateTag.id) >= 0;
+		}.bind(this)).map(function(tag) {
+			return <ModelTagCell key={tag.id} tag={tag} isTagged={true} setTaggingState={this.props.setTaggingState} />
+		}.bind(this));
+
+		return <div className="er-activated-tags">
+			{cells}
+		</div>;
+	}
+});
+
+var CreateButton = React.createClass({
+	render: function() {
+		if (this.props.persisted === true) {
+			return <div className="er-button er-create-button er-button-status">{this.props.label}</div>;
+		} else {
+			return <div className="er-button er-create-button" onClick={this.props.handleClick} >Create Link</div>
+		}
+	}
+})
+
+var CreateTagButton = React.createClass({
+	handleClick: function() {
+		window.open("/tags/new?name="+this.props.label)
+	},
+	render: function() {
+		return <div className="er-row" onClick={this.handleClick}>Create "{this.props.label}"</div>
+	}
+});
+
+var ShowCreator = React.createClass({
+	render: function() {
+		if (this.props.waitingForFirstSync === true) {
+			return <div className="er-message">Loading...</div>;
+		}
+
+		if (this.props.creator === null) {
+			return <div className="er-message">This link has not been created yet.</div>;
+		} else {
+			return <div className="er-message">This link was created by {this.props.creator}</div>
+		}
+	}
+})
+
+var Page = React.createClass({
+	getInitialState: function() {
+		return {
+			has_first_sync: false,
+			saving: false,
+			id: null,
+			persisted: false,
+			url: null,
+			domain: null,
+			title: 'No Title Found',
+			filterText: '',
+			modelTags: [],
+			allTags: [],
+			message: 'Loading...',
+			waitingForFirstSync: true,
+			editors_pick: false,
+			button_label: "",
+			approved: true,
+			dirty_client: false,
+			creator: null,
+			highlightDropdownIndex: null,
+			highlightedTag: null
+		}
+	},
+	updateHighlightedTag: function(tag) {
+		console.log('updateHighlightedTag', tag)
+		this.setState({ highlightedTag: tag });
+	},
+	updateFilterText: function(filterText) {
+		this.setState({ filterText: filterText });
+	},
+	setStatus: function(status) {
+		this.setState({ button_label: status });
+	},
+	getAllTags: function() {
+		get(allTagsEndpoint, function(err, data) {
+			if (err) {
+				console.error(err);
+				return;
+			}
+			var allTags = JSON.parse(data);
+			this.setState({ allTags: allTags });
+			this.setState({ message: '' });
+			console.log('loaded allTags', allTags);
+		}.bind(this));
+	},
+	componentDidMount: function() {
+		this.setState({ url: window.linkUrl });
+		this.setState({ domain: window.linkDomain });
+		this.setState({ title: window.linkTitle });
+
+		this.getAllTags();
+
+		this.setStatus('SYNCING ...');
+		get('/admin/gator/link?url='+encodeURIComponent(window.linkUrl), function(err, json) {
+			if (err) {
+				alert("ERROR"+err);
+				return false;
+			}
+			this.setStatus('');
+			this.setState({ waitingForFirstSync: false });
+			this.updateFromServer(JSON.parse(json));
+		}.bind(this));
+
+
+
+		window.addEventListener('keydown', function(e) {
+
+			var oldState = this.state.highlightDropdownIndex;
+			var newState = null;
+
+			if (e.keyCode === 13) { // ENTER key
+				if (oldState !== null) {
+					// oldState is non-null, so we have a highlighted item
+					var el = document.querySelector('.er-highlighted-row .er-cell');
+					var evt = new Event('tmp_submit');
+					el.dispatchEvent(evt);
+				}
+				return;
+			}
+
+			if (e.keyCode === 38) { // UP key
+				if (oldState) {
+					newState = oldState - 1;
+					if (newState < 0) {
+						newState = 0;
+					}
+				}
+			}
+
+			if (e.keyCode === 40) { // DOWN key
+				if (oldState === null) {
+					newState = 0; // "enter" the dropdown list. this is ugly, but -1 is set, then incremented so the index starts at 0
+				} else {
+					newState = oldState + 1;
+				}
+			}
+
+			this.setState({ highlightDropdownIndex: newState });
+		}.bind(this));
+
+		window.addEventListener("focus", function(event) {
+			setTimeout(function() {
+				console.log('getAllTags()... got window focus.');
+				this.getAllTags();
+			}.bind(this), 1000);
+		}.bind(this), false);
+
+	},
+	updateFromServer: function(data) {
+		console.log('updateFromServer', data)
+		this.setState({ modelTags: data.tag_ids });
+		if (data.title !== null) {
+			this.setState({ title: data.title });
+		}
+		this.setState({ persisted: data.persisted });
+
+		if (data.editors_pick === true || data.editors_pick === false) {
+			this.setState({ editors_pick: data.editors_pick });
+		}
+
+		if (data.approved === true || data.approved === false) {
+			this.setState({ approved: data.approved });
+		}
+
+		this.setState({ creator: data.creator });
+		this.setState({ url: data.url });
+
+		//this.setState({ id: data.id });
+	},
+	sendToServer: function() {
+		data = this.serialize();
+		this.setStatus('SAVING ...');
+		post('/admin/gator/link', {link: data}, function(err, data) {
+			if (err) {
+				alert("ERROR SAVING", err);
+				return;
+			}
+			this.updateFromServer(JSON.parse(data));
+			this.setStatus('');
+		}.bind(this))
+	},
+	serialize: function() {
+		var data = {
+			id: this.state.id,
+			url: this.state.url,
+			title: this.state.title,
+			fb_image_url: this.state.og_image,
+			tag_ids: this.state.modelTags,
+			title: this.state.title,
+			approved: this.state.approved,
+			editors_pick: this.state.editors_pick,
+			domain: this.state.domain
+		}
+		document.getElementById('json').innerHTML = JSON.stringify(data);
+
+		//this.setState({ saving: true });
+		return data;
+	},
+	markDirty: function() {
+		this.setState({ dirty_client: true });
+	},
+	setTaggingState: function(tagId, newState) {
+
+		var modelTags = this.state.modelTags;
+
+		if (newState === true) {
+			//console.log(this.state.allTags)
+			var tag = this.state.allTags.filter(function(candidate) {
+				return candidate.id === tagId;
+			}.bind(this))[0];
+
+			modelTags.push(tag.id);
+			this.setState({ modelTags: modelTags });
+			this.setState({ filterText: '' });
+			document.querySelector('.search-box input').focus();
+		}
+
+		if (newState === false) {
+			var _modelTags = modelTags.filter(function(candidateId) {
+				return candidateId != tagId;
+			});
+			this.setState({ modelTags: _modelTags });
+		}
+
+		this.markDirty();
+	},
+	togglePublic: function() {
+		this.markDirty();
+		this.setState({ approved: !this.state.approved });
+		console.log('togglePublic');
+	},
+	toggleEditorsPick: function() {
+		this.markDirty();
+		this.setState({ editors_pick: !this.state.editors_pick });
+	},
+	handleCreateClick: function() {
+		console.log('create!')
+		this.sendToServer();
+	},
+	componentDidUpdate: function() {
+		if (this.state.dirty_client === true) {
+			this.sendToServer();
+			this.setState({ dirty_client: false })
+		}
+	},
+	render: function() {
+		return (
+			<div className="er-modal">
+
+				<div className="er-container">
+
+					<div className="logo"><%= image_tag "m-white-small.svg" %></div>
+					<div className="the-name">EndRun</div>
+					<div className="clear"></div>
+					<div className="er-message">{this.state.message}</div>
+
+					<ShowCreator creator={this.state.creator} waitingForFirstSync={this.state.waitingForFirstSync} />
+
+					<div className="er-headline">{this.state.title}</div>
+
+					<div className="er-typeahead-wrapper">
+
+						<SearchBox filterText={this.state.filterText}
+								   updateFilterText={this.updateFilterText} />
+
+						<AllTags   modelTags={this.state.modelTags}
+								   setTaggingState={this.setTaggingState}
+								   allTags={this.state.allTags}
+								   filterText={this.state.filterText}
+								   highlightDropdownIndex={this.state.highlightDropdownIndex}
+								   updateHighlightedTag={this.updateHighlightedTag} />
+
+					</div>
+
+					<ModelTags modelTags={this.state.modelTags}
+								   allTags={this.state.allTags}
+						           setTaggingState={this.setTaggingState} />
+
+					<ToggleButton baseClasses={"er-button er-button-left er-button-public"}
+					              activeClass={"er-button-active"}
+					              isActive={this.state.approved}
+					              label={"Public?"}
+					              handleClick={this.togglePublic} />
+
+					<ToggleButton baseClasses={"er-button er-button-right er-button-edpick"}
+					              activeClass={"er-button-active"}
+					              isActive={this.state.editors_pick}
+					              label={"Editor's Pick?"}
+					              handleClick={this.toggleEditorsPick} />
+
+					<CreateButton persisted={this.state.persisted} handleClick={this.handleCreateClick} label={this.state.button_label} />
+				</div>
+
+			</div>
+		)
+	}
+})
+
+React.render(<Page />, document.getElementById('app'));
+</script>
+</body>
+</html>

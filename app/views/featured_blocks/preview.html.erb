@@ -1,0 +1,9 @@
+<% @hide_nav = true %>
+<% begin %>
+<%= render partial: "public/featured_block/#{@featured_block.template}" %>
+<% rescue %>
+	<h2>Invalid configuation</h2>
+	<pre>
+	<%= $!.inspect %>
+	</pre>
+<% end %>

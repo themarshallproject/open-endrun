@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<script>
+//
+// This script is intended for use by partners working with The Marshall Project.
+// For information or support, please contact:
+// Ivar Vong, Director of Technology
+// ivong@themarshallproject.org
+//
+
+window.isIframe = (parent !== window);
+
+(function() {
+	var cookieName = 'iframe_token';
+
+	var setCookie = function(key, value) {
+		var d = new Date();
+		d.setTime(d.getTime() + (5*365*24*60*60*1000)); // 5 years
+		var expires = "expires="+d.toUTCString();
+		document.cookie = key + "=" + value + "; " + expires;
+	}
+	var readCookie = function(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return null;
+	}
+	
+	var newToken = "<%= SecureRandom.hex %>";
+	if (readCookie(cookieName) === null) {
+		console.log('setting cookie for first time')
+		setCookie(cookieName, newToken);
+	}
+	window.token = readCookie(cookieName);
+})();
+
+(function() {
+	if (!isIframe) {
+		console.log("You are not in an <iframe>. Halting.")
+		return false;
+	} 
+
+	var url = document.referrer;
+	var src = "<%= ENV['PIXEL_TRACKING_URL'] %>?v=iframe&url=" + encodeURIComponent(url) + "&guest_token=" + encodeURIComponent(window.token);
+	
+	console.log('log hit for url=', url, "src=", src);
+
+	var img = new Image(1, 1);
+	img.onload = function() {
+		console.log('done');
+	}
+	img.src = src;
+})();
+</script>
+</head>
+<body><!-- no content --></body>
+</html>

@@ -1,0 +1,113 @@
+// use collections.scss
+
+.the-2015-collection-index {
+	.header {
+		padding: 75px 0;
+		background-color: $black;
+		.branding {
+			width: 100%;
+		}
+		.logo {
+			width: 150px;
+			margin: 0 auto;
+		}
+		.headline {
+			color: $white;
+			text-align: center;
+			font-size: 35px;
+			letter-spacing: -1px;
+			max-width: 900px;
+			margin-left: auto;
+			margin-right: auto;
+			@include font-detail;
+			margin-top: 50px;
+			b {
+				@include font-detail-bold;
+			}
+		}
+	}
+	.content {
+		padding-top: 75px;
+		padding-bottom: 75px;
+		.card-container {
+			max-width: 1080px;
+			margin: 0 auto;
+		}
+		.card-header {
+			font-family: MillerItalic;
+			font-size: 18px;
+			text-align: center;
+			margin-bottom: 55px;
+		}
+		a {
+			text-decoration: none;
+			@include animate;
+		}
+		a:hover span {
+			text-decoration: none;
+			color: $link;
+			@include animate;
+		}
+		a:hover svg g polygon {
+			fill: $link !important;
+			@include animate;
+		}
+		.card {
+			border-radius: 10px;
+			width: 250px;
+			background-color: $lightbg;
+			height: 250px;
+			float: left;
+			margin-right: 20px;
+			margin-top: 20px;
+			.card-inner {
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			.logo {
+				margin: 0 auto;
+				width: 20px;
+			}
+			.name {
+				@include font-head;
+				font-size: 24px;
+				color: $timestamps;
+				width: 200px;
+				text-align: center;
+				margin: 0 auto;
+				margin-top: 10px;
+			}
+			.updated {
+				margin:0 auto; 
+				text-align: center; 
+				@include font-detail;
+				font-weight: 500; 
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #888; 
+				margin-top: 6px;
+			}
+		}
+	}
+}
+
+@media (max-width: 739px) { 
+	.collection-index {
+		.header {
+			padding: 45px 0;
+			.headline {
+				font-size: 20px;
+			}
+		}
+		.content {
+			padding-top: 45px;
+			padding-bottom: 45px;
+			.card {
+				float: none;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}	
+	}
+}

@@ -1,0 +1,733 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+
+<style>
+
+.sg-container {
+    padding-top: 100px;
+    margin-bottom: 100px;
+}
+section, .sg-block {
+    max-width: 900px;
+    margin: 80px auto;
+}
+
+section figure {
+    margin-bottom: 30px;
+}
+section .details {
+    font-family: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
+    font-size: 12px;
+}
+section .css, section .html {
+    height: 200px;
+    padding: 0 15px;
+    float: left;
+    width: 49%;
+    white-space: pre;
+    border: 1px solid #888;
+    color: #3F3F44;
+    background-color: #fcfcfd;
+    border: 1px solid #e0e0e6;
+    border-radius: 4px;
+}
+section .html {
+    margin-right: 2%;
+}
+
+section h2, .sg-block h2  {
+    font-family: Pressura;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+section p, .sg-block p {
+    font-family: PressuraLight;
+    width: 300px;
+    color: #888;
+}
+
+figure {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}
+
+figure:before, .sg-block p:after {
+    font-family: Pressura;
+    color: #cececc;
+    content: 'Example';
+    margin: 25px 0 20px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: block;
+}
+
+.sg-swatch {
+    width: 162px;
+    float: left;
+    height: 100px;
+    margin-right: 2%;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e6;
+    border-radius: 4px;
+    padding-top: 6px;
+    padding-left: 12px;
+}
+
+.clear {
+    clear: both;
+}
+
+.sg-swatch span {
+    font-family: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
+    font-size: 12px;
+    display: block;
+    color: #fff;
+}
+
+.sg-swatch-name {
+    font-family: Pressura !important;
+    font-size: 16px !important;
+    margin-bottom: 29px;
+}
+
+.sg-header {
+    height: 800px;
+    background-color: black;
+    font-family: MillerBold;
+    color: white;
+    font-size: 50px;
+}
+
+.sg-header span {
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%); /* IE 9 */
+    -webkit-transform: translate(-50%,-50%); /* Chrome, Safari, Opera */
+    display: block;
+}
+
+</style>
+
+<!-- <div class="sg-header">
+    <span>Graphics and Design Style Guide</span>
+</div> -->
+
+<div class="sg-container">
+
+    <div class="sg-block">
+        <h2>Colors</h2>
+        <p>Official color palette and mixins.</p>
+        <div class="sg-swatch" style="background-color: #111">
+            <span class="sg-swatch-name">Black</span>
+            <span>#111111</span>
+            <span>$bg</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #ff0b3a">
+            <span class="sg-swatch-name">Links</span>
+            <span>#ff0b3a</span>
+            <span>$link</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #888">
+            <span class="sg-swatch-name">Timestamps</span>
+            <span>#888888</span>
+            <span>$timestamps</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #ececea; color: #111 !important; ">
+            <span style="color: #111;" class="sg-swatch-name">Light Bg</span>
+            <span style="color: #111;">#ececea</span>
+            <span style="color: #111;">$lightbg</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #f6f6f4">
+            <span style="color: #111;" class="sg-swatch-name">Background</span>
+            <span style="color: #111;">#f6f6f4</span>
+            <span style="color: #111;">$mainbg</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #cececc">
+            <span class="sg-swatch-name">Main Rules</span>
+            <span>#cececc</span>
+            <span>$mainrules</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #353535">
+            <span class="sg-swatch-name">Rules</span>
+            <span>#353535</span>
+            <span>$rules</span>
+        </div>
+        <div class="sg-swatch" style="background-color: #1FBEC3">
+            <span class="sg-swatch-name">Accent</span>
+            <span>#1FBEC3</span>
+            <span></span>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+
+    <section data-name="Outlined Button"
+             data-desc="The primary button style. Add a width to .g-outlined-button.">
+        <style>
+    .g-outlined-button {
+        border: 2px solid #111;
+        text-align: center;
+        font-family: Pressura;
+        text-transform: uppercase;
+        font-size: 14px;
+        line-height: 1.1em;
+        -webkit-transition: all 0.25s ease-in-out;
+         webkit-transition: all 0.25s ease-in-out;
+           -moz-transition: all 0.25s ease-in-out;
+             -o-transition: all 0.25s ease-in-out;
+                transition: all 0.25s ease-in-out;
+    }
+    .g-outlined-button a {
+        color: #111;
+        text-decoration: none;
+    }
+    .g-outlined-button a:hover {
+        color: #111;
+        text-decoration: none;
+    }
+    .g-outlined-button-link {
+        display: block;
+        padding: 8px 10px 10px 10px;
+    }
+    .g-outlined-button:hover {
+        background-color: #ff0b3a;
+        border: 2px solid #ff0b3a;
+        -webkit-transition: all 0.25s ease-in-out;
+         webkit-transition: all 0.25s ease-in-out;
+           -moz-transition: all 0.25s ease-in-out;
+             -o-transition: all 0.25s ease-in-out;
+                transition: all 0.25s ease-in-out;
+    }
+        </style>
+        <figure>
+    <div class="g-outlined-button">
+        <a href="#" class="g-outlined-button-link">Outlined Button</a>
+    </div>
+        </figure>
+
+    </section>
+
+    <section data-name="Scenario Button"
+             data-desc="An introduction paragraph containing a clickable button.">
+        <style>
+    .g-scenario-intro {
+        margin-top: 40px;
+        padding-top: 50px;
+        border-top: 1px solid #cececc;
+        margin-bottom: 30px;
+    }
+    .g-scenario-lede {
+        font-family: PressuraLight;
+        margin-bottom: 25px;
+        font-size: 18px;
+        line-height: 34px;
+        span {
+            font-family: Pressura;
+        }
+    }
+    .g-scenario-hed {
+        font-family: PressuraLight;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #888;
+        display: block;
+        margin-bottom: 20px;
+    }
+    .g-scenario-button {
+        line-height: 14px;
+        background-color: #ff0b3a;
+        padding: 6px 14px 7px 14px;
+        text-align: center;
+        font-size: 14px;
+        font-family: PressuraLight;
+        text-transform: uppercase;
+        webkit-transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        -webkit-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+        text-decoration: none;
+        color: white;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+    .g-scenario-button:hover {
+        background-color: #111111;
+        webkit-transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        -webkit-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+    }
+    .g-scenario-button a {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+    .g-scenario-button a:hover {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+        </style>
+        <figure>
+    <div class="g-scenario-intro">
+        <div class="g-scenario-hed">Interactive</div>
+        <div class="g-scenario-lede"><span>Lorem ipsum dolor sit amet.</span> Consectetur adipiscing elit. Duis ut quam in orci luctus auctor vel ac urna. <a class="g-scenario-button">Mauris turpis</a> augue, tincidunt sit amet tristique eget, tincidunt in nunc.
+        </div>
+    </div>
+        </figure>
+
+    </section>
+
+    <section data-name="Freeform Header (Full Bleed Image)"
+             data-desc="To be used with the Base w/ Freeform Header format. This is meant for highly customized post headers.">
+        <style>
+    .special-header {
+        padding-top: 85px;
+        margin-bottom: 70px;
+        font-family: Pressura;
+    }
+    .special-timestamp {
+        margin-bottom: 5px;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+    .special-timestamp span {
+        margin-left: 8px;
+        font-family: PressuraLight;
+        text-transform: none;
+    }
+    .special-date {
+        margin-bottom: 54px;
+        font-family: PressuraLight;
+        font-size: 14px;
+        color: #888888;
+    }
+    .special-kicker {
+        margin-bottom: 10px;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+    .special-kicker a {
+        color: #ff0b3a;
+    }
+    .special-section-break {
+        margin-top: 90px;
+    }
+    .special-headline {
+        margin-top: 0px;
+        margin-bottom: 8px;
+        font-size: 90px;
+        font-family: Miller;
+        font-weight: normal;
+        line-height: 1.2em;
+        letter-spacing: -2px;
+    }
+    .special-deck {
+        margin-top: 0px;
+        margin-bottom: 40px;
+        margin-left: 5px;
+        font-size: 25px;
+        font-weight: normal;
+        font-family: MillerItalic;
+        line-height: 1.3em;
+    }
+    .special-img {
+        /* margin-top: 70px; use this without .fullbleed-container class */
+        img {
+            width: 100%;
+        }
+    }
+    .special-img-caption {
+        font-weight: normal;
+        font-size: 14px;
+        letter-spacing: -0.2px;
+        line-height: 18px;
+    }
+    .special-img-caption span {
+        font-family: PressuraLight;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 739px) {
+        .special-header {
+            padding-top: 45px;
+            margin-bottom: 55px;
+        }
+        .special-deck {
+            font-size: 20px;
+        }
+        .special-headline {
+            font-size: 50px;
+        }
+        .special-img {
+            margin-top: 55px;
+        }
+        .special-timestamp, .special-date {
+            display: none;
+        }
+    }
+        </style>
+        <figure>
+    <div class="special-header">
+        <div class="special-timestamp">
+            Filed
+            <span>X:XX x.m.</span>
+        </div>
+        <div class="special-date">
+            0X.0X.201X
+        </div>
+        <div class="special-kicker">
+            <a href="/tag/feature">Feature</a>
+        </div>
+        <h1 class="special-headline">
+            Xxxx Xxxxxx
+        </h1>
+        <h4 class="special-deck">
+            Xxxxx xxxxxxxx xxxxxx xxx xxxxxxx xxxxxxx.
+        </h4>
+        <div class="special-img">
+            <div class="fullbleed-container">
+                <img src="">
+            </div>
+            <div class="special-img-caption">Xxxxxx xxxxxx xxxxxx xxxxxxxx xxxx. <span>Xxxxx/Xxxxxxx</span></div>
+        </div>
+    </div>
+        </figure>
+
+    </section>
+
+    <section data-name="Static Graphic"
+             data-desc="This allows you to switch between tablet (also serves as desktop) and mobile versions of static graphics."
+             data-preview="false">
+        <style>
+
+.g-inline-static-graphic {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 70px;
+  width: 100%;
+}
+.g-inline-static-inner {
+  width: 100%;
+  margin: 20px auto;
+}
+.g-inline-static-headline {
+  font-family: Pressura;
+  letter-spacing: -0.6px;
+  color: #353535;
+  font-size: 26px;
+  line-height: 1.3em;
+  margin-bottom: 20px;
+}
+.g-inline-static-credit {
+  font-family: PressuraLight;
+  font-weight: normal;
+  letter-spacing: -0.2px;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+.g-inline-static-static .g-inline-static-mobile, .g-inline-static-static .g-inline-static-tablet {
+  display: none;
+}
+.g-inline-static-static .g-inline-static-mobile img {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.g-inline-static-static .tablet-inner {
+  width: 708px;
+}
+
+@media (max-width: 768px) {
+  .g-inline-static-static .g-inline-static-mobile {
+    display: block;
+    width: 100%;
+  }
+  .g-inline-static-headline {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .g-inline-static-static .g-inline-static-tablet {
+    display: block;
+  }
+}
+
+@media (min-width: 1201px) {
+  .g-inline-static-tablet, .g-inline-static-headline, .g-inline-static-credit {
+    margin-left: 34.1192171993%;
+  }
+}
+@media screen and (max-width: 47.875em) {
+  .g-inline-static-graphic {
+    margin-left: -30px !important;
+    width: calc(100% + 60px) !important;
+  }
+}
+@media screen and (max-width: 75em) {
+  .g-inline-static-inner {
+    float: right;
+    width: 708px;
+  }
+}
+@media screen and (max-width: 47.875em) {
+  .g-inline-static-inner {
+    width: 260px;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+        </style>
+        <figure>
+<div class="g-inline-static-graphic">
+  <div class="g-inline-static-inner">
+    <div class="g-inline-static-static">
+      <div class="g-inline-static-headline">
+        Xxxxxxx Xxxxxx Xxxxxxx Xxxxxxxxx
+      </div>
+      <div class="g-inline-static-mobile">
+        <img src="https://www.themarshallproject.org/mp-graphics/20150415-doj/opened_by_term_mobile.png">
+      </div>
+      <div class="g-inline-static-tablet">
+        <div class="g-inline-static-tablet-inner">
+          <img src="https://www.themarshallproject.org/mp-graphics/20150415-doj/opened_by_term.png">
+        </div>
+      </div>
+      <div class="g-inline-static-credit">
+        Source: <a href="#">Xxxxxx Xxxxxxx</a>
+      </div>
+    </div>
+  </div>
+</div>
+        </figure>
+
+    </section>
+
+    <section data-name="Static Sidebar Graphic"
+             data-desc="For static graphics outputted only to mobile sizing."
+             data-preview="false">
+        <style>
+.g-sidebar-chart {
+  position: relative;
+  margin: 0;
+  height: 0px;
+  width: 31%;
+}
+.g-headline {
+  font-family: Pressura;
+  letter-spacing: -0.6px;
+  color: #353535;
+  font-size: 20px;
+  line-height: 1.3em;
+  margin-bottom: 20px;
+  display: block;
+}
+.g-credit {
+  font-family: PressuraLight;
+  font-weight: normal;
+  letter-spacing: -0.2px;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  display: block;
+}
+.g-sidebar-chart-inner {
+  position: absolute;
+}
+.g-sidebar-chart-inner img {
+  width: 100%;
+}
+
+@media (max-width: 739px) {
+  .g-sidebar-chart {
+    height: auto;
+    width: 100%;
+  }
+  .g-sidebar-chart-inner {
+    position: initial;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+}
+        </style>
+        <figure>
+<div class="g-sidebar-chart">
+  <div class="g-sidebar-chart-inner">
+    <span class="g-headline">Xxxxxxxxx Xxxxxx Xxxxxx</span>
+    <img src="https://tmp-uploads-1.s3.amazonaws.com/20150609/20150609solitary.png">
+    <span class="g-credit">Source: <a href="#">Xxxxxx Xxxxxxx</a></span>
+  </div>
+</div>
+        </figure>
+
+    </section>
+
+    <section data-name="Stateblock"
+             data-desc="To wrap around a Stateblock map, adding headline, deck and credit."
+             data-preview="false">
+        <style>
+.g-stateblock-headline {
+    font-family: Pressura;
+    letter-spacing: -0.6px;
+    color: #353535;
+    font-size: 26px;
+    line-height: 1.3em;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.g-stateblock-deck {
+    font-family: PressuraLight;
+    color: #888888;
+    margin-bottom: 40px;
+}
+.g-stateblock-credit {
+    font-family: PressuraLight;
+    font-weight: normal;
+    letter-spacing: -0.2px;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+@media (max-width:739px){
+    .g-stateblock-headline {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+        </style>
+        <figure>
+<div class="g-stateblock-meta">
+    <div class="g-stateblock-headline">
+        Xxxxxxx Xxxxxx Xxxxxxx Xxxxxxxxx
+    </div>
+    <div class="g-stateblock-deck">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vehicula vel neque quis vulputate. Aliquam tempor lacinia consequat. Aliquam et sodales ligula. Sed euismod est sed lacinia lobortis. Cras quis faucibus nisl, in malesuada nibh. Curabitur pharetra lorem enim, feugiat porttitor neque dictum at.
+    </div>
+    <!-- begin stateblock -->
+    <div class="stateblock" data-file="https://d63kb4t2ifcex.cloudfront.net/201511miller/stateblock.csv"  data-category-labels='{"a":"Allows retroactive resentencing","h":"Denied retroactive resentencing or has not addressed","d":"Under review in courts", "x":"Did not use mandatory juvenile life-without-parole sentences"}' data-show-border="true"></div>
+    <!-- end stateblock -->
+    <div class="g-stateblock-credit">
+    Source: <a href="#">Xxxxxx Xxxxxxx</a>
+    </div>
+</div>
+        </figure>
+
+    </section>
+
+    <section data-name="ai2html"
+             data-desc="To wrap around a desktop(col12)-tablet(col8)-mobile responsive ai2html graphic, adding headline, deck and credit. To remove col12 viewport, modify the .g-ai2html-meta."
+             data-preview="false">
+        <style>
+.g-ai2html-headline {
+    font-family: Pressura;
+    letter-spacing: -0.6px;
+    color: #353535;
+    font-size: 26px;
+    line-height: 1.3em;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.g-ai2html-deck {
+    font-family: PressuraLight;
+    color: #888888;
+    margin-bottom: 40px;
+}
+.g-ai2html-credit {
+    font-family: PressuraLight;
+    font-weight: normal;
+    letter-spacing: -0.2px;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+.g-ai2html-meta {
+    margin: 0; width: 100%;
+}
+@media (max-width:1139px){
+    .g-ai2html-meta {
+        width: 65.8807828007%;
+        margin-left: 34.1192171993%;
+    }
+}
+@media (max-width:739px){
+    .g-ai2html-meta {
+        width: 100%;
+        margin-left: 0;
+    }
+    .g-ai2html-headline {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+        </style>
+        <figure>
+<div class="g-ai2html-meta">
+    <div class="g-ai2html-headline">
+        Xxxxxxx Xxxxxx Xxxxxxx Xxxxxxxxx
+    </div>
+    <div class="g-ai2html-deck">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vehicula vel neque quis vulputate. Aliquam tempor lacinia consequat. Aliquam et sodales ligula. Sed euismod est sed lacinia lobortis. Cras quis faucibus nisl, in malesuada nibh. Curabitur pharetra lorem enim, feugiat porttitor neque dictum at.
+    </div>
+</div>
+
+    <!-- replace this with ai2html -->
+
+<div class="g-ai2html-meta">
+    <div class="g-ai2html-credit">
+    Source: <a href="#">Xxxxxx Xxxxxxx</a>
+    </div>
+</div>
+        </figure>
+
+    </section>
+
+
+<!-- don't edit below here -->
+</div>
+
+
+<script>
+$('section').each(function() {
+    var $section = $(this);
+    var css = $section.find('style').html();
+    var html = $section.find('figure').html();
+    var name = $section.attr('data-name');
+    var desc = $section.attr('data-desc');
+    var preview = $section.attr('data-preview');
+
+    var $header = $("<div />").addClass('header').prependTo($section);
+    var $name   = $("<h2 />").text(name).appendTo($header);
+    var $desc   = $("<p />").text(desc).appendTo($header);
+
+    var $details = $("<div />").addClass('details').appendTo($section);
+    var $html    = $("<div />").addClass('html').text(html).appendTo($details)
+    var $css     = $("<div />").addClass('css').text(css).appendTo($details);
+    $("<div />").addClass('clear').appendTo($section);
+
+    $section.each(function() {
+      if (preview === "false") {
+        $section.find('figure').css("display","none");
+      }
+    });
+
+    $section.find('.css, .html').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+});
+</script>

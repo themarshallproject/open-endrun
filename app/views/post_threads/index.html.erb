@@ -1,0 +1,12 @@
+<% @post_threads.each do |post_thread| %>
+      <div class="post-thread-row">
+      <% post_thread.posts.sort_by{|post| post.published_at.utc.to_i * -1}.each do |post| %>
+        <div class="post-thread-item">
+          <%= link_to post do %>
+            <h2><%= post.title %></h2>
+          <% end %>
+        </div>
+      <% end %>
+        <div style="clear:both"></div>
+      </div>
+<% end %>

@@ -1,0 +1,22 @@
+<table class="table table-striped">
+	<thead>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Actions</th>
+	</thead>
+	<tbody>
+<% @flags.each do |flag_name, flag_data| %>
+	<tr>
+		<td><%= flag_data.name %></td>
+		<td><%= flag_data.description %></td>
+		<td>
+			<% if cookies["_uff_#{flag_name}"] == 't' %>
+				<%= link_to "Disable", disable_feature_path(flag_name) %>
+			<% else %>
+				<%= link_to "Enable",  enable_feature_path(flag_name) %>
+			<% end %>
+		</td>
+	</tr>
+<% end %>
+	</tbody>
+</table>

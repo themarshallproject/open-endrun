@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @letter.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @letter.email %>
+</p>
+
+<p>
+  <strong>Twitter:</strong>
+  <%= @letter.twitter %>
+</p>
+
+<p>
+  <strong>Street address:</strong>
+  <%= @letter.street_address %>
+</p>
+
+<p>
+  <strong>Is anonymous:</strong>
+  <%= @letter.is_anonymous %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @letter.content %>
+</p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @letter.post_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @letter.status %>
+</p>
+
+<p>
+  <strong>Stream promo:</strong>
+  <%= @letter.stream_promo %>
+</p>
+
+<p>
+  <strong>Excerpt:</strong>
+  <%= @letter.excerpt %>
+</p>
+
+<%= link_to 'Edit', edit_letter_path(@letter) %> |
+<%= link_to 'Back', letters_path %>

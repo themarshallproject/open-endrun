@@ -1,0 +1,2 @@
+module PostLocksHelper
+end

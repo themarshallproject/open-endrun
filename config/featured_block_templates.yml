@@ -1,0 +1,55 @@
+one_zero_zero: # do not change these. bad things will happen!
+  name: '1-0-0'
+  slots: 1
+
+one_one_one:
+  name: '1-1-1'
+  slots: 3
+
+one_two_one:
+  name: '1-2-1'
+  slots: 4
+
+one_one_two:
+  name: '1-1-2'
+  slots: 4
+
+one_two_two:
+  name: '1-2-2'
+  slots: 5
+
+one_one_onejunesurvey:
+  name: '1-1-survey'
+  slots: 2
+
+deathpenalty_zero_zero:
+  name: 'deathpen'
+  slots: 0
+
+one_one_deathpenalty:
+  name: '1-1-dp'
+  slots: 2
+
+obama:
+  name: 'obama'
+  slots: 1
+
+one_one_victim:
+  name: '1-1-victim'
+  slots: 2
+
+one_one_victim_split:
+  name: '1-1-victim-split'
+  slots: 3
+
+one_two_newstop:
+  name: '1-2-2 (news top)'
+  slots: 4
+
+one_one_kickstarter:
+  name: '1-1-kick(auto)'
+  slots: 1
+
+one_one_manual_kickstarter:
+  name: '1-1-kick(man)'
+  slots: 3

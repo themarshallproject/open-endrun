@@ -1,0 +1,141 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "app/fonts";
+
+.load-header {
+	position: fixed;	
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 20px;
+
+	font-size: 20px;
+	background: blue;
+	color: #FFF;
+	display: none;
+	z-index: 9000;
+}
+
+body {
+	font-family: helvetica;
+
+	line-height: 1.3em;
+}
+h1, h2, h3, h4 {
+	font-family: helvetica;
+}
+
+textarea {
+	font-family: helvetica;
+	font-size: 17px;
+}
+
+.debug-box {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	opacity: 0.9;
+	font-size: 12px;
+}
+
+/* TODO: move this */
+.status-published {
+	background: #4cae4c !important;
+	color:#fff;
+}
+.status-draft {
+	background: #d43f3a !important;
+	color: #fff;
+}
+
+#post_title {
+	font-size: 30px;
+	line-height: 1.0em;
+	height: 50px;
+}
+
+.dash-name {
+	
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	color: #fff;
+}
+
+.dash-jumbo {
+	margin: 50px 0 50px 0;	
+	background-image: linear-gradient(to bottom,#000 0,#333 100%);
+}
+
+.dash-buttons a {
+	color: #000;
+}
+
+.dash-buttons {
+	.glyphicon {
+		color: #000;
+	}
+}
+
+/* post editor */
+
+.post-ed-head {
+	font-family: "MillerBold" ;
+}
+
+.post-ed-deck {
+    font-family: 'PressuraLight';
+	font-size: 16px;
+	line-height: 1.6em;
+	font-weight: normal;
+}
+
+.post-ed-copy {
+	font-size: 23px !important;
+	line-height: 36px;
+	font-family: 'utopia-std' !important;	
+}
+
+.posts-being-edited {
+	background: #FCFCFC;
+	position: fixed;
+	width: 300px;
+	bottom: -500px;
+	opacity: 0.8;
+	right: 0;
+	transition: 2s linear;
+	padding: 10px;
+	ul {
+		margin: 0;
+		padding: 0;		
+		list-style: none;
+	}
+}
+
+.post-over-max-character-count {
+	font-weight: 700;
+	color: red;
+}
+
+@media (max-width: 900px) {
+
+.posts-being-edited {
+	display: none;
+}
+
+}

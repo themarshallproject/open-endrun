@@ -1,0 +1,7 @@
+<%= form_tag update_dragons_path do %>
+<% ['javascript', 'style'].each do |block_name| %>
+	<%= "<#{block_name}>" %><br>
+	<textarea name="dragon[<%= block_name %>]"></textarea><br>
+<% end %>
+<%= submit_tag %>
+<% end %>

@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www=.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <title>Closing Argument | The Marshall Project</title>
+
+    <style type="text/css">
+
+    	body {
+    		margin: 0;
+            background-color: #ececea;
+    	}
+
+    	.footer {
+    		padding: 50px 0px 50px 50px;
+    		background-color: #000;
+    		color: #fff;
+    	}
+
+    	.subscription-tools {
+    		font-size: 15px;
+    		line-height: 30px;
+    	}
+
+    	.address {
+     		font-family: Courier;
+    		font-weight: normal;
+    		margin-top: 40px;
+    		font-size: 12px;
+    		line-height: 17px;
+    	}
+
+    	.footer-image {
+    		float: right;
+    		padding: 10px;
+    	}
+
+    	.footer-image img {
+    		width: 20px;
+            margin-right: 10px;
+    	}
+
+	</style>
+</head>
+<body style="margin:0;padding:0;background-color: #ececea;">
+
+	<table style="width: 100%; background-color: #111; padding: 45px 30px 35px 30px; color: #FFF; text-align: center;">
+		<tr>
+			<% hp_query_params = Post.new.social_query_params(utm_campaign: 'newsletter', utm_source: 'closing-argument', utm_medium: 'email', utm_content: 'header', utm_term: "newsletter-#{@weekly_newsletter.created_at.strftime('%Y%m%d')}-#{@weekly_newsletter.id}") %>
+			<td><a href="https://www.themarshallproject.org/?<%= hp_query_params %>">
+			<img src='<%= "#{ENV['URL_BASE']}#{asset_path('logo-480.png')}" %>' style='max-width: 100%; border: 0;' >
+			</a></td>
+		</tr>
+	</table>
+
+	<table style="width: 100%; background-color: #111; padding: 0px 30px 25px 30px; color: #FFF;font-family: Courier; font-weight: normal; line-height: 23px; font-size: 16px; text-align: center;">
+		<tr>
+			<td style="">
+					<b>Closing Argument</b><br>
+					The Week in Justice<br>
+					<%= @weekly_newsletter.published_at.strftime("%B %e, %Y") %>
+			</td>
+		</tr>
+	</table>
+
+	<table style="width: 100%; background-color: #111; padding: 0px 30px; padding-bottom: 20px; color: #FFF; line-height: 25px; font-family: Courier, serif; font-size: 13px; font-weight: normal; text-align: center;">
+		<tr>
+			<td>
+				<% if @weekly_newsletter.byline.present? %>
+					<%= raw  @weekly_newsletter.byline %>
+				<% else %>
+					Edited by <a class="newsletter-button-link" style="text-decoration: none; color: #ff0b3a;"href="https://www.themarshallproject.org/staff/andrew-cohen"><span>Andrew Cohen</span></a>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+	<table style="width: 100%; background-color: #111; padding: 0px 30px; padding-bottom: 20px; color: #FFF; line-height: 25px; font-family: Courier, serif; font-size: 13px; font-weight: normal; text-align: center;">
+		<tr>
+			<td>
+				<a href="https://on.fb.me/1zo91Ev"><img src="<%= "#{ENV['URL_BASE']}#{asset_path('newsletter-fb.png')}" %>"     style="height: 30px; width: 30px;"></a>
+				<a href="https://bit.ly/1bcKgU6"><img src="<%=   "#{ENV['URL_BASE']}#{asset_path('newsletter-tw.png')}" %>"     style="margin-right: 10px; height: 30px; width: 30px;" ></a>
+				<a href="https://bit.ly/1Ew9QRH"><img src="<%=   "#{ENV['URL_BASE']}#{asset_path('newsletter-donate.png')}" %>" style="height: 30px; width: 72px;"></a>
+			</td>
+		</tr>
+	</table>
+
+	<table style="padding: 30px 30px 0px 30px; width: 100%; line-height: 24px; font-family: Georgia, serif; font-size: 16px; font-style: italic; background-color: #ececea; color: #1a1a1a;">
+        <tr>
+            <td>
+              <p><b>Closing Argument</b> features highlights from the past week in criminal justice. To change how often you hear from us, <a style="color: #ff0b3a; text-decoration: none; font-size: 16px; margin-right: 3px;" href="*|UPDATE_PROFILE|*">update your preferences</a>.</p>
+            </td>
+        </tr>
+    </table>
+
+	<table style="width: 100%; padding: 0px 30px 0px 30px; line-height: 24px; font-family: Georgia, serif; font-size: 16px; background-color: #ececea; color: #1a1a1a;">
+	<tr><td>
+
+		<!-- start opening -->
+		<%= markdown(@weekly_newsletter.opening_graf) %>
+		<!-- end opening -->
+
+		<table>
+			<tr>
+				<td>
+					<img src='<%= "#{ENV['URL_BASE']}#{asset_path('newsletter-mark.png')}" %>' style='float: left; width: 15px; margin-right: 12px; margin-top: 20px;' >
+				</td>
+				<td>
+					<h1 style="float: left; font-family: Courier; font-weight: normal; font-size: 18px; margin: 0; line-height: 18px; margin-top: 30px; margin-bottom: 10px; color: #1a1a1a; text-transform: uppercase;">
+						THE BEST OF THE MARSHALL PROJECT
+					</h1>
+				</td>
+			</tr>
+		</table>
+
+		<!-- start tmp -->
+		<%= markdown(@weekly_newsletter.tmp_stories) %>
+		<!-- end tmp -->
+
+		<table>
+			<tr>
+				<td>
+					<img src='<%= "#{ENV['URL_BASE']}#{asset_path('newsletter-mark.png')}" %>' style='float: left; width: 15px; margin-right: 12px; margin-top: 20px;' >
+				</td>
+				<td>
+					<h1 style="float: left; font-family: Courier; font-weight: normal; font-size: 18px; margin: 0;     line-height: 18px; margin-top: 30px; margin-bottom: 10px; color: #1a1a1a; text-transform: uppercase; ">
+						THE BEST OF THE REST
+					</h1>
+				</td>
+			</tr>
+		</table>
+
+		<p><em>Criminal justice stories from around the web as selected by our staff.</em></p>
+
+		<!-- start other -->
+		<%= markdown(@weekly_newsletter.other_stories) %>
+		<!-- end other -->
+
+		</td></tr></table><!-- end white background -->
+
+
+	<table style="width: 100%; margin-top: 30px; padding: 0px 30px 30px 30px; line-height: 24px; font-family: Georgia, serif; font-size: 16px; background-color: #111111; color: #ffffff;">
+	<tr><td>
+
+		<div style="color: #fff; background-color: #111;">
+		<table>
+			<tr>
+				<td>
+					<img src='<%= "#{ENV['URL_BASE']}#{asset_path('newsletter-mark-white.png')}" %>' style='float: left; width: 15px; margin-right: 12px; margin-top: 30px; margin-bottom: 20px;' >
+				</td>
+				<td>
+					<h1 style="float: left;  line-height: 18px; font-family: Courier; font-weight: normal; font-size: 18px; margin: 0; margin-top: 40px; margin-bottom: 30px; color: #ffffff; text-transform: uppercase;">
+						VERBATIM
+					</h1>
+				</td>
+			</tr>
+		</table>
+
+		<!-- start quote -->
+		<%= markdown(@weekly_newsletter.quote_graf) %>
+		<!-- end quote -->
+		</div>
+
+	</td></tr>
+	</table>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<%= form_for(@document) do |f| %>
+  <% if @document.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+
+      <ul>
+      <% @document.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field"><br>
+    <label>Title</label>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="field"><br>
+    <label>Deck</label>
+    <%= f.text_field :deck, class: "form-control" %>
+  </div>
+
+  <div class="field"><br>
+    <label>DocumentCloud ID</label>
+    <%= f.text_field :dc_id, class: "form-control" %>
+  </div>
+  <div class="field"><br>
+    <label>Published? </label><small> This currently means nothing.</small>
+    <%= f.check_box :published %>
+  </div>
+  <div class="field"><br>
+    <label>Body </label><small> This currently means nothing.</small>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+  <div class="field"><br>
+    <label>Published URL </label>
+    <%= f.text_area :dc_published_url, class: "form-control" %>
+  </div>
+  <div class="actions"><br>
+    <%= f.submit class: "btn btn-success btn-block btn-lg" %>
+  </div>
+<% end %>
+
+<br>

@@ -1,0 +1,20 @@
+<% content_for(:title) { 
+	@post.title
+} %>
+<% content_for(:canonical_url) {
+	post_url(@post)
+} %>
+
+<% content_for(:body_classes) { 'article-single-body ' } %>
+
+<div class="article-single">
+	<% @post.posts_in_thread.each do |post_in_thread| %>
+		<% if @post == post_in_thread %>
+			<%= render 'posts/post_full', post: post_in_thread %>
+		<% else %>
+			<%= render 'posts/post_collapse', post: post_in_thread %>
+		<% end %>
+	<% end %>
+</div>
+
+<%= link_to 'edit', edit_post_path(@post) %>

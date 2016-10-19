@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www=.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>The Marshall Project</title>
+<style type="text/css">
+body {
+  padding: 0;
+  margin:0;
+  background-color:#ececea;
+}
+@media only screen and (max-width: 480px){
+  table[id=canspamBar] td{
+    font-size:14px !important;
+  }
+}
+
+@media only screen and (max-width: 480px){
+  table[id=canspamBar] td a{
+    display:block !important;
+    margin-top:10px !important;
+  }
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+a {
+  color: #ff0b3a;
+}
+
+table.header-logo {
+  width: 100%;
+  background-color: #111;
+  padding: 45px 30px 20px 30px;
+  color: #FFF;
+  text-align: center;
+}
+table.header-buttons {
+  text-align: center;
+  width: 100%;
+  background-color: #111;
+  padding: 0px 30px;
+  padding-bottom: 30px;
+  color: #FFF;
+  line-height: 25px;
+  font-family: Courier, serif;
+  font-size: 13px;
+  font-weight: normal;
+}
+table.main {
+  width: 100%;
+  padding: 30px 30px 0px 30px;
+  line-height: 24px;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  background-color: #ececea;
+  color: #1a1a1a;
+}
+img.logo {
+  max-width: 260px;
+  border: 0;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<table class="header-logo">
+  <tr>
+    <td>
+      <a href="https://www.themarshallproject.org/"><img src="https://www.themarshallproject.org/assets/logo-480.png" class="logo"></a>
+    </td>
+  </tr>
+</table>
+
+<table class="header-buttons">
+  <tr>
+    <td>
+      <a href="http://on.fb.me/1zo91Ev">
+        <img src="https://www.themarshallproject.org/assets/newsletter-fb.png" style="height: 30px; width: 30px;">
+      </a>
+      <a href="http://bit.ly/1bcKgU6">
+        <img src="https://www.themarshallproject.org/assets/newsletter-tw.png" style="margin-right: 10px; height: 30px; width: 30px;">
+      </a>
+      <a href="http://bit.ly/1yImNVA">
+        <img src="https://www.themarshallproject.org/assets/newsletter-donate.png" style="height: 30px; width: 72px;">
+      </a>
+    </td>
+  </tr>
+</table>
+
+<table class="main">
+  <tr>
+    <td>
+
+<!-- start -->
+
+<%= raw @content %>
+
+<!-- end -->
+
+      <br>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" id="canspamBarWrapper">
+        <tr>
+          <td align="center" valign="top" style="padding-top:20px; padding-bottom:20px;">
+            <table border="0" cellpadding="0" cellspacing="0" id="canspamBar">
+              <tr>
+                <td valign="top" style="color:#606060; font-family:Helvetica, Arial, sans-serif; font-size:11px; line-height:150%; padding-right:20px; padding-bottom:5px; padding-left:20px; text-align:center;">
+                  This email was sent to <a href="mailto:*|EMAIL|*" target="_blank" style="color:#404040 !important;">*|EMAIL|*</a> <br>
+                  <a href="*|ABOUT_LIST|*" target="_blank" style="color:#404040 !important;">why did I get this?</a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="*|UNSUB|*" style="color:#404040 !important;">unsubscribe from this list</a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="*|UPDATE_PROFILE|*" style="color:#404040 !important;">update subscription preferences</a> <br>
+                  *|LIST:ADDRESSLINE|* <br><br>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

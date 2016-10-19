@@ -1,0 +1,13 @@
+<div class="login">
+	<div class="logo">
+		<%= image_tag "m-white-small.svg" %>
+	</div>
+	<div class="the-name">
+		EndRun
+	</div>
+	<div class="clear"></div>
+	<%= form_tag create_login_token_path do %>			
+			<%= text_field_tag :email, params[:email], class: "input", placeholder: "Email Address" %>
+			<%= submit_tag "Send Login Link", class: "button" %>
+	<% end %>
+</div>

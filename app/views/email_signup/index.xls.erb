@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">EMAIL</Data></Cell>
+        <Cell><Data ss:Type="String">SUBSCRIBE_DATE</Data></Cell>
+        <Cell><Data ss:Type="String">FIRST_NAME</Data></Cell>
+        <Cell><Data ss:Type="String">LAST_NAME</Data></Cell>
+        <Cell><Data ss:Type="String">Q_CRIMINAL_JUSTICE</Data></Cell>
+        <Cell><Data ss:Type="String">Q_JOURNALIST</Data></Cell>
+        <Cell><Data ss:Type="String">Q_INCARCERATED</Data></Cell>
+        <Cell><Data ss:Type="String">SIGNUP_SOURCE</Data></Cell>
+      </Row>
+    <% @email_signups.each do |email_signup| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= email_signup.email %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.created_at %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.first_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.last_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.q_work_in_criminal_justice %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.q_is_journalist %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.q_incarcerated %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= email_signup.signup_source %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

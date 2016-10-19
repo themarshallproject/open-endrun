@@ -1,0 +1,11 @@
+<div class="post-lead-photo post-<%= post.id %>" data-background-image="<%= photo.url_for(size: '2000x') %>"></div>
+<div class="container">
+	<div class="col12">
+		<div class="photo photo-lead-caption">
+			<div class="meta">
+				<span class="caption"><%= photo.caption.try(:html_safe) %></span>
+				<span class="byline"><%= photo.byline.try(:html_safe) %></span>
+			</div>
+		</div>
+	</div>
+</div>

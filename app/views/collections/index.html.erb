@@ -1,0 +1,343 @@
+<% content_for(:title) { ["The Record", "The Marshall Project"].join(" | ") } %>
+
+<% content_for(:head) { %>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Marshall Project">
+<meta property="article:publisher" content="https://www.facebook.com/TheMarshallProject.org">
+<meta property="og:url" content="<%= collections_index_url %>">
+<meta property="og:title" content="The Record | The Marshall Project">
+<meta property="og:description" content="Since 2014, The Marshall Project has been curating some of the best criminal justice reporting from around the web.">
+<meta property="og:image" content="<%= asset_url('default_records_social.png') %>">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@MarshallProj">
+<meta name="twitter:title" content="The Record | The Marshall Project">
+<meta name="twitter:description" content="Since 2014, The Marshall Project has been curating some of the best criminal justice reporting from around the web.">
+<meta name="twitter:image:src"   content="<%= asset_url('default_records_social.png') %>">
+<% } %>
+
+<div class="collections">
+	<div class="header the-homepage">
+		<div class="container index">
+			<div class="logo">
+				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="180px" height="250px" viewBox="0 0 180 250" enable-background="new 0 0 180 250" xml:space="preserve"><g><g><path fill="#FF0A39" d="M157.3,43.2c-11.5,0-20.9-9.4-20.9-20.9v-22L136.1,0H20.9C9.4,0,0,9.4,0,20.9v208.1C0,240.6,9.4,250,20.9,250h137.8c11.5,0,20.9-9.4,20.9-20.9V43.5l-0.3-0.3H157.3z"/><path fill="#ECECEA" d="M136.4,22.3c0,11.5,9.4,20.9,20.9,20.9h22l-43-43V22.3z"/><polygon fill="#FF0A39" points="136.4,0 136.1,0 136.4,0.2 "/><polygon fill="#FF0A39" points="179.3,43.2 179.6,43.5 179.6,43.2 "/></g><g><g><polygon fill="#FFFFFF" points="60.2,95.4 60.2,154.6 68.6,154.6 68.6,103.8 "/><polygon fill="#FFFFFF" points="77.1,112.3 77.1,154.6 85.6,154.6 85.6,120.8 "/><polygon fill="#FFFFFF" points="111,103.8 111,154.6 119.4,154.6 119.4,95.4 "/><polygon fill="#FFFFFF" points="94,120.8 94,154.6 102.5,154.6 102.5,112.3 "/></g></g></g></svg>
+			</div>
+			<div class="brand">
+				The Record
+			</div>
+			<div class="tagline">
+				Your guide to the criminal justice system
+			</div>
+			<div class="search">
+				<input class="realtime-search-input" type="text" placeholder="🔍 Start typing a subject"/>
+
+				<div class="popular-tags the-search-results" style="margin-top: 50px;">
+					<div class="no-search-results" >
+						No results for "<div style="display: inline-block;" id="search-term"></div>"
+					</div>
+					<div class="the-results">
+						<span>Results</span> →
+						<div class="realtime-search-results" style="display: inline-block;"></div>
+					</div>
+				</div>
+
+			</div>
+			<div class="popular-tags hide-on-mobile">
+				<span>Popular Pages</span> →
+				<% tags = Tag.collection_index_popular(limit: 3) %>
+				<% tags.each do |tag| %>
+					<%= link_to tag.name, collections_show_path(tag, ref: 'collection-index-popular') %>
+					<%= tag != tags.last ? " • " : "" %>
+				<% end %>
+			</div>
+			<div class="down-arrow">
+				↓
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="container index">
+			<div class="introduction">
+				<span class="kicker">What are records?</span>
+				<span class="lead">Since 2014, The Marshall Project</span> has been curating some of the best criminal justice reporting from around the web. In these records you will find the most recent and the most authoritative articles on the topics, people and events that are shaping the criminal justice conversation.
+			</div>
+			<div class="sharing">
+        <div class="share-tools">
+          <div class="share-button">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M8.3,15.5c0-1.2,0-2.3,0-3.5c0-0.8-0.1-1.5-1.1-1.5c-1.4,0.1-1.4-0.8-1.4-1.8c0-0.9,0.1-1.7,1.3-1.6
+            c1.7,0.1,1.2-1.3,1.2-2.1c0.3-3.5,1.4-4.5,4.9-4.4c1,0,2-0.2,2,1.4c0,1.2,0,2.1-1.6,2c-1.2-0.1-1.5,0.7-1.5,1.8
+            c0,1.2,0.6,1.4,1.6,1.4c0.7,0,1.7-0.1,1.4,1.1c-0.2,0.9,0.3,2.3-1.3,2.2c-1.6,0-1.7,0.8-1.7,2c0.1,2.2,0,4.3,0,6.5
+            c0.1,1.5-0.8,1.5-1.9,1.5c-1.1,0-2,0-1.9-1.5C8.4,17.8,8.3,16.7,8.3,15.5z"/></g></svg>
+              <a href="#"
+                data-fb-link="<%= collections_index_url() %>"
+                data-fb-picture="<%= asset_url('default_records_social.png') %>"
+                data-fb-name="The Record | The Marshall Project"
+                data-fb-description="Since 2014, The Marshall Project has been curating some of the best criminal justice reporting from around the web."
+                class="fb-inline-share share-button-link">
+              </a>
+          </div>
+          <div class="share-button" data-action="twitter">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><path fill="#111111" d="M1.2,16.9c1.9-0.2,3.4-0.4,5.1-1.8c-3.2-0.2-3.3-3.2-3.9-4.9C1.7,8.4,0.7,5.8,2,3.3
+            c1.9,1.8,3.9,3.2,6.2,3.8c1.3,0.3,2,0.4,2.3-1.4c0.4-2.7,3-3.9,5.5-2.9c0.7,0.3,1.3,0.7,2.3,0.7c1.1,0,1.8,1.2,1,2.1
+            c-0.8,0.9-0.9,1.9-1,2.9C17.4,16.6,8.5,21.2,1.2,16.9z"/></g></svg>
+              <a href="https://twitter.com/intent/tweet?text=<%= "The Record, The Marshall Project's collection of the best criminal justice reporting from around the web." %>&url=<%= collections_index_url %>" class="share-button-link"></a>
+          </div>
+
+          <div class="share-button" data-action="mailto">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 21 21" enable-background="new 0 0 21 21" xml:space="preserve"><g><g><path fill="#111111" d="M0.9,7.2c0,3.6,0,7.2,0,10.7c6.4,0,12.7,0,19.1,0c0-3.6,0-7.1,0-10.7c-0.2,0.1-0.3,0.1-0.5,0.2
+              c-2.9,1.4-5.7,2.7-8.6,4.1c-0.3,0.1-0.6,0.2-0.9,0c-1.5-0.7-3-1.4-4.4-2.1C4.1,8.7,2.6,8,0.9,7.2z M0.9,3.4c0,0.6,0,1.1,0,1.7
+              c0,0.1,0.2,0.3,0.3,0.4c3,1.4,5.9,2.9,8.9,4.3c0.2,0.1,0.5,0.1,0.7,0c3-1.4,6-2.9,8.9-4.3c0.1-0.1,0.3-0.2,0.3-0.3
+              c0-0.6,0-1.1,0-1.7C13.7,3.4,7.3,3.4,0.9,3.4z"/><path fill="#111111" d="M0.9,7.2C2.6,8,4.1,8.7,5.6,9.5c1.5,0.7,3,1.4,4.4,2.1c0.3,0.2,0.6,0.1,0.9,0c2.9-1.4,5.7-2.7,8.6-4.1
+              c0.1-0.1,0.3-0.1,0.5-0.2c0,3.6,0,7.1,0,10.7c-6.4,0-12.7,0-19.1,0C0.9,14.4,0.9,10.9,0.9,7.2z"/><path fill="#111111" d="M0.9,3.4c6.4,0,12.7,0,19.1,0c0,0.6,0,1.1,0,1.7c0,0.1-0.2,0.3-0.3,0.3c-3,1.4-5.9,2.9-8.9,4.3
+              c-0.2,0.1-0.5,0.1-0.7,0c-3-1.4-5.9-2.8-8.9-4.3C1.1,5.3,1,5.2,0.9,5C0.9,4.5,0.9,3.9,0.9,3.4z"/></g></g></svg>
+              <% email_body = "The Record, The Marshall Project's collection of the best criminal justice reporting from around the web: #{collections_index_url}" %>
+              <a class="share-button-link" href="mailto:?subject=The Record by The Marshall Project&body=<%= escape_url(email_body) %>"></a>
+          </div>
+        </div>
+      </div>
+			<div class="toggle">
+				<div class="collections-checkbox collections-js-checkbox collections-checked" data-value="popular"></div><span>Popular This Week</span>
+				<div class="collections-checkbox-second"></div>
+				<div class="collections-checkbox collections-js-checkbox" data-value="recent"></div><span>Recently Added</span>
+			</div>
+
+      <ul class="popular">
+        <% cache ['collection_index_popular', 'v1', @popular_tags] do %>
+          <% @popular_tags.each_with_index do |(tag_id, count), index| %>
+            <% inject_classes = (index < 12) ? [] : ['hide'] %>
+            <% tag = @tag_cache.find(tag_id) %>
+            <%= render partial: 'collections/index_tag', locals: { tag: tag, label_text: "#{count} this week", inject_classes: inject_classes } %>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <ul class="recent">
+          <% @recent_tags.each_with_index do |tag_obj, index| %>
+
+            <% tag = tag_obj[:tag] %>
+
+            <% time_str = time_ago_in_words(tag_obj[:created_at]).gsub('about', '') %>
+            <% label_text = "Updated #{time_str} ago" %>
+
+            <% inject_classes = (index < 12) ? [] : ['hide'] %>
+
+            <%= render partial: 'collections/index_tag', locals: {
+                  tag: tag,
+                  label_text: label_text,
+                  inject_classes: inject_classes
+            } %>
+          <% end %>
+      </ul>
+
+		</div>
+		<div class="more">
+			<a class="collections-button" href="#">↓ Show More</a>
+		</div>
+	</div>
+</div>
+
+<script>
+</script>
+
+<script>
+$(document).ready(function() {
+
+  $('ul.recent').hide();
+  var tabState = 'popular';
+
+  $(".collections-js-clickable").click(function() {
+    // make the entire card clickable
+    var href = $(this).find(".collections-js-link").attr("href");
+    window.location.href = href;
+  });
+
+  $(".collections-js-checkbox").click(function() {
+    var $this = $(this);
+    tabState = $this.attr('data-value');
+
+    $(".collections-js-checkbox").removeClass("collections-checked");
+    $this.addClass('collections-checked');
+
+    if (tabState === 'recent') {
+      $('ul.recent').show();
+      $('ul.popular').hide();
+      $('.more').show();
+    } else {
+      $('ul.popular').show();
+      $('ul.recent').hide();
+      $('.more').show();
+    }
+
+  });
+
+  $('li.hide').hide();
+  $('.more').click(function(e) {
+    e.preventDefault();
+    $('ul.'+tabState+' li').show();
+    $('.more').hide();
+  });
+
+});
+</script>
+
+<script>
+$(document).ready(function() {
+
+	var bootstrapTags = [];
+  $.get('/records/api/v1/all-tags', function(data) {
+    bootstrapTags = data;
+  });
+
+	$('.no-search-results').hide();
+	$('.the-results').hide();
+
+	var search = (function() {
+		var internalState = {};
+
+		var tpl = function(tag) {
+			if (!tag.path) {
+				tag.path = "/records/" + tag.slug;
+			}
+			return "<a style='color:white' href='"+tag.path+"'>"+tag.name+"</a>";
+		}
+
+		var set = function(key, val) {
+			internalState[key] = val;
+			return true;
+		}
+		var maybeGetArray = function(key) {
+			try {
+				var val = internalState[key];
+				if (val.length >= 0) {
+					return val;
+				}
+			} catch(e) {
+				return [];
+			}
+		}
+
+		var getQuery = function() {
+			var query = internalState['userQuery'];
+			if (query) {
+				return query;
+			} else {
+				return '';
+			}
+		}
+
+		var searchBootstrapTags = function() {
+			var tags = bootstrapTags.filter(function(candidate) {
+				return candidate.name.toLowerCase().indexOf(getQuery().toLowerCase()) >= 0;
+			});
+			set('bootstrap_tags', tags);
+			render();
+		}
+
+		var searchRemoteTags = function() {
+			var endpoint = "/records/api/v1/search?query="+encodeURIComponent(getQuery());
+			$.getJSON(endpoint).done(function(data) {
+				set('remote_tags', data.tags);
+				render();
+			});
+		}
+
+		var arrayContainsTag = function(arr, test_tag) {
+			var matches = arr.filter(function(tag) {
+				return parseInt(tag.id, 10) === parseInt(test_tag.id, 10);
+			}).length;
+			return (matches > 0);
+		}
+
+		var mergeTags = function() {
+			var tags = maybeGetArray('bootstrap_tags');
+			maybeGetArray('remote_tags').forEach(function(tag) {
+				if (!arrayContainsTag(tags, tag)) {
+					tags.push(tag);
+				}
+			});
+			return tags;
+		}
+
+		var zeroTagsFound = function() {
+      if (getQuery() === '') {
+        return true;
+      } else {
+  			return (maybeGetArray('bootstrap_tags').length === 0);
+      }
+		}
+
+		var trimArray = function(array, maxItems) {
+				return array.slice(0, maxItems);
+		}
+
+		var render = function() {
+			if (maybeGetArray('bootstrap_tags').length === 0) {
+				$("#search-term").text(getQuery());
+				$('.no-search-results').show();
+			} else {
+				$("#search-term").text('');
+        $('.no-search-results').hide();
+			}
+
+			if (zeroTagsFound()) {
+				$('.the-results').hide();
+			} else {
+				$('.the-results').show();
+			}
+
+			var numTagResults = 5;
+			var html = trimArray(mergeTags(), numTagResults).map(function(tag) {
+				return tpl(tag);
+			}).join(" &bull; ");
+			$(".realtime-search-results").html(html);
+		}
+
+    window.getCurrentSearch = function() {
+      return getQuery();
+    };
+
+		return {
+			updateQuery: function(query) {
+				set('userQuery', query);
+				searchBootstrapTags();
+				searchRemoteTags();
+			}
+		}
+	})();
+
+	$(".realtime-search-input").on('keyup', function() {
+		userInput = $(".realtime-search-input").val();
+		search.updateQuery(userInput);
+	});
+});
+</script>
+
+
+<script>
+(function() {
+  var setupPopularTagCounts = function() {
+    var data = null;
+    try {
+      data = JSON.parse($('#popular-tag-counts').html());
+    } catch (e) {}
+
+    if (!data) {
+      return;
+    }
+
+    $('ul.popular li').each(function() {
+      var $li = $(this);
+      var tagID = parseInt($li.attr('data-tag-id'), 10);
+      var count = data[tagID];
+      if (count) {
+        var label = count + " this week";
+        $li.find('.overlay .link').attr('data-updated', label);
+      }
+    });
+  }
+  $(document).ready(setupPopularTagCounts);
+})();
+</script>

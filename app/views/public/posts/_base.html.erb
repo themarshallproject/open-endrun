@@ -1,0 +1,54 @@
+<!-- _base -->
+<% if @post.lead_photo.present? %>
+	<%= render partial: 'public/post_lead_photo', locals: { post: @post, photo: @post.lead_photo } %>
+<% end %>
+
+<div class="container">
+
+<% if @post.use_freeform_header? %>
+	<% # TODO: extract this to yet another partial? %>
+	<div class="freeform-post-header post-<%= @post.id %>">
+		<%= raw @post.try(:freeform_post_header) %>
+	</div>
+<% else %>
+	<%= render partial: 'public/post_header', locals: { post: @post } %>
+<% end %>
+
+<article class="post-<%= @post.id %>">
+
+	<aside class="col4">
+		<div class="inner">
+
+			<div class="post-byline">
+				<%= render partial: 'public/post_byline', locals: { post: @post } %>
+			</div>
+			<% if @post.metadata_provider.produced_by.blank? %>
+				<div class="post-byline-shim"></div>
+			<% end %>
+			<% if @post.metadata_provider.produced_by.present? %>
+				<div class="post-short-rule"></div>
+				<div class="post-producers">
+					<%= @post.metadata_provider.produced_by %>
+				</div>
+			<% end %>
+
+			<%= render partial: 'public/post_share_tools', locals: {post: @post} %>
+
+			<% if @post.rubric.present? and @post.rubric.sidebar_description.present? %>
+				<div class="post-rubric-description">
+					<%= @post.rubric.sidebar_description.html_safe %>
+				</div>
+			<% end %>
+
+		</div>
+	</aside>
+
+	<%= raw PostRenderer.new(@post).render() %>
+
+	<%= render partial: 'public/post_footer', locals: { post: @post } %>
+
+</article>
+
+<%= raw @post.inject_html if @post.inject_html.present? %>
+
+</div>

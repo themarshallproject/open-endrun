@@ -1,3 +1,11 @@
+```
+ _____ _   _ ____  ____  _   _ _   _
+| ____| \ | |  _ \|  _ \| | | | \ | |
+|  _| |  \| | | | | |_) | | | |  \| |
+| |___| |\  | |_| |  _ <| |_| | |\  |
+|_____|_| \_|____/|_| \_\\___/|_| \_|
+```
+
 # EndRun
 
 Over the past two years, The Marshall Project has pushed nearly 3,000 commits to EndRun, the Rails app that provides our CMS and website. We are incredibly excited to share this code with the world as an example of solving real-world problems on a small team.
